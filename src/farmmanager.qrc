@@ -1,0 +1,17 @@
+<RCC>
+  <qresource prefix="FarmManager">
+    <file>Resources/chick.png</file>
+    <file>Resources/app.png</file>
+    <file>Resources/finances2.png</file>
+    <file>Resources/finances3.png</file>
+    <file>Resources/finances.png</file>
+    <file>Resources/farm.png</file>
+    <file>Resources/farm2.png</file>
+    <file>Resources/settings.png</file>
+    <file>Resources/settings2.png</file>
+    <file>Resources/transactions3.png</file>
+    <file>Resources/suppliers.png</file>
+    <file>Resources/transactions2.png</file>
+    <file>Resources/transactions.png</file>
+  </qresource>
+</RCC>

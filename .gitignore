@@ -1,0 +1,10 @@
+*.exe
+*.sdf
+*.vcxproj.user
+*.opensdf
+*.log
+*.v12.suo
+src/Debug/*
+src/GeneratedFiles/*
+src/x64/*
+src/Win32/*

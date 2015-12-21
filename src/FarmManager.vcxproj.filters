@@ -91,13 +91,11 @@
     <CustomBuild Include="GeneratedFiles\ui_gorcarqner.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="fm_datamanager.h">
+    <CustomBuild Include="fm_datamanager.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="fm_core.h">
+    </CustomBuild>
+    <CustomBuild Include="fm_core.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
+    </CustomBuild>
   </ItemGroup>
 </Project>
