@@ -35,13 +35,14 @@ public:// Constructors
 	CAddCustomerDlg( QWidget* pwParent = nullptr );
 	~CAddCustomerDlg() = default;
 
-public:// Interface Methodes
-
+public:
+	// Clear Dialog
+	void Clear();
 public slots:
 	void OnAdd();
 
 protected:// Helper Methodes
-
+	void SetLabelColor( QLabel* pLabel, bool bValid );
 private:
 	//
 	//	Content

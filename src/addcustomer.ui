@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>362</width>
-    <height>159</height>
+    <width>416</width>
+    <height>161</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,6 +18,13 @@
   </property>
   <property name="windowTitle">
    <string>Նոր գնորդ</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="farmmanager.qrc">
+    <normaloff>:/FarmManager/Resources/add_customer2.png</normaloff>:/FarmManager/Resources/add_customer2.png</iconset>
+  </property>
+  <property name="modal">
+   <bool>true</bool>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -30,8 +37,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>342</width>
-        <height>139</height>
+        <width>396</width>
+        <height>141</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -44,16 +51,31 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout">
                <item>
-                <widget class="QLabel" name="label">
+                <widget class="QLabel" name="lblFirstName">
                  <property name="text">
-                  <string>Անուն         </string>
+                  <string>Անուն *       </string>
+                 </property>
+                 <property name="wordWrap">
+                  <bool>false</bool>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="editFirstName"/>
+              <widget class="QLineEdit" name="editFirstName">
+               <property name="font">
+                <font>
+                 <family>MS Shell Dlg 2</family>
+                 <pointsize>10</pointsize>
+                 <weight>50</weight>
+                 <bold>false</bold>
+                </font>
+               </property>
+               <property name="maxLength">
+                <number>20</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -62,16 +84,28 @@
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_2">
                <item>
-                <widget class="QLabel" name="label_2">
+                <widget class="QLabel" name="lblLastName">
                  <property name="text">
-                  <string>Ազգանուն  </string>
+                  <string>Ազգանուն *</string>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="editLastName"/>
+              <widget class="QLineEdit" name="editLastName">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="maxLength">
+                <number>20</number>
+               </property>
+               <property name="frame">
+                <bool>true</bool>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -89,7 +123,16 @@
               </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="editPhone"/>
+              <widget class="QLineEdit" name="editPhone">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="maxLength">
+                <number>30</number>
+               </property>
+              </widget>
              </item>
             </layout>
            </item>
@@ -114,13 +157,36 @@
              </item>
              <item>
               <widget class="QPushButton" name="btnAddCustomer">
+               <property name="sizePolicy">
+                <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+                 <horstretch>0</horstretch>
+                 <verstretch>0</verstretch>
+                </sizepolicy>
+               </property>
+               <property name="font">
+                <font>
+                 <pointsize>8</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Ավելացնել</string>
+               </property>
+               <property name="icon">
+                <iconset resource="farmmanager.qrc">
+                 <normaloff>:/FarmManager/Resources/plus.png</normaloff>:/FarmManager/Resources/plus.png</iconset>
+               </property>
+               <property name="default">
+                <bool>true</bool>
                </property>
               </widget>
              </item>
              <item>
               <widget class="QPushButton" name="btnCancel">
+               <property name="font">
+                <font>
+                 <pointsize>8</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Չեղարկել</string>
                </property>
@@ -138,7 +204,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="farmmanager.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>btnCancel</sender>
