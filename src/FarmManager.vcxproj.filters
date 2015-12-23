@@ -38,51 +38,54 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="farmmanager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_farmmanager.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_farmmanager.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_farmmanager.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
-    <ClCompile Include="fm_datamanager.cpp">
+    <ClCompile Include="fm_connectionstarter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_customersdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_transactionswidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_transactionsdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_storagesdata.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_customerswidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_farmmanager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_fm_farmmanager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_fm_farmmanager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_storageswidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <CustomBuild Include="farmmanager.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="farmmanager.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="farmmanager.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="addaraqichdialog.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="addgorcarq.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="araqichner.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="gorcarqner.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="GeneratedFiles\ui_addaraqichdialog.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_addgorcarq.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GeneratedFiles\ui_araqichner.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_farmmanager.h">
@@ -91,11 +94,55 @@
     <CustomBuild Include="GeneratedFiles\ui_gorcarqner.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="fm_datamanager.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="fm_core.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="fm_connectionstarter.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fm_dbcomponent.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fm_customerswidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fm_customersdata.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fm_storagesdata.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fm_transactionsdata.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="fm_farmmanager.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="storages.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="customers.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="addcustomersdialog.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="fm_transactionswidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fm_storageswidget.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_storages.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_customers.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_addcustomersdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

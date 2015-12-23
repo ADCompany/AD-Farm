@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Araqichner</class>
- <widget class="QWidget" name="Araqichner">
+ <class>customersWidget</class>
+ <widget class="QWidget" name="customersWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -13,23 +13,23 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QGridLayout" name="gridLayout">
+  <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="0">
-    <layout class="QVBoxLayout" name="verticalLayout">
-     <item>
-      <widget class="QTableView" name="tableView"/>
+    <layout class="QGridLayout" name="gridLayout">
+     <item row="0" column="0">
+      <widget class="QTableWidget" name="tableWidget"/>
      </item>
-     <item>
+     <item row="1" column="0">
       <layout class="QHBoxLayout" name="horizontalLayout">
        <item>
-        <widget class="QPushButton" name="pushButton">
+        <widget class="QPushButton" name="btnAddCustomers">
          <property name="text">
           <string>Ավելացնել</string>
          </property>
         </widget>
        </item>
        <item>
-        <widget class="QPushButton" name="pushButton_2">
+        <widget class="QPushButton" name="btnDeleteCustomers">
          <property name="text">
           <string>Հեռացնել</string>
          </property>

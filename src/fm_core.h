@@ -86,10 +86,6 @@ inline QString qtr(char const* cszText)
 {
 	return QCoreApplication::translate("fm_core", cszText);
 }
-inline QString qtr(QLatin1String const& cszText)
-{
-	return qtr(cszText.latin1());
-}
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -99,7 +95,7 @@ inline QString qtr(QLatin1String const& cszText)
 class CException : public std::exception
 {
 public:// Constructors
-	inline CException(QString const& sErr = qtr(m_cszDefaultMsg))	throw();
+	inline CException(QString const& sErr = m_cstrDefaultMsg) throw();
 	inline CException(CException const& rhs) throw();
 	virtual ~CException() = default;
 
@@ -109,7 +105,7 @@ public:// Interface Methodes
 
 private:// Members
 	QByteArray m_aErrMsg;
-	static const QLatin1String m_cszDefaultMsg;
+	static const QString m_cstrDefaultMsg;
 };
 ////////////////////////////////////////////////////////////////////////////////
 

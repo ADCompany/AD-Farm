@@ -1,97 +1,56 @@
-#ifndef FM_DATA_MANAGER_H
-#define FM_DATA_MANAGER_H
+#ifndef FM_DB_COMPONENT_H
+#define FM_DB_COMPONENT_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//	Includes
+// Includes
 //
 #ifndef FM_CORE_H
 #   include "fm_core.h"
 #endif
 
-//	Qt includes
-#include <QSqlDataBase>
+// Qt includes
 #include <QSqlQuery>
 #include <QSqlError>
-#include <QDir>
+#include <QDesktopServices>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
-namespace fm { 
+namespace fm {
 ////////////////////////////////////////////////////////////////////////////////
-namespace db { 
+namespace db {
 ////////////////////////////////////////////////////////////////////////////////
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Macros
+// DB Macros
 //
+
+// If execution fails throws an exception with error message
 #define EXECUTE_QUERY(_query_, _cmd_)             \
 	if(!_query_.exec(_cmd_))                      \
 		throw CException(qtr("DB Query Failed: ") \
                               .append(_query_.lastError().databaseText()));
+
 ////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//	class CDataManager
+// interface IDBComponent
 //
-class CDataManager
+class IDBComponent
 {
 public:// Constructors
-	inline CDataManager();
-	inline ~CDataManager();
+	inline IDBComponent() = default;
+	virtual ~IDBComponent() = default;
 
 public:// Interface Methodes
-
+	virtual void Initialize() = 0;
 
 protected:// Helper Methodes
-	// Creates DB connection and makes all necesary tables if not exist
-	void Initialize();
-	void CreateDBInfrastructure();
-
-	// If execution fails throws an exception with error message
-	inline void CheckExecution(QSqlQuery const& query);
-
-private:// Members
-	static const QLatin1String m_csDataFileName;
-	static const QLatin1String m_csDataFilePath;
-
-	QSqlDatabase m_sqlDataBase;
 
 };
-////////////////////////////////////////////////////////////////////////////////
-
-///////////////////////// Implementing inline methods //////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//	class CDataManager
-//
-
-inline CDataManager::CDataManager()
-{
-	Initialize();
-}
-
-inline CDataManager::~CDataManager()
-{
-	QDir oDataFileDir;
-	oDataFileDir.rmdir(m_csDataFilePath);
-}
-
-// checkExecution
-inline void CDataManager::CheckExecution(QSqlQuery const& query)
-{
-	if (!query.isActive())
-	{
-		QString sErrMsg = query.lastError().databaseText();
-		throw fm::CException(qtr("DB Query Failed: ").append(sErrMsg));
-	}
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -101,4 +60,4 @@ inline void CDataManager::CheckExecution(QSqlQuery const& query)
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif // FM_DATA_MANAGER_H
+#endif // FM_DB_COMPONENT_H
