@@ -9,8 +9,12 @@
 #	include "fm_customersdata.h"
 #endif
 
+#ifndef ADD_CUSTOMER_DLG_H
+#	include "gui_addcustomerdlg.h"
+#endif
+
+// Ui
 #include "ui_customers.h"
-#include "ui_addcustomersdialog.h"
 
 // Qt Includes
 #include <QWidget>
@@ -41,13 +45,12 @@ public:// Interface Methodes
 protected:// Helper Methodes
 
 private:
-	Ui::customersWidget		m_uiCustomersWidget;
-	Ui::addCustomersDialog	m_uiAddCustomersDialog;
-
-	QDialog* m_pCreateSplDlg;
-
-	std::shared_ptr<QTableWidgetItem> m_pTableWidgetItem;
-
+	//
+	//	Content
+	//
+	Ui::customersWidget				    m_uiCustomersWidget;
+	CAddCustomerDlg*                    m_pAddCustomerDlg;
+	std::shared_ptr<QTableWidgetItem>   m_pTableWidgetItem;
 	std::shared_ptr<db::CCustomersData> m_pCustomersData;
 
 };

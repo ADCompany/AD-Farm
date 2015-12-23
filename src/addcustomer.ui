@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addCustomersDialog</class>
- <widget class="QDialog" name="addCustomersDialog">
+ <class>AddCustomersUI</class>
+ <widget class="QDialog" name="AddCustomersUI">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,7 +17,7 @@
    </sizepolicy>
   </property>
   <property name="windowTitle">
-   <string>Add Supplier</string>
+   <string>Նոր գնորդ</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -53,7 +53,7 @@
               </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit"/>
+              <widget class="QLineEdit" name="editFirstName"/>
              </item>
             </layout>
            </item>
@@ -71,7 +71,7 @@
               </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_2"/>
+              <widget class="QLineEdit" name="editLastName"/>
              </item>
             </layout>
            </item>
@@ -89,7 +89,7 @@
               </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="lineEdit_3"/>
+              <widget class="QLineEdit" name="editPhone"/>
              </item>
             </layout>
            </item>
@@ -120,7 +120,7 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="pbtCancelDlg">
+              <widget class="QPushButton" name="btnCancel">
                <property name="text">
                 <string>Չեղարկել</string>
                </property>
@@ -139,5 +139,22 @@
   </layout>
  </widget>
  <resources/>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btnCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>AddCustomersUI</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>309</x>
+     <y>124</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>352</x>
+     <y>157</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

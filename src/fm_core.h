@@ -52,6 +52,10 @@
 #	define FM_ASSERT(_test_)             ((void)(0))
 #	define FM_ASSERT_X( _test_, _what_ ) ((void)(0))
 #endif
+
+// Signal-Slot Connections
+#define FM_CONNECT( _sender_, _signal_, _receiver_, _slot_ )			\
+	FM_ASSERT(QObject::connect(_sender_,SIGNAL(_signal_),_receiver_,SLOT(_slot_)))
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////

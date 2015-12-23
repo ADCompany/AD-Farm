@@ -33,6 +33,12 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Gui">
+      <UniqueIdentifier>{9009f2ac-a97a-42e4-8fa4-b8b9daffb9d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Data">
+      <UniqueIdentifier>{395dcc1e-1295-4241-9d45-b52bd4595a7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -47,16 +53,10 @@
     <ClCompile Include="fm_customersdata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="fm_transactionswidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="fm_transactionsdata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="fm_storagesdata.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="fm_customerswidget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="fm_farmmanager.cpp">
@@ -70,6 +70,18 @@
     </ClCompile>
     <ClCompile Include="fm_storageswidget.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_customerswidget.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="fm_transactionswidget.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_addcustomerdlg.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_addcustomerdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,9 +115,6 @@
     <CustomBuild Include="fm_dbcomponent.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="fm_customerswidget.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="fm_customersdata.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
@@ -124,14 +133,17 @@
     <CustomBuild Include="customers.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="addcustomersdialog.ui">
+    <CustomBuild Include="fm_customerswidget.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="addcustomer.ui">
       <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_addcustomerdlg.h">
+      <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="fm_transactionswidget.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="fm_storageswidget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -141,8 +153,11 @@
     <ClInclude Include="GeneratedFiles\ui_customers.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_addcustomersdialog.h">
+    <ClInclude Include="GeneratedFiles\ui_addcustomer.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="fm_transactionswidget.h">
+      <Filter>Gui</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

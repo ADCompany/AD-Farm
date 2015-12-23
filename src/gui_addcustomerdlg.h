@@ -1,11 +1,19 @@
+#ifndef ADD_CUSTOMER_DLG_H
+#define ADD_CUSTOMER_DLG_H
+
 ////////////////////////////////////////////////////////////////////////////////
 //
-//	Includes
+// Includes
 //
-#include "fm_customerswidget.h"
+#ifndef FM_CORE_H
+#	include "fm_core.h"
+#endif
+
+// Ui
+#include "ui_addcustomer.h"
 
 // Qt Includes
-
+#include <QDialog>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,29 +25,29 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CCustomersWidget
+// class CAddCustomerDlg
 //
-
-// Constructors
-CCustomersWidget::CCustomersWidget(QWidget *pwParent)
-	: QWidget(pwParent),
-	m_pCustomersData(new db::CCustomersData()),
-	m_pAddCustomerDlg(new CAddCustomerDlg(this)),
-	m_pTableWidgetItem(new QTableWidgetItem())
+class CAddCustomerDlg : public QDialog
 {
-	m_uiCustomersWidget.setupUi(this);
+	Q_OBJECT
 
-	QObject::connect(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()),
-		m_pAddCustomerDlg, SLOT(show()));
+public:// Constructors
+	CAddCustomerDlg( QWidget* pwParent = nullptr );
+	~CAddCustomerDlg() = default;
 
-	m_pCustomersData->Initialize();
+public:// Interface Methodes
 
-	m_pTableWidgetItem->setData(0, "asdf");
-	m_uiCustomersWidget.tableWidget->setColumnCount(10);
-	m_uiCustomersWidget.tableWidget->setRowCount(10);
-	m_uiCustomersWidget.tableWidget->setItem(1, 1, m_pTableWidgetItem.get());
-}
+public slots:
+	void OnAdd();
 
+protected:// Helper Methodes
+
+private:
+	//
+	//	Content
+	//
+	Ui::AddCustomersUI	m_uiAddCustomer;
+};
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -48,3 +56,4 @@ CCustomersWidget::CCustomersWidget(QWidget *pwParent)
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
+#endif // ADD_CUSTOMER_DLG_H

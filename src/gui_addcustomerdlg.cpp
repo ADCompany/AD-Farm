@@ -1,11 +1,12 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 //	Includes
 //
-#include "fm_customerswidget.h"
+#include "gui_addcustomerdlg.h"
 
 // Qt Includes
-
+#include <QMessageBox>
+#include <QTextCodec>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,27 +18,31 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CCustomersWidget
+// class CAddCustomerDlg
 //
 
 // Constructors
-CCustomersWidget::CCustomersWidget(QWidget *pwParent)
-	: QWidget(pwParent),
-	m_pCustomersData(new db::CCustomersData()),
-	m_pAddCustomerDlg(new CAddCustomerDlg(this)),
-	m_pTableWidgetItem(new QTableWidgetItem())
+CAddCustomerDlg::CAddCustomerDlg( QWidget *pwParent )
+	: QDialog( pwParent )
 {
-	m_uiCustomersWidget.setupUi(this);
+	m_uiAddCustomer.setupUi( this );
+	
+	// Connections
+	FM_CONNECT( m_uiAddCustomer.btnAddCustomer, clicked(), this, OnAdd() );
+}
 
-	QObject::connect(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()),
-		m_pAddCustomerDlg, SLOT(show()));
+void CAddCustomerDlg::OnAdd()
+{
+	QString sFirstName = m_uiAddCustomer.editFirstName->text();
+	QTextCodec* codec = QTextCodec::codecForName( "UTF-16" );
+	QString sMsg = codec->toUnicode( "Արամ" );
+	if (sFirstName.isEmpty())
+	{
+		QMessageBox::critical( this, QString( "Blank Fields" ), sMsg );
+		return;
+	}
 
-	m_pCustomersData->Initialize();
-
-	m_pTableWidgetItem->setData(0, "asdf");
-	m_uiCustomersWidget.tableWidget->setColumnCount(10);
-	m_uiCustomersWidget.tableWidget->setRowCount(10);
-	m_uiCustomersWidget.tableWidget->setItem(1, 1, m_pTableWidgetItem.get());
+	emit accepted();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
