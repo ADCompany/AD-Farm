@@ -1,11 +1,15 @@
+#ifndef DB_TRANSACTIONS_DATA_H
+#define DB_TRANSACTIONS_DATA_H
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
-#include "fm_transactionsdata.h"
+#ifndef DB_COMPONENT_H
+#   include "db_component.h"
+#endif
 
 // Qt includes
-
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -20,24 +24,19 @@ namespace db {
 //
 // class CTransactionsData
 //
-
-// Interface Methodes
-void CTransactionsData::Initialize()
+class CTransactionsData : public IDBComponent
 {
-	QSqlQuery sqlQuery;
+public:// Constructors
+	inline CTransactionsData() = default;
+	~CTransactionsData() = default;
 
-	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction_info ("
-		"transaction_id		INTEGER PRIMARY KEY NOT NULL, "
-		"product_id			INTEGER NOT NULL, "
-		"count				INTEGER NOT NULL, "
-		"cost				INTEGER NOT NULL);");
+public:// Interface Methodes
+	void Initialize();
 
-	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction ("
-		"transaction_id		INTEGER PRIMARY KEY NOT NULL, "
-		"customer_id		INTEGER NOT NULL, "
-		"date_time			TEXT    NOT NULL);");
-}
+protected:// Helper Methodes
 
+
+};
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -46,3 +45,5 @@ void CTransactionsData::Initialize()
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
+
+#endif // DB_TRANSACTIONS_DATA_H

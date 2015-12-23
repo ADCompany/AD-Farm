@@ -2,10 +2,13 @@
 //
 // Includes
 //
-#include "fm_connectionstarter.h"
+#include "db_manager.h"
+#include "db_storagesdata.h"
+#include "db_customersdata.h"
+#include "db_transactionsdata.h"
 
 // Qt includes
-#include <QDesktopServices>
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,34 +20,33 @@ namespace db {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CConnectionStarter
+// class CDBManager
 //
 
-const QString CConnectionStarter::m_cstrDataFilePath = QLatin1String("data/");
-const QString CConnectionStarter::m_cstrDataFileName = QLatin1String("data.sqlite");
-
 // Interface Methodes
-void CConnectionStarter::StartConnection()
+void CDBManager::Initialize(QString const& strDBFilePath)
 {
-	QDir dirDataFile;
-	if (m_strFilePath == "")
-		m_strFilePath = m_cstrDataFilePath + m_cstrDataFileName;
+	m_pDBConnectionStarter->StartConnection(strDBFilePath);
 
-	if (!dirDataFile.exists(m_strFilePath))
-	{
-		if (!dirDataFile.mkpath(m_cstrDataFilePath))
-			throw CException(qtr("Unable to create path"));
-	}
-
-	// Create SQlite connection
-	m_sqlDataBase = QSqlDatabase::addDatabase("QSQLITE");
-	m_sqlDataBase.setDatabaseName(m_strFilePath);
-	if (!m_sqlDataBase.open())
-	{
-		QString sErrMsg = m_sqlDataBase.lastError().driverText();
-		throw CException(qtr("Unable to establish database connection: ").append(sErrMsg));
-	}
+	SetDBComponent(std::shared_ptr<IDBComponent>(new CStoragesData()), "StoragesData", true);
+	SetDBComponent(std::shared_ptr<IDBComponent>(new CCustomersData()), "CustomersData", true);
+	SetDBComponent(std::shared_ptr<IDBComponent>(new CTransactionsData()), "TransactionsData", true);
 }
+
+// Helper Functions
+bool CDBManager::SetDBComponent(std::shared_ptr<IDBComponent> pDBComponent, QString const& strComponentName, bool bInitialize)
+{
+	if (pDBComponent == nullptr || strComponentName == "")
+		return false;
+
+	if (bInitialize)
+		pDBComponent->Initialize();
+
+	m_mapStringToComponent.emplace(strComponentName, pDBComponent);
+
+	return true;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 

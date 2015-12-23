@@ -1,57 +1,48 @@
-#ifndef FM_STORAGES_WIDGET_H
-#define FM_STORAGES_WIDGET_H
-
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
-#ifndef FM_CUSTOMERS_DATA_H
-#	include "fm_storagesdata.h"
-#endif
-
-#include "ui_storages.h"
+#include "db_transactionsdata.h"
 
 // Qt includes
-#include <QWidget>
-#include <memory>
+
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 namespace fm {
 ////////////////////////////////////////////////////////////////////////////////
-namespace gui {
+namespace db {
 ////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CStoragesWidget
+// class CTransactionsData
 //
-class CStoragesWidget : public QWidget
+
+// Interface Methodes
+void CTransactionsData::Initialize()
 {
-public:// Constructors
-	CStoragesWidget(QWidget* pwParent = nullptr);
-	~CStoragesWidget() = default;
+	QSqlQuery sqlQuery;
 
-public:// Interface Methodes
+	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction_info ("
+		"transaction_id		INTEGER PRIMARY KEY NOT NULL, "
+		"product_id			INTEGER NOT NULL, "
+		"count				INTEGER NOT NULL, "
+		"cost				INTEGER NOT NULL);");
 
-protected:// Helper Methodes
+	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction ("
+		"transaction_id		INTEGER PRIMARY KEY NOT NULL, "
+		"customer_id		INTEGER NOT NULL, "
+		"date_time			TEXT    NOT NULL);");
+}
 
-private:
-	Ui::storages m_uiStorages;
-
-	//QDialog* m_pCreateSplDlg;
-
-	std::shared_ptr<db::CStoragesData> m_pStoragesData;
-
-};
 ////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
-} // namespace gui
+} // namespace db
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
-
-#endif // FM_STORAGES_WIDGET_H

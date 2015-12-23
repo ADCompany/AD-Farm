@@ -3,7 +3,6 @@
 //	Includes
 //
 #include "fm_farmmanager.h"
-#include "fm_connectionstarter.h"
 
 // Qt Includes
 #include <QSplitter>
@@ -21,11 +20,13 @@ namespace fm {
 // class CFarmManager
 //
 CFarmManager::CFarmManager(QWidget *parent)
-	: QMainWindow(parent)
+	: QMainWindow(parent),
+	m_pDBManager(new db::CDBManager())
 {
-	db::CConnectionStarter connectionStarter;
-
 	ui.setupUi(this);
+
+	m_pDBManager->Initialize();
+
 	m_CreateTrnDlg = new QDialog( this );
 	dialogUi.setupUi( m_CreateTrnDlg );
 

@@ -1,11 +1,26 @@
+#ifndef GUI_CUSTOMERS_WIDGET_H
+#define GUI_CUSTOMERS_WIDGET_H
+
 ////////////////////////////////////////////////////////////////////////////////
 //
-//	Includes
+// Includes
 //
-#include "fm_customerswidget.h"
+#ifndef DB_CUSTOMERS_DATA_H
+#	include "db_customersdata.h"
+#endif
+
+#ifndef GUI_ADD_CUSTOMER_DLG_H
+#	include "gui_addcustomerdlg.h"
+#endif
+
+// Ui
+#include "ui_customers.h"
 
 // Qt Includes
+#include <QWidget>
 
+// STD Includes
+#include <memory>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,27 +34,26 @@ namespace gui {
 //
 // class CCustomersWidget
 //
-
-// Constructors
-CCustomersWidget::CCustomersWidget(QWidget *pwParent)
-	: QWidget(pwParent),
-	m_pCustomersData(new db::CCustomersData()),
-	m_pAddCustomerDlg(new CAddCustomerDlg(this)),
-	m_pTableWidgetItem(new QTableWidgetItem())
+class CCustomersWidget : public QWidget
 {
-	m_uiCustomersWidget.setupUi(this);
+public:// Constructors
+	CCustomersWidget(QWidget* pwParent = nullptr);
+	~CCustomersWidget() = default;
 
-	QObject::connect(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()),
-		m_pAddCustomerDlg, SLOT(show()));
+public:// Interface Methodes
 
-	m_pCustomersData->Initialize();
+protected:// Helper Methodes
 
-	m_pTableWidgetItem->setData(0, "asdf");
-	m_uiCustomersWidget.tableWidget->setColumnCount(10);
-	m_uiCustomersWidget.tableWidget->setRowCount(10);
-	m_uiCustomersWidget.tableWidget->setItem(1, 1, m_pTableWidgetItem.get());
-}
+private:
+	//
+	//	Content
+	//
+	Ui::customersWidget				    m_uiCustomersWidget;
+	CAddCustomerDlg*                    m_pAddCustomerDlg;
+	std::shared_ptr<QTableWidgetItem>   m_pTableWidgetItem;
+	std::shared_ptr<db::CCustomersData> m_pCustomersData;
 
+};
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -48,3 +62,5 @@ CCustomersWidget::CCustomersWidget(QWidget *pwParent)
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
+
+#endif // GUI_CUSTOMERS_WIDGET_H

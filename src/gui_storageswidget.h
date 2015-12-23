@@ -1,63 +1,61 @@
-#ifndef FM_DB_COMPONENT_H
-#define FM_DB_COMPONENT_H
+#ifndef GUI_STORAGES_WIDGET_H
+#define GUI_STORAGES_WIDGET_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
-#ifndef FM_CORE_H
-#   include "fm_core.h"
+#ifndef DB_MANAGER_H
+#	include "db_manager.h"
+#endif
+#ifndef DB_STORAGES_DATA_H
+#	include "db_storagesdata.h"
 #endif
 
+#include "ui_storages.h"
+
 // Qt includes
-#include <QSqlQuery>
-#include <QSqlError>
-#include <QDesktopServices>
+#include <QWidget>
+#include <memory>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 namespace fm {
 ////////////////////////////////////////////////////////////////////////////////
-namespace db {
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-//
-// DB Macros
-//
-
-// If execution fails throws an exception with error message
-#define EXECUTE_QUERY(_query_, _cmd_)             \
-	if(!_query_.exec(_cmd_))                      \
-		throw CException(qtr("DB Query Failed: ") \
-                              .append(_query_.lastError().databaseText()));
-
+namespace gui {
 ////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// interface IDBComponent
+// class CStoragesWidget
 //
-class IDBComponent
+class CStoragesWidget : public QWidget
 {
 public:// Constructors
-	inline IDBComponent() = default;
-	virtual ~IDBComponent() = default;
+	CStoragesWidget(QWidget* pwParent = nullptr);
+	~CStoragesWidget() = default;
 
 public:// Interface Methodes
-	virtual void Initialize() = 0;
 
 protected:// Helper Methodes
+
+private:
+	Ui::storages m_uiStorages;
+
+	//QDialog* m_pCreateSplDlg;
+
+	std::shared_ptr<db::CStoragesData> m_pStoragesData;
+	std::shared_ptr<db::CDBManager> m_pDBManager;
 
 };
 ////////////////////////////////////////////////////////////////////////////////
 
 
 ////////////////////////////////////////////////////////////////////////////////
-} // namespace db
+} // namespace gui
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif // FM_DB_COMPONENT_H
+#endif // GUI_STORAGES_WIDGET_H

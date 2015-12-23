@@ -7,9 +7,11 @@
 //
 #include "ui_farmmanager.h"
 #include "ui_addgorcarq.h"
-#include "fm_storageswidget.h"
-#include "fm_customerswidget.h"
-#include "fm_transactionswidget.h"
+#include "gui_storageswidget.h"
+#include "gui_customerswidget.h"
+#include "gui_transactionswidget.h"
+
+#include "db_manager.h"
 
 // Qt includes
 #include <QWidget>
@@ -43,8 +45,9 @@ private:
 	gui::CCustomersWidget*		m_pwCustomers;
 	gui::CTransactionsWidget*	m_pwTrnsactions;
 
-	QDialog*             m_CreateTrnDlg;
-	QDialog*             m_CreateSplDlg;
+	QDialog* m_CreateTrnDlg;
+
+	std::shared_ptr<db::CDBManager> m_pDBManager;
 };
 ////////////////////////////////////////////////////////////////////////////////
 

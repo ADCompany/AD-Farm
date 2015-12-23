@@ -1,26 +1,11 @@
-#ifndef FM_CUSTOMERS_WIDGET_H
-#define FM_CUSTOMERS_WIDGET_H
-
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Includes
+//	Includes
 //
-#ifndef FM_CUSTOMERS_DATA_H
-#	include "fm_customersdata.h"
-#endif
-
-#ifndef ADD_CUSTOMER_DLG_H
-#	include "gui_addcustomerdlg.h"
-#endif
-
-// Ui
-#include "ui_customers.h"
+#include "gui_storageswidget.h"
 
 // Qt Includes
-#include <QWidget>
 
-// STD Includes
-#include <memory>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,28 +17,25 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CCustomersWidget
+// class CStoragesWidget
 //
-class CCustomersWidget : public QWidget
+
+// Constructors
+CStoragesWidget::CStoragesWidget(QWidget *pwParent)
+	: QWidget(pwParent),
+	m_pStoragesData(new db::CStoragesData())
+	//m_pCreateSplDlg(new QDialog(this))
 {
-public:// Constructors
-	CCustomersWidget(QWidget* pwParent = nullptr);
-	~CCustomersWidget() = default;
+	m_uiStorages.setupUi(this);
 
-public:// Interface Methodes
+	//m_uiAddSuplierDlg.setupUi(m_pCreateSplDlg);
 
-protected:// Helper Methodes
+	//QObject::connect(m_uiAraqichner.pushButton, SIGNAL(clicked()),
+	//	m_pCreateSplDlg, SLOT(show()));
 
-private:
-	//
-	//	Content
-	//
-	Ui::customersWidget				    m_uiCustomersWidget;
-	CAddCustomerDlg*                    m_pAddCustomerDlg;
-	std::shared_ptr<QTableWidgetItem>   m_pTableWidgetItem;
-	std::shared_ptr<db::CCustomersData> m_pCustomersData;
+	m_pStoragesData->Initialize();
+}
 
-};
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -62,5 +44,3 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
-
-#endif // FM_CUSTOMERS_WIDGET_H

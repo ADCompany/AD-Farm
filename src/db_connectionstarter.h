@@ -1,12 +1,12 @@
-#ifndef FM_CONNECTION_STARTER_H
-#define FM_CONNECTION_STARTER_H
+#ifndef DB_CONNECTION_STARTER_H
+#define DB_CONNECTION_STARTER_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //	Includes
 //
 #ifndef FM_CORE_H
-#   include "fm_core.h"
+#	include "fm_core.h"
 #endif
 
 //	Qt includes
@@ -16,7 +16,7 @@
 #include <QSqlDataBase>
 
 // STD Includes
-#include <memory>
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -28,19 +28,18 @@ namespace db {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-//	class CConnectionStarter
+//	class CDBConnectionStarter
 //
-class CConnectionStarter
+class CDBConnectionStarter
 {
 public:// Constructors
-	inline CConnectionStarter(QString strFilePath = "");
-	inline ~CConnectionStarter() = default;
+	inline CDBConnectionStarter(QString strDBFilePath = "");
+	inline ~CDBConnectionStarter() = default;
 
 public:// Interface Methodes
-
+	void StartConnection(QString strDBFilePath = "");
+	
 protected:// Helper Methodes
-	void StartConnection();
-
 	inline void SetDataFilePath(QString const& strFilePath);
 	inline QString const& GetDataFilePath() const;
 
@@ -49,7 +48,9 @@ private:// Members
 	static const QString m_cstrDataFilePath;
 
 	QSqlDatabase m_sqlDataBase;
-	QString m_strFilePath;
+	QString m_strDBFilePath;
+
+	bool m_bStartConnection;
 };
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -61,19 +62,19 @@ private:// Members
 //
 
 // Constructors
-inline CConnectionStarter::CConnectionStarter(QString strFilePath)
-	: m_strFilePath(strFilePath)
+inline CDBConnectionStarter::CDBConnectionStarter(QString strFilePath)
+	: m_strDBFilePath(strFilePath),
+	  m_bStartConnection(false)
 {
-	StartConnection();
 }
 
 // Interface Methodes
-inline void CConnectionStarter::SetDataFilePath(QString const& strFilePath)
+inline void CDBConnectionStarter::SetDataFilePath(QString const& strFilePath)
 {
 
 }
 
-inline QString const& CConnectionStarter::GetDataFilePath() const
+inline QString const& CDBConnectionStarter::GetDataFilePath() const
 {
 
 }
@@ -87,4 +88,4 @@ inline QString const& CConnectionStarter::GetDataFilePath() const
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif // FM_CONNECTION_STARTER_H
+#endif // FM_DB_CONNECTION_STARTER_H

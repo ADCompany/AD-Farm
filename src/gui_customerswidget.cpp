@@ -2,7 +2,7 @@
 //
 //	Includes
 //
-#include "fm_storageswidget.h"
+#include "gui_customerswidget.h"
 
 // Qt Includes
 
@@ -17,23 +17,27 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CStoragesWidget
+// class CCustomersWidget
 //
 
 // Constructors
-CStoragesWidget::CStoragesWidget(QWidget *pwParent)
+CCustomersWidget::CCustomersWidget(QWidget *pwParent)
 	: QWidget(pwParent),
-	m_pStoragesData(new db::CStoragesData())
-	//m_pCreateSplDlg(new QDialog(this))
+	m_pCustomersData(new db::CCustomersData()),
+	m_pAddCustomerDlg(new CAddCustomerDlg(this)),
+	m_pTableWidgetItem(new QTableWidgetItem())
 {
-	m_uiStorages.setupUi(this);
+	m_uiCustomersWidget.setupUi(this);
 
-	//m_uiAddSuplierDlg.setupUi(m_pCreateSplDlg);
+	QObject::connect(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()),
+		m_pAddCustomerDlg, SLOT(show()));
 
-	//QObject::connect(m_uiAraqichner.pushButton, SIGNAL(clicked()),
-	//	m_pCreateSplDlg, SLOT(show()));
+	m_pCustomersData->Initialize();
 
-	m_pStoragesData->Initialize();
+	m_pTableWidgetItem->setData(0, "asdf");
+	m_uiCustomersWidget.tableWidget->setColumnCount(10);
+	m_uiCustomersWidget.tableWidget->setRowCount(10);
+	m_uiCustomersWidget.tableWidget->setItem(1, 1, m_pTableWidgetItem.get());
 }
 
 ////////////////////////////////////////////////////////////////////////////////

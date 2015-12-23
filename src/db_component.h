@@ -1,16 +1,18 @@
-#ifndef FM_STORAGES_DATA_H
-#define FM_STORAGES_DATA_H
+#ifndef DB_COMPONENT_H
+#define DB_COMPONENT_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
-#ifndef FM_DB_COMPONENT_H
-#   include "fm_dbcomponent.h"
+#ifndef FM_CORE_H
+#	include "fm_core.h"
 #endif
 
 // Qt includes
-
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QDesktopServices>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -19,22 +21,34 @@ namespace fm {
 namespace db {
 ////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+//
+// DB Macros
+//
+
+// If execution fails throws an exception with error message
+#define EXECUTE_QUERY(_query_, _cmd_)             \
+	if(!_query_.exec(_cmd_))                      \
+		throw CException(qtr("DB Query Failed: ") \
+                              .append(_query_.lastError().databaseText()));
+
+////////////////////////////////////////////////////////////////////////////////
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CStoragesData
+// interface IDBComponent
 //
-class CStoragesData : public IDBComponent
+class IDBComponent
 {
 public:// Constructors
-	inline CStoragesData() = default;
-	~CStoragesData() = default;
+	inline IDBComponent() = default;
+	virtual ~IDBComponent() = default;
 
 public:// Interface Methodes
-	void Initialize();
+	virtual void Initialize() = 0;
 
 protected:// Helper Methodes
-
 
 };
 ////////////////////////////////////////////////////////////////////////////////
@@ -46,4 +60,4 @@ protected:// Helper Methodes
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif // FM_STORAGES_DATA_H
+#endif // DB_COMPONENT_H

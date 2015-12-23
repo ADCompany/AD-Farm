@@ -1,16 +1,16 @@
-#ifndef FM_CUSTOMERS_DATA_H
-#define FM_CUSTOMERS_DATA_H
+#ifndef DB_STORAGES_DATA_H
+#define DB_STORAGES_DATA_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
-#ifndef FM_DB_COMPONENT_H
-#   include "fm_dbcomponent.h"
+#ifndef DB_COMPONENT_H
+#   include "db_component.h"
 #endif
 
-// Qt Includes
-#include <QList>
+// Qt includes
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -22,48 +22,21 @@ namespace db {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CCustomersData
+// class CStoragesData
 //
-class CCustomersData : public IDBComponent
+class CStoragesData : public IDBComponent
 {
 public:// Constructors
-	inline CCustomersData();
-	~CCustomersData() = default;
+	inline CStoragesData() = default;
+	~CStoragesData() = default;
 
 public:// Interface Methodes
 	void Initialize();
 
-	int GetColumnCount() const;
-	int GetRowCount() const;
-
-	QList<QString> GetCoulmnsName() const;
-
-	QString GetNameByIndex(int nColumn, int nRow) const;
-	void SetNameByIndex(int nColumn, int nRow, QString const& strName);
-
 protected:// Helper Methodes
 
 
-private:// Members
-	int m_nColumnCount;
-	int m_nRowCount;
 };
-////////////////////////////////////////////////////////////////////////////////
-
-
-
-////////////////////////////////////////////////////////////////////////////////
-//
-// class CCustomersData
-//
-
-// Constructors
-inline CCustomersData::CCustomersData()
-	: m_nColumnCount(0),
-	  m_nRowCount(0)
-{
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -73,4 +46,4 @@ inline CCustomersData::CCustomersData()
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif // FM_CUSTOMERS_DATA_H
+#endif // DB_STORAGES_DATA_H
