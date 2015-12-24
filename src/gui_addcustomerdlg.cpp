@@ -75,13 +75,6 @@ void CAddCustomerDlg::SetLabelColor( QLabel* pLabel, bool bValid )
 	pLabel->setPalette( palette );
 }
 
-void CAddCustomerDlg::Clear()
-{
-	m_uiAddCustomer.editFirstName->clear();
-	m_uiAddCustomer.editLastName->clear();
-	m_uiAddCustomer.editPhone->clear();
-}
-
 ////////////////////////////////////////////////////////////////////////////////
 
 

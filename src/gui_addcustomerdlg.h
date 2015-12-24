@@ -36,13 +36,22 @@ public:// Constructors
 	~CAddCustomerDlg() = default;
 
 public:
+	//
+	//	Main Interface
+	//
+	// Customer Data Accessors
+	inline QString GetFirstName() const;
+	inline QString GetLastName() const;
+	inline QString GetPhoneNumber() const;
 	// Clear Dialog
-	void Clear();
+	inline void Clear();
+
 public slots:
 	void OnAdd();
 
 protected:// Helper Methodes
 	void SetLabelColor( QLabel* pLabel, bool bValid );
+
 private:
 	//
 	//	Content
@@ -51,6 +60,27 @@ private:
 };
 ////////////////////////////////////////////////////////////////////////////////
 
+////////////////////////////////////////////////////////////////////////////////
+//
+//	Inline Implementations
+//
+////////////////////////////////////////////////////////////////////////////////
+// GetFirstName
+inline QString CAddCustomerDlg::GetFirstName() const
+{ return m_uiAddCustomer.editFirstName->text(); }
+// GetLastName
+inline QString CAddCustomerDlg::GetLastName() const
+{ return m_uiAddCustomer.editLastName->text(); }
+// GetPhoneNumber
+inline QString CAddCustomerDlg::GetPhoneNumber() const
+{ return m_uiAddCustomer.editPhone->text(); }
+// Clear
+inline void CAddCustomerDlg::Clear()
+{
+	m_uiAddCustomer.editFirstName->clear();
+	m_uiAddCustomer.editLastName->clear();
+	m_uiAddCustomer.editPhone->clear();
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace gui
