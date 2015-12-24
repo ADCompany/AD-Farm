@@ -41,7 +41,7 @@ void CStoragesData::Initialize()
 		"storage_id		INTEGER PRIMARY KEY NOT NULL, "
 		"product_id		INTEGER NOT NULL, "
 		"count			INTEGER NOT NULL, "
-		"prime_cost		INTEGER NOT NULL);"); // ??
+		"prime_cost		INTEGER NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage ("
 		"id		INTEGER PRIMARY KEY NOT NULL, "

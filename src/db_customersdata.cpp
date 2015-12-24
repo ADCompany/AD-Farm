@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+﻿////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
@@ -31,11 +31,11 @@ void CCustomersData::Initialize()
 		"last_name		TEXT    NOT NULL, "
 		"phone_number	INTEGER NOT NULL);");
 
-	sqlQuery.prepare("SELECT customer");
-	sqlQuery.exec();
-	QSqlRecord sqlRecord = sqlQuery.record();
+	//sqlQuery.prepare("SELECT customer");
+	//sqlQuery.exec();
+	//QSqlRecord sqlRecord = sqlQuery.record();
 
-	m_nColumnCount = sqlRecord.count();
+	//m_nColumnCount = sqlRecord.count();
 }
 
 int CCustomersData::GetColumnCount() const

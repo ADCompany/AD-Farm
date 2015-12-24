@@ -38,6 +38,19 @@ public:// Interface Methodes
 
 	QList<QString> GetCoulmnsName() const;
 
+	int GetId(QString const& strFirstName, QString const& strLastName)
+	{
+		QSqlQuery sqlQuery;
+		sqlQuery.prepare("SELECT id FROM customer WHERE first_name = ?");
+		sqlQuery.bindValue(1, strFirstName);
+		sqlQuery.exec();
+
+		QString sRowCount = sqlQuery.value(0).toString();
+		bool bOk = false;
+		uint unId = sRowCount.toInt(&bOk);
+		return unId;
+	}
+
 	QString GetNameByIndex(int nColumn, int nRow) const;
 	void SetNameByIndex(int nColumn, int nRow, QString const& strName);
 

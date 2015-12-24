@@ -38,7 +38,8 @@ public:// Constructors
 
 public:// Interface Methodes
 	void StartConnection(QString strDBFilePath = "");
-	
+	QSqlDatabase& GetDataBase() { return m_sqlDataBase; }
+
 protected:// Helper Methodes
 	inline void SetDataFilePath(QString const& strFilePath);
 	inline QString const& GetDataFilePath() const;

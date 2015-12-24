@@ -81,6 +81,12 @@
     <ClCompile Include="db_storagesdata.cpp">
       <Filter>Data Base</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_customerswidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_customerswidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="farmmanager.ui">
@@ -119,9 +125,6 @@
     <CustomBuild Include="db_customersdata.h">
       <Filter>Data Base</Filter>
     </CustomBuild>
-    <CustomBuild Include="gui_customerswidget.h">
-      <Filter>Gui</Filter>
-    </CustomBuild>
     <CustomBuild Include="fm_core.h">
       <Filter>Application</Filter>
     </CustomBuild>
@@ -157,6 +160,9 @@
     </CustomBuild>
     <CustomBuild Include="db_storagesdata.h">
       <Filter>Data Base</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_customerswidget.h">
+      <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>
 </Project>

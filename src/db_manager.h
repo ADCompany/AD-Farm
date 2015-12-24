@@ -40,6 +40,7 @@ public:// Constructors
 public:// Interface Methodes
 	void Initialize(QString const& strDBFilePath = "");
 	inline std::shared_ptr<IDBComponent> GetDBComponent(QString const& strComponentName);
+	inline QSqlDatabase& GetDataBase();
 
 protected:// Helper Methodes
 	bool SetDBComponent(std::shared_ptr<IDBComponent> pDBComponent, QString const& strComponentName, bool bInitialize = true);
@@ -71,6 +72,11 @@ inline std::shared_ptr<IDBComponent> CDBManager::GetDBComponent(QString const& s
 		return nullptr;
 
 	return itMap->second;
+}
+
+inline QSqlDatabase& CDBManager::GetDataBase()
+{
+	return m_pDBConnectionStarter->GetDataBase();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

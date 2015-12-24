@@ -30,18 +30,22 @@ CFarmManager::CFarmManager(QWidget *parent)
 	m_CreateTrnDlg = new QDialog( this );
 	dialogUi.setupUi( m_CreateTrnDlg );
 
+	// Transactions
 	QIcon icon1;
 	icon1.addFile(QString::fromUtf8(":/FarmManager/Resources/transactions2.png"), QSize(), QIcon::Normal, QIcon::Off);
 
 	m_pwTrnsactions= new gui::CTransactionsWidget();
 	ui.tabWidget->insertTab(0, m_pwTrnsactions, icon1, QString("Transactions"));
 
+	// Customers
 	QIcon icon2;
 	icon2.addFile(QString::fromUtf8(":/FarmManager/Resources/suppliers.png"), QSize(), QIcon::Normal, QIcon::Off);
 
 	m_pwCustomers = new gui::CCustomersWidget();
+	m_pwCustomers->SetDBManager(m_pDBManager);
 	ui.tabWidget->insertTab(1, m_pwCustomers, icon2, QString("Customers"));
 
+	// Storages
 	QIcon icon3;
 	icon3.addFile(QString::fromUtf8(":/FarmManager/Resources/farm.png"), QSize(), QIcon::Normal, QIcon::Off);
 
