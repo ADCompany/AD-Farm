@@ -38,16 +38,12 @@ class CCustomersWidget : public QWidget
 	Q_OBJECT
 
 public:// Constructors
-	CCustomersWidget(QWidget* pwParent = nullptr);
-	CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager);
+	CCustomersWidget(QWidget* pwParent = nullptr, std::shared_ptr<db::CDBManager> pDBManager = nullptr);
 	~CCustomersWidget() = default;
 
 public:// Interface Methodes
 	void SetDBManager(std::shared_ptr<db::CDBManager> pDBManager);
 	inline std::shared_ptr<QSqlTableModel> GetTableModel();
-
-protected:// Override Methodes
-	bool event(QEvent* pEvent) override;
 
 protected:// Helper Methodes
 	inline void UpdateData();
@@ -59,29 +55,25 @@ protected:// Helper Methodes
 
 protected slots:// Slots
 	void onAddCustomer();
-	void onSelectModelIndex(QModelIndex const& modelIndex)
-	{
-		m_iCurrModelIndex = modelIndex;
-	}
 	void onRemoveCustomer()
 	{
 		RemoveCustomer(m_iCurrModelIndex.row());
 	}
 	void onMenuShow(QPoint const& pos)
 	{
-		QModelIndex idxCurrent = m_uiCustomersWidget.tableView->indexAt( pos );
+		QModelIndex idxCurrent = m_uiCustomersWidget.tableView->indexAt(pos);
 		m_iCurrModelIndex = idxCurrent;
 		if (idxCurrent.row() >= 0)
-			m_pMenu->popup( m_uiCustomersWidget.tableView->viewport()->mapToGlobal( pos ) );
+			m_pMenu->popup(m_uiCustomersWidget.tableView->viewport()->mapToGlobal(pos));
 	}
 
 private:// Members
 	Ui::customersWidget	m_uiCustomersWidget;
-	CAddCustomerDlg*	m_pAddCustomerDlg;
+	std::shared_ptr<CAddCustomerDlg> m_pAddCustomerDlg;
 
 	std::shared_ptr<db::CCustomersData> m_pCustomersData;
 
-	QMenu* m_pMenu;
+	std::shared_ptr<QMenu> m_pMenu;
 	QModelIndex m_iCurrModelIndex;
 };
 ////////////////////////////////////////////////////////////////////////////////
