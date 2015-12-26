@@ -14,8 +14,8 @@
    <string>Farm Manager</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/FarmManager/Resources/farm2.png</normaloff>:/FarmManager/Resources/farm2.png</iconset>
+   <iconset resource="farmmanager.qrc">
+    <normaloff>:/FarmManager/Resources/app_icon.png</normaloff>:/FarmManager/Resources/app_icon.png</iconset>
   </property>
   <property name="windowOpacity">
    <double>1.000000000000000</double>
@@ -68,7 +68,7 @@
       </property>
       <widget class="QWidget" name="tabFinances">
        <attribute name="icon">
-        <iconset>
+        <iconset resource="farmmanager.qrc">
          <normaloff>:/FarmManager/Resources/finances.png</normaloff>:/FarmManager/Resources/finances.png</iconset>
        </attribute>
        <attribute name="title">
@@ -77,7 +77,7 @@
       </widget>
       <widget class="QWidget" name="tabSettings">
        <attribute name="icon">
-        <iconset>
+        <iconset resource="farmmanager.qrc">
          <normaloff>:/FarmManager/Resources/settings.png</normaloff>:/FarmManager/Resources/settings.png</iconset>
        </attribute>
        <attribute name="title">
