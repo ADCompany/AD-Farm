@@ -100,7 +100,7 @@
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_3">
            <item>
-            <widget class="QPushButton" name="pushButton">
+            <widget class="QPushButton" name="btnNewDeal">
              <property name="text">
               <string>Ստեղծել</string>
              </property>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>StoreExplorerUI</class>
+ <widget class="QWidget" name="StoreExplorerUI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>712</width>
+    <height>336</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QListWidget" name="wdgStoreList">
+      <item>
+       <property name="text">
+        <string>Barn 1</string>
+       </property>
+       <property name="icon">
+        <iconset resource="farmmanager.qrc">
+         <normaloff>:/FarmManager/Resources/barn.png</normaloff>:/FarmManager/Resources/barn.png</iconset>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Barn 2</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Barn 3</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Barn 4</string>
+       </property>
+      </item>
+      <item>
+       <property name="text">
+        <string>Barn 5</string>
+       </property>
+      </item>
+     </widget>
+     <widget class="QTableView" name="viewContentTable">
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="farmmanager.qrc"/>
+ </resources>
+ <connections/>
+</ui>

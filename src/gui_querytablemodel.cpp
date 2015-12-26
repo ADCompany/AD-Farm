@@ -2,10 +2,10 @@
 //
 //	Includes
 //
-#include "gui_transactionswidget.h"
+#include "gui_querytablemodel.h"
 
 // Qt Includes
-
+#include <QMessageBox>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -17,20 +17,41 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CTransactionsWidget
+// class CStoreContentModel
 //
 
 // Constructors
-CTransactionsWidget::CTransactionsWidget(QWidget *pwParent)
-	: QWidget(pwParent)
+CStoreContentModel::CStoreContentModel( QObject *pParent )
+	: Base( pParent )
 {
-	ui.setupUi(this);
-	m_pNewDealDlg = new CNewDealDlg( this );
+	// TODO ...
 
-	//
-	//	Connections
-	//
-	FM_CONNECT( ui.btnNewDeal, clicked(), m_pNewDealDlg, show() );
+	// Configure Model
+	setHeaderData( 0, Qt::Horizontal, tr( "Type" ) );
+	setHeaderData( 1, Qt::Horizontal, tr( "Count" ) );
+	// TODO
+}
+
+// setActiveStore
+void CStoreContentModel::setActiveStore( QString const& sStoreName )
+{
+	setQuery( QString( 
+		"SELECT producte.name, count FROM "
+		"storage INNER JOIN storage_info INNER JOIN producte "
+		"ON "
+		"storage.id == storage_info.storage_id "
+		"AND storage.name == '%1' "
+		"AND producte.id == storage_info.product_id" ).arg( sStoreName ) );
+	
+	setHeaderData( 0, Qt::Horizontal, tr( "Type" ) );
+	setHeaderData( 1, Qt::Horizontal, tr( "Count" ) );
+	// Check Result TODO
+	QSqlError oErr = lastError();
+	if (oErr.isValid())
+	{
+		QString sErrMsg = oErr.driverText();
+		int i = 8;
+	}
 }
 
 ////////////////////////////////////////////////////////////////////////////////

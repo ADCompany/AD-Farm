@@ -51,9 +51,6 @@
     <ClCompile Include="db_customersdata.cpp">
       <Filter>Data Base</Filter>
     </ClCompile>
-    <ClCompile Include="gui_customerswidget.cpp">
-      <Filter>Gui</Filter>
-    </ClCompile>
     <ClCompile Include="gui_transactionswidget.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
@@ -72,12 +69,6 @@
     <ClCompile Include="db_storagesdata.cpp">
       <Filter>Data Base</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_gui_customerswidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gui_customerswidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_gui_farmmanagerwidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -86,6 +77,42 @@
     </ClCompile>
     <ClCompile Include="gui_farmmanagerwidget.cpp">
       <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_customerswidget.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_customerswidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_customerswidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_newdealdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_querytablemodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_storeexplorer_wdg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_newdealdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_querytablemodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_storeexplorer_wdg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_newdealdlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_querytablemodel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_storeexplorer_wdg.cpp">
+      <Filter>Generated Files\Debug</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,11 +182,37 @@
     <CustomBuild Include="db_storagesdata.h">
       <Filter>Data Base</Filter>
     </CustomBuild>
-    <CustomBuild Include="gui_customerswidget.h">
-      <Filter>Gui</Filter>
-    </CustomBuild>
     <CustomBuild Include="gui_farmmanagerwidget.h">
       <Filter>Gui</Filter>
     </CustomBuild>
+    <CustomBuild Include="gui_customerswidget.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_newdealdlg.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_querytablemodel.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="newdeal.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_storeexplorer_wdg.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="storeexplorer.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_newdeal.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_storeexplorer.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="app_icon.rc" />
   </ItemGroup>
 </Project>

@@ -1,16 +1,19 @@
-#ifndef GUI_TRANSACTIONS_WIDGET_H
-#define GUI_TRANSACTIONS_WIDGET_H
+#ifndef GUI_QUERY_TABLE_MODEL_H
+#define GUI_QUERY_TABLE_MODEL_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
-#include "gui_newdealdlg.h"
+#ifndef DB_MANAGER_H
+#	include "db_manager.h"
+#endif
 
-#include "ui_gorcarqner.h"
+// Qt Includes
+#include <QSqlQueryModel>
 
-// Qt includes
-#include <QWidget>
+// STD Includes
+#include <memory>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -22,26 +25,36 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CTransactionsWidget
+// class CStoreContentModel
 //
-class CTransactionsWidget : public QWidget
+class CStoreContentModel : public QSqlQueryModel
 {
+	Q_OBJECT
+
+	typedef QSqlQueryModel Base;
+
 public:// Constructors
-	CTransactionsWidget(QWidget* pwParent = nullptr);
-	~CTransactionsWidget() = default;
+	CStoreContentModel( QObject* pParent = nullptr );
+	~CStoreContentModel() = default;
 
-public:// Interface Methodes
-
-protected:// Helper Methodes
+public:
+	//
+	//	Interface Methodes
+	//
+	// DB Manager
+	void SetDBManager( std::shared_ptr<db::CDBManager> pDBManager );
+	// Sets currently active store
+	void setActiveStore( QString const& sStoreName );
 
 private:
 	//
 	//	Content
 	//
-	Ui::widget   ui;
-	CNewDealDlg* m_pNewDealDlg;
+	std::shared_ptr<db::CDBManager> m_pDBManager;
 };
 ////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,4 +63,4 @@ private:
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif // GUI_TRANSACTIONS_WIDGET_H
+#endif // GUI_QUERY_TABLE_MODEL_H
