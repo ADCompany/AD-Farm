@@ -6,7 +6,7 @@
 // Includes
 //
 #ifndef DB_COMPONENT_H
-#   include "db_component.h"
+#   include "db_manager.h"
 #endif
 
 // Qt includes

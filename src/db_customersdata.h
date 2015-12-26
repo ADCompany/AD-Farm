@@ -5,8 +5,8 @@
 //
 // Includes
 //
-#ifndef DB_COMPONENT_H
-#   include "db_component.h"
+#ifndef DB_MANAGER_H
+#   include "db_manager.h"
 #endif
 
 // Qt Includes
@@ -24,46 +24,59 @@ namespace db {
 //
 // class CCustomersData
 //
-class CCustomersData : public IDBComponent
+class CCustomersData : public CDBComponent
 {
+public:// Data Property
+	struct table
+	{
+		// tables name
+		static const QString customer;
+
+		// table customer
+		struct customer
+		{
+			static const QString id;
+			static const QString first_name;
+			static const QString last_name;
+			static const QString debt;
+			static const QString phone_number;
+		};
+	};
+
 public:// Constructors
-	inline CCustomersData();
+	inline CCustomersData(QObject* pParent = nullptr, std::shared_ptr<CDBManager> pDBManager = nullptr);
 	~CCustomersData() = default;
 
 public:// Interface Methodes
 	void Initialize();
 
-	int GetColumnCount() const;
-	int GetRowCount() const;
+	bool SetParent(QObject* pParent);
+	void SetDBManager(std::shared_ptr<CDBManager> pDBManager);
+
+	inline int GetColumnCount() const;
+	inline int GetCustomersCount() const;
 
 	QList<QString> GetCoulmnsName() const;
+	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel();
+	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel() const;
 
-	int GetId(QString const& strFirstName, QString const& strLastName)
-	{
-		QSqlQuery sqlQuery;
-		sqlQuery.prepare("SELECT id FROM customer WHERE first_name = ?");
-		sqlQuery.bindValue(1, strFirstName);
-		sqlQuery.exec();
+	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, int nPhoneNumber);
+	void RemoveCustomer(QString const& strFirstName, QString const& strLastName);
+	void RemoveCustomer(int nRow);
 
-		QString sRowCount = sqlQuery.value(0).toString();
-		bool bOk = false;
-		uint unId = sRowCount.toInt(&bOk);
-		return unId;
-	}
+	int GetCustomerId(QString const& strFirstName, QString const& strLastName);
 
 	QString GetNameByIndex(int nColumn, int nRow) const;
 	void SetNameByIndex(int nColumn, int nRow, QString const& strName);
 
 protected:// Helper Methodes
 
-
 private:// Members
-	int m_nColumnCount;
-	int m_nRowCount;
+	QObject* m_pParentObject;
 };
 ////////////////////////////////////////////////////////////////////////////////
 
-
+///////////////////////// Implementing inline methods //////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -71,10 +84,39 @@ private:// Members
 //
 
 // Constructors
-inline CCustomersData::CCustomersData()
-	: m_nColumnCount(0),
-	  m_nRowCount(0)
+inline CCustomersData::CCustomersData(QObject* pParent, std::shared_ptr<CDBManager> pDBManager)
+	: CDBComponent(pDBManager),
+	  m_pParentObject(pParent)
 {
+}
+
+// Interface Methodes
+inline int CCustomersData::GetColumnCount() const
+{
+	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::customer);
+	if (pSqlTableModel == nullptr)
+		return -1;
+
+	return pSqlTableModel->columnCount();
+}
+
+inline int CCustomersData::GetCustomersCount() const
+{
+	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::customer);
+	if (pSqlTableModel == nullptr)
+		return -1;
+
+	return pSqlTableModel->rowCount();
+}
+
+inline std::shared_ptr<QSqlTableModel> CCustomersData::GetSqlTableModel()
+{
+	return CDBComponent::GetSqlTableModel(table::customer);
+}
+
+inline std::shared_ptr<QSqlTableModel> CCustomersData::GetSqlTableModel() const
+{
+	return CDBComponent::GetSqlTableModel(table::customer);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

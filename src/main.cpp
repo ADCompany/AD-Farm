@@ -1,10 +1,10 @@
-#include "fm_farmmanager.h"
+#include "gui_farmmanagerwidget.h"
 #include <QApplication>
 
 int main(int argc, char *argv[])
 {
 	QApplication a(argc, argv);
-	fm::CFarmManager w;
+	fm::gui::CFarmManagerWidget w;
 	w.show();
 	return a.exec();
 }

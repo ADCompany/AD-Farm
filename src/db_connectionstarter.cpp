@@ -29,7 +29,6 @@ void CDBConnectionStarter::StartConnection(QString strDBFilePath)
 	if (m_bStartConnection)
 		return;
 
-
 	if (strDBFilePath != "")
 		m_strDBFilePath = strDBFilePath;
 

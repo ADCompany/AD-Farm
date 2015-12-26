@@ -38,18 +38,20 @@ public:// Constructors
 
 public:// Interface Methodes
 	void StartConnection(QString strDBFilePath = "");
-	QSqlDatabase& GetDataBase() { return m_sqlDataBase; }
+	inline QSqlDatabase& GetDataBase();
+
+	inline QString const& GetDBFilePath() const;
 
 protected:// Helper Methodes
 	inline void SetDataFilePath(QString const& strFilePath);
-	inline QString const& GetDataFilePath() const;
 
 private:// Members
-	static const QString m_cstrDataFileName;
 	static const QString m_cstrDataFilePath;
+	static const QString m_cstrDataFileName;
+
+	QString m_strDBFilePath;
 
 	QSqlDatabase m_sqlDataBase;
-	QString m_strDBFilePath;
 
 	bool m_bStartConnection;
 };
@@ -67,6 +69,8 @@ inline CDBConnectionStarter::CDBConnectionStarter(QString strFilePath)
 	: m_strDBFilePath(strFilePath),
 	  m_bStartConnection(false)
 {
+	if (m_strDBFilePath == "")
+		m_strDBFilePath = m_cstrDataFilePath + m_cstrDataFileName;
 }
 
 // Interface Methodes
@@ -75,9 +79,14 @@ inline void CDBConnectionStarter::SetDataFilePath(QString const& strFilePath)
 
 }
 
-inline QString const& CDBConnectionStarter::GetDataFilePath() const
+QSqlDatabase& CDBConnectionStarter::GetDataBase()
 {
+	return m_sqlDataBase;
+}
 
+inline QString const& CDBConnectionStarter::GetDBFilePath() const
+{
+	return m_strDBFilePath;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

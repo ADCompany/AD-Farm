@@ -32,10 +32,10 @@ void CTransactionsData::Initialize()
 		"count				INTEGER NOT NULL, "
 		"cost				INTEGER NOT NULL);");
 
-	//EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction ("
-	//	"id					INTEGER PRIMARY KEY NOT NULL, "
-	//	"customer_id		INTEGER NOT NULL, "
-	//	"date_time			TEXT    NOT NULL);");
+	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction ("
+		"id					INTEGER PRIMARY KEY NOT NULL, "
+		"customer_id		INTEGER NOT NULL, "
+		"date_time			TEXT    NOT NULL);");
 }
 
 ////////////////////////////////////////////////////////////////////////////////

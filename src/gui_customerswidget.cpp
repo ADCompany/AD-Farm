@@ -6,6 +6,7 @@
 
 // Qt Includes
 #include <QSqlRecord>
+#include <QMouseEvent>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -23,18 +24,52 @@ namespace gui {
 // Constructors
 CCustomersWidget::CCustomersWidget(QWidget *pwParent)
 	: QWidget(pwParent),
-	m_pCustomersData(new db::CCustomersData()),
-	m_pAddCustomerDlg(new CAddCustomerDlg(this)),
-	m_pDBManager(nullptr),
-	m_pSqlTableModel(nullptr)
+	m_pCustomersData(new db::CCustomersData(this)),
+	m_pAddCustomerDlg(new CAddCustomerDlg(this))
 {
 	m_uiCustomersWidget.setupUi(this);
 	m_pCustomersData->Initialize();
+
+	QAction* pAction = new QAction("Heracnel", this);
+	m_pMenu = new QMenu("MENU", this);
+	m_pMenu->addAction(pAction);
+
+	QObject::connect(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()),
+		m_pAddCustomerDlg, SLOT(show()));
+
+	m_uiCustomersWidget.tableView->installEventFilter(this);
+
+	FM_CONNECT(m_pAddCustomerDlg, accepted(), this, onAddCustomer());
+
+	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), this, onSelectModelIndex(QModelIndex const&));
+
+	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), m_pMenu, show());
+
+	FM_CONNECT(pAction, triggered(bool), this, onRemoveCustomer());
+}
+
+CCustomersWidget::CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager)
+	: QWidget(pwParent),
+	m_pCustomersData(new db::CCustomersData(this, pDBManager)),
+	m_pAddCustomerDlg(new CAddCustomerDlg(this))
+{
+	m_uiCustomersWidget.setupUi(this);
+	m_pCustomersData->Initialize();
+
+	QAction* pAction = new QAction("Heracnel", this);
+	m_pMenu = new QMenu("MENU", this);
+	m_pMenu->addAction(pAction);
 
 	QObject::connect(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()),
 		m_pAddCustomerDlg, SLOT(show()));
 
 	FM_CONNECT(m_pAddCustomerDlg, accepted(), this, onAddCustomer());
+
+	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), this, onSelectModelIndex(QModelIndex const&));
+
+	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), m_pMenu, show());
+
+	FM_CONNECT(pAction, triggered(bool), this, onRemoveCustomer());
 }
 
 void CCustomersWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
@@ -42,40 +77,33 @@ void CCustomersWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
 	if (pDBManager == nullptr)
 		return;
 
-	m_pDBManager = pDBManager;
-	m_pSqlTableModel = std::shared_ptr<QSqlTableModel>(new QSqlTableModel(this, m_pDBManager->GetDataBase()));
-	m_pSqlTableModel->setTable("customer");
-	m_pSqlTableModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
-	m_pSqlTableModel->select();
-	m_pSqlTableModel->removeColumn(0); // don't show the ID
-	m_pSqlTableModel->submitAll();
+	m_pCustomersData->SetDBManager(pDBManager);
 
 	UpdateData();
 }
 
-void CCustomersWidget::AddCustomer(QString const& strFirstName, QString const& strLastName, int nPhoneNumber)
+void CCustomersWidget::AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, int nPhoneNumber)
 {
-	int nRowCount = m_pSqlTableModel->rowCount();
-	m_pSqlTableModel->insertRows(nRowCount, 1);
-	m_pSqlTableModel->setData(m_pSqlTableModel->index(nRowCount, 0), strFirstName);
-	m_pSqlTableModel->setData(m_pSqlTableModel->index(nRowCount, 1), strLastName);
-	m_pSqlTableModel->setData(m_pSqlTableModel->index(nRowCount, 2), nPhoneNumber);
-	m_pSqlTableModel->submitAll();
+	if (m_pCustomersData == nullptr)
+		return;
+
+	m_pCustomersData->AddCustomer(strFirstName, strLastName, nDept, nPhoneNumber);
 }
 
 void CCustomersWidget::RemoveCustomer(int nRow)
 {
-	m_pSqlTableModel->removeRow(nRow);
-	m_pSqlTableModel->submitAll();
+	if (m_pCustomersData == nullptr)
+		return;
+
+	m_pCustomersData->RemoveCustomer(nRow);
 }
 
 void CCustomersWidget::RemoveCustomer(QString const& strFirstName, QString const& strLastName)
 {
-	int nRow = -1;
-	nRow = m_pCustomersData->GetId(strFirstName, strLastName);
+	if (m_pCustomersData == nullptr)
+		return;
 
-	if (nRow != -1)
-		RemoveCustomer(nRow);
+	m_pCustomersData->RemoveCustomer(strFirstName, strLastName);
 }
 
 void CCustomersWidget::onAddCustomer()
@@ -94,8 +122,12 @@ bool CCustomersWidget::event(QEvent* pEvent)
 
 	//switch (pEvent->type())
 	//{
-	//case QEvent::Paint:
-	//	UpdateData();
+	//case QEvent::MouseButtonPress:
+	//	{
+	//		QMouseEvent* pMouseEvent = (QMouseEvent*)(pEvent);
+	//		if (pMouseEvent->button() == Qt::RightButton)
+	//			onMenuShow(pMouseEvent->pos());
+	//	}
 	//default:
 	//	break;
 	//}

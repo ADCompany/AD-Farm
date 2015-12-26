@@ -23,7 +23,7 @@ namespace gui {
 // Constructors
 CStoragesWidget::CStoragesWidget(QWidget *pwParent)
 	: QWidget(pwParent),
-	m_pStoragesData(new db::CStoragesData())
+	m_pStoragesData(nullptr)
 	//m_pCreateSplDlg(new QDialog(this))
 {
 	m_uiStorages.setupUi(this);
@@ -32,8 +32,6 @@ CStoragesWidget::CStoragesWidget(QWidget *pwParent)
 
 	//QObject::connect(m_uiAraqichner.pushButton, SIGNAL(clicked()),
 	//	m_pCreateSplDlg, SLOT(show()));
-
-	m_pStoragesData->Initialize();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

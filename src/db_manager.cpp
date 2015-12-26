@@ -20,6 +20,65 @@ namespace db {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+// class CDBComponent
+//
+
+// Interface Methodes
+std::shared_ptr<QSqlTableModel> CDBComponent::GetSqlTableModel(QString const& strTableName)
+{
+	auto itMap = m_mapStringToTable.find(strTableName);
+	if (itMap == m_mapStringToTable.end())
+		return nullptr;
+
+	return itMap->second;
+}
+
+std::shared_ptr<QSqlTableModel> CDBComponent::GetSqlTableModel(QString const& strTableName) const
+{
+	auto itMap = m_mapStringToTable.find(strTableName);
+	if (itMap == m_mapStringToTable.end())
+		return nullptr;
+
+	return itMap->second;
+}
+
+bool CDBComponent::SetSqlTableModel(QString const& strTableName, std::shared_ptr<QSqlTableModel> pSqlTableModel)
+{
+	if (strTableName == "")
+		return SetSqlTableModel(pSqlTableModel);
+
+	m_mapStringToTable.emplace(strTableName, pSqlTableModel);
+
+	return true;
+}
+
+bool CDBComponent::SetSqlTableModel(std::shared_ptr<QSqlTableModel> pSqlTableModel)
+{
+	if (pSqlTableModel == nullptr)
+		return false;
+
+	QString strTableName = pSqlTableModel->tableName();
+	if (strTableName == "")
+		return false;
+
+	m_mapStringToTable.emplace(strTableName, pSqlTableModel);
+
+	return true;
+}
+
+QList<QString> CDBComponent::GetColumnsName(QString const& strTableName)
+{
+	QList<QString> lstString;
+
+	return lstString;
+}
+
+// Helper Functions
+
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
 // class CDBManager
 //
 
@@ -28,9 +87,9 @@ void CDBManager::Initialize(QString const& strDBFilePath)
 {
 	m_pDBConnectionStarter->StartConnection(strDBFilePath);
 
-	SetDBComponent(std::shared_ptr<IDBComponent>(new CStoragesData()), "StoragesData", true);
+//	SetDBComponent(std::shared_ptr<IDBComponent>(new CStoragesData()), "StoragesData", true);
 	SetDBComponent(std::shared_ptr<IDBComponent>(new CCustomersData()), "CustomersData", true);
-	SetDBComponent(std::shared_ptr<IDBComponent>(new CTransactionsData()), "TransactionsData", true);
+//	SetDBComponent(std::shared_ptr<IDBComponent>(new CTransactionsData()), "TransactionsData", true);
 }
 
 // Helper Functions

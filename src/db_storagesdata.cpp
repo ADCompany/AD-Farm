@@ -35,7 +35,7 @@ void CStoragesData::Initialize()
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_history ("
 		"id				INTEGER PRIMARY KEY NOT NULL, "
 		"storage_id		INTEGER NOT NULL, "
-		"date_time		TEXT    NOT NULL);"); 
+		"date_time		TEXT    NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_info ("
 		"storage_id		INTEGER PRIMARY KEY NOT NULL, "

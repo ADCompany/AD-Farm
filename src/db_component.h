@@ -12,6 +12,7 @@
 // Qt includes
 #include <QSqlQuery>
 #include <QSqlError>
+#include <QSqlTableModel>
 #include <QDesktopServices>
 ////////////////////////////////////////////////////////////////////////////////
 

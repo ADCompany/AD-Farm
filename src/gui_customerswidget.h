@@ -8,24 +8,18 @@
 #ifndef DB_CUSTOMERS_DATA_H
 #	include "db_customersdata.h"
 #endif
-
 #ifndef GUI_ADD_CUSTOMER_DLG_H
 #	include "gui_addcustomerdlg.h"
-#endif
-
-#ifndef DB_MANAGER_H
-#	include "db_manager.h"
 #endif
 
 // Ui
 #include "ui_customers.h"
 
 // Qt Includes
-#include <QWidget>
-#include <QSqlTableModel>
+#include <QMenu>
 
 // STD Includes
-#include <memory>
+
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,11 +35,11 @@ namespace gui {
 //
 class CCustomersWidget : public QWidget
 {
-
 	Q_OBJECT
 
 public:// Constructors
 	CCustomersWidget(QWidget* pwParent = nullptr);
+	CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager);
 	~CCustomersWidget() = default;
 
 public:// Interface Methodes
@@ -58,27 +52,39 @@ protected:// Override Methodes
 protected:// Helper Methodes
 	inline void UpdateData();
 
-	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nPhoneNumber = -1);
+	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept = 0, int nPhoneNumber = 0);
 
 	void RemoveCustomer(int nRow);
 	void RemoveCustomer(QString const& strFirstName, QString const& strLastName);
 
 protected slots:// Slots
 	void onAddCustomer();
+	void onSelectModelIndex(QModelIndex const& modelIndex)
+	{
+		m_iCurrModelIndex = modelIndex;
+	}
+	void onRemoveCustomer()
+	{
+		RemoveCustomer(m_iCurrModelIndex.row());
+	}
+	void onMenuShow(QPoint const& pos)
+	{
+		m_pMenu->popup(pos);
+		m_pMenu->show();
+	}
 
 private:// Members
 	Ui::customersWidget	m_uiCustomersWidget;
 	CAddCustomerDlg*	m_pAddCustomerDlg;
 
-	std::shared_ptr<db::CDBManager>		m_pDBManager;
 	std::shared_ptr<db::CCustomersData> m_pCustomersData;
 
-	std::shared_ptr<QSqlTableModel>	m_pSqlTableModel;
-
+	QMenu* m_pMenu;
+	QModelIndex m_iCurrModelIndex;
 };
 ////////////////////////////////////////////////////////////////////////////////
 
-
+///////////////////////// Implementing inline methods //////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -88,13 +94,14 @@ private:// Members
 // Interface Methodes
 inline std::shared_ptr<QSqlTableModel> CCustomersWidget::GetTableModel()
 {
-	return m_pSqlTableModel;
+	return m_pCustomersData->GetSqlTableModel();
 }
 
 // Helper Functions
 inline void CCustomersWidget::UpdateData()
 {
-	m_uiCustomersWidget.tableView->setModel(m_pSqlTableModel.get());
+	m_uiCustomersWidget.tableView->setModel(m_pCustomersData->GetSqlTableModel().get());
+	m_uiCustomersWidget.tableView->hideColumn(0);
 	m_uiCustomersWidget.tableView->update();
 }
 
