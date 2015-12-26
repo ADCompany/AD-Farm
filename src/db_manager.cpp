@@ -82,13 +82,16 @@ QList<QString> CDBComponent::GetColumnsName(QString const& strTableName)
 // class CDBManager
 //
 
+// Static Members Initialization
+const QString CDBManager::component::customers = "CustomersData";
+
 // Interface Methodes
 void CDBManager::Initialize(QString const& strDBFilePath)
 {
 	m_pDBConnectionStarter->StartConnection(strDBFilePath);
 
 //	SetDBComponent(std::shared_ptr<IDBComponent>(new CStoragesData()), "StoragesData", true);
-	SetDBComponent(std::shared_ptr<IDBComponent>(new CCustomersData()), "CustomersData", true);
+	SetDBComponent(std::shared_ptr<IDBComponent>(new CCustomersData(nullptr, std::shared_ptr<CDBManager>(this))), "CustomersData", true);
 //	SetDBComponent(std::shared_ptr<IDBComponent>(new CTransactionsData()), "TransactionsData", true);
 }
 

@@ -51,9 +51,6 @@
     <ClCompile Include="db_customersdata.cpp">
       <Filter>Data Base</Filter>
     </ClCompile>
-    <ClCompile Include="gui_customerswidget.cpp">
-      <Filter>Gui</Filter>
-    </ClCompile>
     <ClCompile Include="gui_transactionswidget.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
@@ -72,12 +69,6 @@
     <ClCompile Include="db_storagesdata.cpp">
       <Filter>Data Base</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_gui_customerswidget.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gui_customerswidget.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_gui_farmmanagerwidget.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -86,6 +77,15 @@
     </ClCompile>
     <ClCompile Include="gui_farmmanagerwidget.cpp">
       <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_customerswidget.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_customerswidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_customerswidget.cpp">
+      <Filter>Generated Files\Release</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -155,10 +155,10 @@
     <CustomBuild Include="db_storagesdata.h">
       <Filter>Data Base</Filter>
     </CustomBuild>
-    <CustomBuild Include="gui_customerswidget.h">
+    <CustomBuild Include="gui_farmmanagerwidget.h">
       <Filter>Gui</Filter>
     </CustomBuild>
-    <CustomBuild Include="gui_farmmanagerwidget.h">
+    <CustomBuild Include="gui_customerswidget.h">
       <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -139,17 +139,11 @@
   <ItemGroup>
     <ClCompile Include="db_manager.cpp" />
     <ClCompile Include="db_connectionstarter.cpp" />
-    <ClCompile Include="GeneratedFiles\Debug\moc_gui_farmmanagerwidget.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_customerswidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gui_farmmanagerwidget.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="gui_farmmanagerwidget.cpp" />
-    <ClCompile Include="db_customersdata.cpp" />
-    <ClCompile Include="GeneratedFiles\Debug\moc_gui_customerswidget.cpp">
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_farmmanagerwidget.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
@@ -157,7 +151,13 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_farmmanagerwidget.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="gui_customerswidget.cpp" />
+    <ClCompile Include="gui_farmmanagerwidget.cpp" />
+    <ClCompile Include="db_customersdata.cpp" />
     <ClCompile Include="db_storagesdata.cpp" />
     <ClCompile Include="gui_storageswidget.cpp" />
     <ClCompile Include="db_transactionsdata.cpp" />

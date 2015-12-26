@@ -100,7 +100,11 @@ private:// Members
 class CDBManager
 {
 public:// Types
+	struct component
+	{
+		static const QString customers;
 
+	};
 public:// Constructors
 	inline CDBManager();
 	virtual ~CDBManager() = default;
