@@ -167,7 +167,9 @@ void CCustomersData::RemoveCustomer(int nRow)
 int CCustomersData::GetCustomerId(QString const& strFirstName, QString const& strLastName)
 {
 	QSqlQuery sqlQuery;
-	sqlQuery.prepare(QString("SELECT %1 FROM %2 WHERE first_name = %3 AND last_name = %4").arg(table::customer::id, table::customer, strFirstName, strLastName));
+	sqlQuery.prepare(QString("SELECT %1 FROM %2 WHERE first_name = %3 AND last_name = %4").arg(
+		table::customer::id, table::customer, "\"" + strFirstName + "\"", "\"" + strLastName + "\""));
+
 	sqlQuery.exec();
 
 	int nId = sqlQuery.value(0).toInt();

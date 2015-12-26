@@ -5,12 +5,12 @@
 //
 // Includes
 //
-#ifndef DB_COMPONENT_H
+#ifndef DB_MANAGER_H
 #   include "db_manager.h"
 #endif
 
-// Qt includes
-
+// Qt Includes
+#include <QList>
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -24,19 +24,103 @@ namespace db {
 //
 // class CTransactionsData
 //
-class CTransactionsData : public IDBComponent
+class CTransactionsData : public CDBComponent
 {
+public:// Data Property
+	struct table
+	{
+		// tables name
+		static const QString transaction;
+
+		// table customer
+		struct customer
+		{
+			static const QString id;
+			static const QString first_name;
+			static const QString last_name;
+			static const QString debt;
+			static const QString phone_number;
+		};
+	};
+
 public:// Constructors
-	inline CTransactionsData() = default;
+	inline CTransactionsData(QObject* pParent = nullptr, std::shared_ptr<CDBManager> pDBManager = nullptr);
 	~CTransactionsData() = default;
 
 public:// Interface Methodes
 	void Initialize();
 
+	bool SetParent(QObject* pParent);
+	void SetDBManager(std::shared_ptr<CDBManager> pDBManager);
+
+	inline int GetColumnCount() const;
+	inline int GetCustomersCount() const;
+
+	QList<QString> GetCoulmnsName() const;
+	QList<QString> GetCustomersName() const;
+	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel();
+	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel() const;
+
+	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, int nPhoneNumber);
+	void RemoveCustomer(QString const& strFirstName, QString const& strLastName);
+	void RemoveCustomer(int nRow);
+
+	int GetCustomerId(QString const& strFirstName, QString const& strLastName);
+
+	QString GetNameByIndex(int nColumn, int nRow) const;
+	void SetNameByIndex(int nColumn, int nRow, QString const& strName);
+
 protected:// Helper Methodes
+	void UpdateSqlTableModel();
 
-
+private:// Members
+	QObject* m_pParentObject;
 };
+////////////////////////////////////////////////////////////////////////////////
+
+///////////////////////// Implementing inline methods //////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// class CTransactionsData
+//
+
+// Constructors
+inline CTransactionsData::CTransactionsData(QObject* pParent, std::shared_ptr<CDBManager> pDBManager)
+	: CDBComponent(pDBManager),
+	  m_pParentObject(pParent)
+{
+}
+
+// Interface Methodes
+inline int CTransactionsData::GetColumnCount() const
+{
+	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::transaction);
+	if (pSqlTableModel == nullptr)
+		return -1;
+
+	return pSqlTableModel->columnCount();
+}
+
+inline int CTransactionsData::GetCustomersCount() const
+{
+	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::transaction);
+	if (pSqlTableModel == nullptr)
+		return -1;
+
+	return pSqlTableModel->rowCount();
+}
+
+inline std::shared_ptr<QSqlTableModel> CTransactionsData::GetSqlTableModel()
+{
+	return CDBComponent::GetSqlTableModel(table::transaction);
+}
+
+inline std::shared_ptr<QSqlTableModel> CTransactionsData::GetSqlTableModel() const
+{
+	return CDBComponent::GetSqlTableModel(table::transaction);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 
