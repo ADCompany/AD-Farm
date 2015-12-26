@@ -1,15 +1,18 @@
-#ifndef GUI_TRANSACTIONS_WIDGET_H
-#define GUI_TRANSACTIONS_WIDGET_H
+#ifndef GUI_STORE_EXPLORER_WDG_H
+#define GUI_STORE_EXPLORER_WDG_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 // Includes
 //
-#include "gui_newdealdlg.h"
+#ifndef GUI_QUERY_TABLE_MODEL_H
+#	include "gui_querytablemodel.h"
+#endif
 
-#include "ui_gorcarqner.h"
+// UI
+#include "ui_storeexplorer.h"
 
-// Qt includes
+// Qt Includes
 #include <QWidget>
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -22,26 +25,35 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CTransactionsWidget
+// class CStoreExplorer
 //
-class CTransactionsWidget : public QWidget
+class CStoreExplorer : public QWidget
 {
+
+	Q_OBJECT
+
 public:// Constructors
-	CTransactionsWidget(QWidget* pwParent = nullptr);
-	~CTransactionsWidget() = default;
+	CStoreExplorer( QWidget* pwParent = nullptr );
+	~CStoreExplorer() = default;
 
-public:// Interface Methodes
-
-protected:// Helper Methodes
+public slots:
+	//
+	//	Public Slots
+	//
+	void OnCurrentStoreChanged( QListWidgetItem * pCurrent, QListWidgetItem * pPrevious );
+	void OnCurrentProductChanged( const QModelIndex & current, const QModelIndex & previous );
 
 private:
 	//
 	//	Content
 	//
-	Ui::widget   ui;
-	CNewDealDlg* m_pNewDealDlg;
+	Ui::StoreExplorerUI ui;
+	//
+	CStoreContentModel* m_pContentModel;
 };
 ////////////////////////////////////////////////////////////////////////////////
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,4 +62,4 @@ private:
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
 
-#endif // GUI_TRANSACTIONS_WIDGET_H
+#endif // GUI_STORE_EXPLORER_WDG_H

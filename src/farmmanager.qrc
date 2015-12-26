@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="FarmManager">
+    <file>Resources/barn.png</file>
     <file>Resources/plus.png</file>
     <file>Resources/add_customer.png</file>
     <file>Resources/add_customer2.png</file>

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>300</height>
+    <width>539</width>
+    <height>311</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>299</width>
-        <height>280</height>
+        <width>519</width>
+        <height>291</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -34,39 +34,7 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>Առաքիչ</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox">
-               <item>
-                <property name="text">
-                 <string>Վալոդ</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Աշոտ</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Դիվանի</string>
-                </property>
-               </item>
-               <item>
-                <property name="text">
-                 <string>Թելման</string>
-                </property>
-               </item>
-              </widget>
-             </item>
-            </layout>
+            <layout class="QHBoxLayout" name="horizontalLayout"/>
            </item>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
