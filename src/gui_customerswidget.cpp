@@ -35,7 +35,7 @@ CCustomersWidget::CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBMan
 
 	m_uiCustomersWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 
-	FM_CONNECT(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()), m_pAddCustomerDlg.get(), SLOT(show()));
+	QObject::connect(m_uiCustomersWidget.btnAddCustomers, SIGNAL(clicked()), m_pAddCustomerDlg.get(), SLOT(show()));
 
 	FM_CONNECT(m_pAddCustomerDlg.get(), accepted(), this, onAddCustomer());
 

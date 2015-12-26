@@ -53,6 +53,8 @@ void CCustomersData::Initialize()
 	std::shared_ptr<CDBManager> pDBManager = GetDBManager();
 	if (pDBManager != nullptr)
 		SetDBManager(pDBManager);
+
+	GetCustomersName();
 }
 
 bool CCustomersData::SetParent(QObject* pParent)
@@ -85,7 +87,7 @@ void CCustomersData::SetDBManager(std::shared_ptr<CDBManager> pDBManager)
 		SetSqlTableModel(table::customer, pSqlTableModel);
 	}
 
-	pSqlTableModel->setTable("customer");
+	pSqlTableModel->setTable(table::customer);
 	pSqlTableModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
 	pSqlTableModel->select();
 	pSqlTableModel->submitAll();
@@ -100,6 +102,23 @@ QList<QString> CCustomersData::GetCoulmnsName() const
 	lstString.push_back(table::customer::last_name);
 	lstString.push_back(table::customer::debt);
 	lstString.push_back(table::customer::phone_number);
+
+	return lstString;
+}
+
+QList<QString> CCustomersData::GetCustomersName() const
+{
+	QList<QString> lstString;
+
+	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::customer);
+	if (pSqlTableModel == nullptr)
+		return lstString;
+
+	for (int i = 0; i < GetCustomersCount(); ++i)
+	{
+		QModelIndex modelIndex;
+		lstString.push_back((pSqlTableModel->data(modelIndex.sibling(i, 1))).toString());
+	}
 
 	return lstString;
 }
@@ -131,7 +150,7 @@ void CCustomersData::RemoveCustomer(QString const& strFirstName, QString const& 
 	sqlQuery.prepare(QString("DELETE FROM %1 WHERE first_name = %2 AND last_name = %3").arg(table::customer, strFirstName, strLastName));
 	sqlQuery.exec();
 
-	pSqlTableModel->submitAll();
+	UpdateSqlTableModel();
 }
 
 void CCustomersData::RemoveCustomer(int nRow)
@@ -167,7 +186,12 @@ void CCustomersData::SetNameByIndex(int nColumn, int nRow, QString const& strNam
 }
 
 // Helper Functions
+void CCustomersData::UpdateSqlTableModel()
+{
+	CDBComponent::DeleteSqlTableModel(table::customer);
 
+	SetDBManager(GetDBManager());
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 

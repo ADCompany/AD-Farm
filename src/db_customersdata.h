@@ -57,6 +57,7 @@ public:// Interface Methodes
 	inline int GetCustomersCount() const;
 
 	QList<QString> GetCoulmnsName() const;
+	QList<QString> GetCustomersName() const;
 	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel();
 	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel() const;
 
@@ -70,6 +71,7 @@ public:// Interface Methodes
 	void SetNameByIndex(int nColumn, int nRow, QString const& strName);
 
 protected:// Helper Methodes
+	void UpdateSqlTableModel();
 
 private:// Members
 	QObject* m_pParentObject;

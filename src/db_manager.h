@@ -86,6 +86,7 @@ public:// Interface Methodes
 	virtual QList<QString> GetColumnsName(QString const& strTableName);
 
 protected:// Helper Functions
+	inline void DeleteSqlTableModel(QString const& strTableModel);
 
 private:// Members
 	std::shared_ptr<CDBManager> m_pDBManager;
@@ -151,6 +152,10 @@ inline std::shared_ptr<CDBManager> CDBComponent::GetDBManager()
 	return m_pDBManager;
 }
 
+inline void CDBComponent::DeleteSqlTableModel(QString const& strTableModel)
+{
+	m_mapStringToTable.erase(strTableModel);
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 
