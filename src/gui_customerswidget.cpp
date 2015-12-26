@@ -30,6 +30,8 @@ CCustomersWidget::CCustomersWidget(QWidget *pwParent)
 	m_uiCustomersWidget.setupUi(this);
 	m_pCustomersData->Initialize();
 
+	m_uiCustomersWidget.tableView->setContextMenuPolicy( Qt::CustomContextMenu );
+
 	QAction* pAction = new QAction("Heracnel", this);
 	m_pMenu = new QMenu("MENU", this);
 	m_pMenu->addAction(pAction);
@@ -41,9 +43,9 @@ CCustomersWidget::CCustomersWidget(QWidget *pwParent)
 
 	FM_CONNECT(m_pAddCustomerDlg, accepted(), this, onAddCustomer());
 
-	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), this, onSelectModelIndex(QModelIndex const&));
+	//FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), this, onSelectModelIndex(QModelIndex const&));
 
-	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), m_pMenu, show());
+	FM_CONNECT( m_uiCustomersWidget.tableView, customContextMenuRequested(QPoint const&), this, onMenuShow(QPoint const&) );
 
 	FM_CONNECT(pAction, triggered(bool), this, onRemoveCustomer());
 }
@@ -56,6 +58,8 @@ CCustomersWidget::CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBMan
 	m_uiCustomersWidget.setupUi(this);
 	m_pCustomersData->Initialize();
 
+	m_uiCustomersWidget.tableView->setContextMenuPolicy( Qt::CustomContextMenu );
+
 	QAction* pAction = new QAction("Heracnel", this);
 	m_pMenu = new QMenu("MENU", this);
 	m_pMenu->addAction(pAction);
@@ -65,9 +69,9 @@ CCustomersWidget::CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBMan
 
 	FM_CONNECT(m_pAddCustomerDlg, accepted(), this, onAddCustomer());
 
-	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), this, onSelectModelIndex(QModelIndex const&));
+	//FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), this, onSelectModelIndex(QModelIndex const&));
 
-	FM_CONNECT(m_uiCustomersWidget.tableView, clicked(QModelIndex const&), m_pMenu, show());
+	FM_CONNECT( m_uiCustomersWidget.tableView, customContextMenuRequested(QPoint const&), this, onMenuShow(QPoint const&) );
 
 	FM_CONNECT(pAction, triggered(bool), this, onRemoveCustomer());
 }
@@ -111,7 +115,6 @@ void CCustomersWidget::onAddCustomer()
 	CAddCustomerDlg* pAddCustomerDlg = qobject_cast<CAddCustomerDlg*>(sender());
 	if (pAddCustomerDlg == nullptr)
 		return;
-
 	AddCustomer(pAddCustomerDlg->GetFirstName(), pAddCustomerDlg->GetLastName(), pAddCustomerDlg->GetPhoneNumber().toInt());
 }
 

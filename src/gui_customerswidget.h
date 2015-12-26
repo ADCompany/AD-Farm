@@ -69,8 +69,10 @@ protected slots:// Slots
 	}
 	void onMenuShow(QPoint const& pos)
 	{
-		m_pMenu->popup(pos);
-		m_pMenu->show();
+		QModelIndex idxCurrent = m_uiCustomersWidget.tableView->indexAt( pos );
+		m_iCurrModelIndex = idxCurrent;
+		if (idxCurrent.row() >= 0)
+			m_pMenu->popup( m_uiCustomersWidget.tableView->viewport()->mapToGlobal( pos ) );
 	}
 
 private:// Members
