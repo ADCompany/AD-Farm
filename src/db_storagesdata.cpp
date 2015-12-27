@@ -97,8 +97,8 @@ std::shared_ptr<QSqlQueryModel> CStoragesData::GetSqlTableModelByStorageName(QSt
 	QString strStorageId = sqlQuery.value(0).toString();
 	std::shared_ptr<QSqlQueryModel> pStorageSqlTableModel(new QSqlQueryModel);
 	pStorageSqlTableModel->setQuery(QString("SELECT producte.name, storage_info.count, storage_info.prime_cost FROM "
-		"storage_info LEFT JOIN producte "
-		"WHERE storage_info.storage_id == %1").arg(strStorageId));
+		"storage_info INNER JOIN producte "
+		"ON storage_info.storage_id == %1 AND producte.id = storage_info.product_id").arg(strStorageId));
 
 	pStorageSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant("Type"));
 	pStorageSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("Count"));

@@ -108,8 +108,8 @@ std::shared_ptr<QSqlQueryModel> CTransactionsData::GetSqlTableModelByCustomerNam
 
 	std::shared_ptr<QSqlQueryModel> pTransactionSqlTableModel(new QSqlQueryModel);
 	pTransactionSqlTableModel->setQuery(QString("SELECT producte.name, transaction_info.count, transaction_info.cost, deal.date_time FROM "
-		"transaction_info LEFT JOIN deal LEFT JOIN producte "
-		"WHERE deal.customer_id == %1").arg(strCustomerId));
+		"transaction_info INNER JOIN deal INNER JOIN producte "
+		"ON deal.customer_id == %1 AND transaction_info.transaction_id == deal.id AND transaction_info.product_id == producte.id").arg(strCustomerId));
 
 	pTransactionSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant("Type"));
 	pTransactionSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("Count"));
