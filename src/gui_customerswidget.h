@@ -55,6 +55,14 @@ protected:// Helper Methodes
 
 protected slots:// Slots
 	void onAddCustomer();
+	void onShowAddCustomerDlg()
+	{
+		if (m_pAddCustomerDlg == nullptr)
+			return;
+
+		m_pAddCustomerDlg->Clear();
+		m_pAddCustomerDlg->show();
+	}
 	void onRemoveCustomer()
 	{
 		RemoveCustomer(m_iCurrModelIndex.row());

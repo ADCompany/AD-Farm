@@ -46,7 +46,7 @@ class CDBManager;
 //
 // interface IDBComponent
 //
-class IDBComponent
+class IDBComponent : public QObject
 {
 public:// Constructors
 	inline IDBComponent() = default;

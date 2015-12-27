@@ -26,6 +26,7 @@ namespace db {
 //
 class CCustomersData : public CDBComponent
 {
+	Q_OBJECT
 public:// Data Property
 	struct table
 	{
@@ -72,6 +73,9 @@ public:// Interface Methodes
 
 protected:// Helper Methodes
 	void UpdateSqlTableModel();
+
+signals:
+	void sigChangeData();
 
 private:// Members
 	QObject* m_pParentObject;

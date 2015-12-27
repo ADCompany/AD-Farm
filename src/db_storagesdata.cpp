@@ -27,7 +27,7 @@ void CStoragesData::Initialize()
 	QSqlQuery sqlQuery;
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_history_info ("
-		"history_id		INTEGER PRIMARY KEY NOT NULL, "
+		"history_id		INTEGER NOT NULL, "
 		"product_id		INTEGER NOT NULL, " 
 		"count			INTEGER NOT NULL, "
 		"cost			INTEGER NOT NULL);");
@@ -38,7 +38,7 @@ void CStoragesData::Initialize()
 		"date_time		TEXT    NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_info ("
-		"storage_id		INTEGER PRIMARY KEY NOT NULL, "
+		"storage_id		INTEGER NOT NULL, "
 		"product_id		INTEGER NOT NULL, "
 		"count			INTEGER NOT NULL, "
 		"prime_cost		INTEGER NOT NULL);");
@@ -48,8 +48,9 @@ void CStoragesData::Initialize()
 		"name	TEXT    NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS producte ("
-		"id		INTEGER PRIMARY KEY NOT NULL, "
-		"name	TEXT    NOT NULL);");
+		"id				INTEGER PRIMARY KEY NOT NULL, "
+		"name			TEXT    NOT NULL,"
+		"prime_cost		INTEGER NOT NULL);");
 }
 
 ////////////////////////////////////////////////////////////////////////////////

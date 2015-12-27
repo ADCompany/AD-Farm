@@ -53,8 +53,6 @@ void CCustomersData::Initialize()
 	std::shared_ptr<CDBManager> pDBManager = GetDBManager();
 	if (pDBManager != nullptr)
 		SetDBManager(pDBManager);
-
-	GetCustomersName();
 }
 
 bool CCustomersData::SetParent(QObject* pParent)
@@ -88,9 +86,15 @@ void CCustomersData::SetDBManager(std::shared_ptr<CDBManager> pDBManager)
 	}
 
 	pSqlTableModel->setTable(table::customer);
+	pSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("First name"));
+	pSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant("Last name"));
+	pSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant("Dept"));
+	pSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant("Phone number"));
 	pSqlTableModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
 	pSqlTableModel->select();
 	pSqlTableModel->submitAll();
+
+	emit sigChangeData();
 }
 
 QList<QString> CCustomersData::GetCoulmnsName() const
@@ -114,10 +118,15 @@ QList<QString> CCustomersData::GetCustomersName() const
 	if (pSqlTableModel == nullptr)
 		return lstString;
 
-	for (int i = 0; i < GetCustomersCount(); ++i)
+	QSqlQuery sqlQuery = pSqlTableModel->query();
+	sqlQuery.prepare(QString("SELECT first_name, last_name FROM %1").arg(table::customer));
+	sqlQuery.exec();
+
+	QString strFirstName = "";
+	while (sqlQuery.next())
 	{
-		QModelIndex modelIndex;
-		lstString.push_back((pSqlTableModel->data(modelIndex.sibling(i, 1))).toString());
+		strFirstName = sqlQuery.value(0).toString() + ' ' + sqlQuery.value(1).toString();
+		lstString.push_back(strFirstName);
 	}
 
 	return lstString;
@@ -138,6 +147,8 @@ void CCustomersData::AddCustomer(QString const& strFirstName, QString const& str
 	pSqlTableModel->setData(pSqlTableModel->index(nRowCount, 4), nPhoneNumber);
 
 	pSqlTableModel->submitAll();
+
+	emit sigChangeData();
 }
 
 void CCustomersData::RemoveCustomer(QString const& strFirstName, QString const& strLastName)
@@ -161,6 +172,8 @@ void CCustomersData::RemoveCustomer(int nRow)
 
 	pSqlTableModel->removeRow(nRow);
 	pSqlTableModel->submitAll();
+
+	emit sigChangeData();
 }
 
 

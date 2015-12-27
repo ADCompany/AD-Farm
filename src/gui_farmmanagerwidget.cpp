@@ -36,7 +36,7 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	QIcon icon1;
 	icon1.addFile(QString::fromUtf8(":/FarmManager/Resources/transactions2.png"), QSize(), QIcon::Normal, QIcon::Off);
 
-	m_pwTrnsactions= new CTransactionsWidget();
+	m_pwTrnsactions = new CTransactionsWidget(this, m_pDBManager);
 	ui.tabWidget->insertTab(0, m_pwTrnsactions, icon1, QString("Transactions"));
 
 	// Customers

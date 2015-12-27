@@ -30,16 +30,22 @@ public:// Data Property
 	struct table
 	{
 		// tables name
-		static const QString transaction;
+		static const QString deal;
+		static const QString transaction_info;
 
 		// table customer
-		struct customer
+		struct transaction_info
+		{
+			static const QString transaction_id;
+			static const QString product_id;
+			static const QString count;
+			static const QString cost;
+		};
+		struct deal
 		{
 			static const QString id;
-			static const QString first_name;
-			static const QString last_name;
-			static const QString debt;
-			static const QString phone_number;
+			static const QString customer_id;
+			static const QString date_time;
 		};
 	};
 
@@ -54,26 +60,14 @@ public:// Interface Methodes
 	void SetDBManager(std::shared_ptr<CDBManager> pDBManager);
 
 	inline int GetColumnCount() const;
-	inline int GetCustomersCount() const;
 
-	QList<QString> GetCoulmnsName() const;
-	QList<QString> GetCustomersName() const;
-	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel();
-	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel() const;
-
-	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, int nPhoneNumber);
-	void RemoveCustomer(QString const& strFirstName, QString const& strLastName);
-	void RemoveCustomer(int nRow);
-
-	int GetCustomerId(QString const& strFirstName, QString const& strLastName);
-
-	QString GetNameByIndex(int nColumn, int nRow) const;
-	void SetNameByIndex(int nColumn, int nRow, QString const& strName);
+	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByCustomerName(QString const& strCustomerName);
 
 protected:// Helper Methodes
 	void UpdateSqlTableModel();
 
 private:// Members
+	std::map< QString, std::shared_ptr<QSqlQueryModel> > m_mapStringToModel;
 	QObject* m_pParentObject;
 };
 ////////////////////////////////////////////////////////////////////////////////
@@ -95,30 +89,8 @@ inline CTransactionsData::CTransactionsData(QObject* pParent, std::shared_ptr<CD
 // Interface Methodes
 inline int CTransactionsData::GetColumnCount() const
 {
-	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::transaction);
-	if (pSqlTableModel == nullptr)
-		return -1;
 
-	return pSqlTableModel->columnCount();
-}
-
-inline int CTransactionsData::GetCustomersCount() const
-{
-	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::transaction);
-	if (pSqlTableModel == nullptr)
-		return -1;
-
-	return pSqlTableModel->rowCount();
-}
-
-inline std::shared_ptr<QSqlTableModel> CTransactionsData::GetSqlTableModel()
-{
-	return CDBComponent::GetSqlTableModel(table::transaction);
-}
-
-inline std::shared_ptr<QSqlTableModel> CTransactionsData::GetSqlTableModel() const
-{
-	return CDBComponent::GetSqlTableModel(table::transaction);
+	return 0;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
