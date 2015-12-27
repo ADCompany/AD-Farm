@@ -103,6 +103,7 @@ class CDBManager
 public:// Types
 	struct component
 	{
+		static const QString storages;
 		static const QString customers;
 		static const QString transactions;
 	};

@@ -50,7 +50,7 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	QIcon icon3;
 	icon3.addFile(QString::fromUtf8(":/FarmManager/Resources/farm.png"), QSize(), QIcon::Normal, QIcon::Off);
 
-	m_pwStorages = new CStoragesWidget();
+	m_pwStorages = new CStoragesWidget(this, m_pDBManager);
 	ui.tabWidget->insertTab(2, m_pwStorages, icon3, QString("Storages"));
 
 

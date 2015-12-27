@@ -21,17 +21,30 @@ namespace gui {
 //
 
 // Constructors
-CStoragesWidget::CStoragesWidget(QWidget *pwParent)
+CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager)
 	: QWidget(pwParent),
-	m_pStoragesData(nullptr)
-	//m_pCreateSplDlg(new QDialog(this))
+	m_pStringListModel(nullptr),
+	m_strCurrentStorageName("")
 {
 	m_uiStorages.setupUi(this);
 
-	//m_uiAddSuplierDlg.setupUi(m_pCreateSplDlg);
+	//
+	//	Connections
+	//
+	FM_CONNECT(m_uiStorages.listView, clicked(QModelIndex const&), this, onActivatedStorage(QModelIndex const&));
+	SetDBManager(pDBManager);
 
-	//QObject::connect(m_uiAraqichner.pushButton, SIGNAL(clicked()),
-	//	m_pCreateSplDlg, SLOT(show()));
+	m_uiStorages.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+}
+
+void CStoragesWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
+{
+	if (pDBManager == nullptr)
+		return;
+
+	m_pStoragesData = std::static_pointer_cast<db::CStoragesData>(pDBManager->GetDBComponent(db::CDBManager::component::storages));
+
+	UpdateData(true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
