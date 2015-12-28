@@ -129,6 +129,62 @@ QList<QString> CStoragesData::GetStorageNames()
 	return lstString;
 }
 
+void CStoragesData::BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount)
+{
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("SELECT id FROM storage_name WHERE name == \"%1\"").arg(strStorageName));
+	sqlQuery.next();
+
+	QString strStorageId = sqlQuery.value(0).toString();
+	QDateTime dateTime = QDateTime::currentDateTimeUtc();
+	QString strDateTime = dateTime.toString();
+
+	sqlQuery.exec(QString("INSERT INTO storage_history ( storage_id, date_time ) VALUES ( %1, \"%2\" );").arg(strStorageId, strDateTime));
+	sqlQuery.exec(QString("SELECT id FROM storage_history WHERE storage_id == %1 AND date_time == \"%2\" ").arg(strStorageId, strDateTime));
+	sqlQuery.next();
+	QString strStorageHistoryId = sqlQuery.value(0).toString();
+
+	for (int i = 0; i < lstProducteNames.count(); ++i)
+	{
+		sqlQuery.exec(QString("SELECT id FROM producte WHERE name == \"%1\" ").arg(lstProducteNames[i]));
+		sqlQuery.next();
+		QString strProductId = sqlQuery.value(0).toString();
+		sqlQuery.exec(QString("SELECT prime_cost FROM producte WHERE id == %1 ").arg(strProductId));
+		sqlQuery.next();
+		QString strProductPrimeCost = sqlQuery.value(0).toString();
+
+		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(strStorageHistoryId, strProductId, QString::number(lstProductesCount[i]), strProductPrimeCost));
+	}
+
+	for (int i = 0; i < lstProducteNames.count(); ++i)
+	{
+		sqlQuery.exec(QString("SELECT id FROM producte WHERE name == \"%1\" ").arg(lstProducteNames[i]));
+		sqlQuery.next();
+		QString strProductId = sqlQuery.value(0).toString();
+
+		sqlQuery.exec(QString("SELECT count FROM storage_info WHERE storage_id == %1 AND product_id == %2 ").arg(strStorageId, strProductId));
+		sqlQuery.next();
+		int nProductsCount = sqlQuery.value(0).toInt();
+		nProductsCount -= lstProductesCount[i];
+
+		sqlQuery.exec(QString("UPDATE storage_info SET count = %1 WHERE storage_id == %2").arg(QString::number(nProductsCount), strStorageId));
+	}
+
+	UpdateSqlTableModel(strStorageName);
+}
+
+void CStoragesData::UpdateSqlTableModel(QString const& strStorageName)
+{
+	RemoveSqlTableModel(strStorageName);
+}
+
+void CStoragesData::RemoveSqlTableModel(QString const& strStorageName)
+{
+	m_mapStringToModel.erase(strStorageName);
+
+	emit sigChangeData();
+}
+
 // Helper Functions
 void CStoragesData::UpdateSqlTableModel()
 {}

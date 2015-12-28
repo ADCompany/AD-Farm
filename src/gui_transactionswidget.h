@@ -55,8 +55,8 @@ protected slots:// Slots
 	}
 	void onAddTransaction()
 	{
+		// TRDATA
 		STransactionDetails trDetails = m_pNewDealDlg->GetDealDetails();
-		CFarmInfo farmInfo = m_pNewDealDlg->GetFarmUpdateInfo();
 
 		QString strCustomerName = trDetails.sCustomerName;
 		QList<QString> lstProductName;
@@ -69,7 +69,24 @@ protected slots:// Slots
 			lstCost.push_back(trDetails.lstProductInfo[i].fPrice);
 		}
 
-		m_pTransactionsData->AddTransactionData(strCustomerName, lstProductName, lstCount, lstCost);
+
+		m_pTransactionsData->AddTransactionData(strCustomerName, lstProductName, lstCount, lstCost, trDetails.fTotalPrice, trDetails.fPayedMoney);
+
+		// STDATA
+		CFarmInfo farmInfo = m_pNewDealDlg->GetFarmUpdateInfo();
+
+		for (int i = 0; i < farmInfo.count(); ++i)
+		{
+			QString strStorageName = farmInfo[i].sStoreageName;
+			QList<int> lstPrCount;
+			QList<QString> lstProducts;
+			for (int j = 0; j < farmInfo[i].lstProducts.count(); ++j)
+			{
+				lstProducts.push_back(farmInfo[i].lstProducts[j].sName);
+				lstPrCount.push_back(farmInfo[i].lstProducts[j].nCount);
+			}
+			m_pStoragesData->BuyStorageData(strStorageName, lstProducts, lstPrCount);
+		}
 		UpdateData(true);
 	}
 	void onActivatedCustomer(QModelIndex const& modelIndex)

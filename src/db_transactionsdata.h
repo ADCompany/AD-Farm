@@ -62,7 +62,7 @@ public:// Interface Methodes
 
 	inline int GetColumnCount() const;
 
-	void AddTransactionData(QString const& strCustomerName, QList<QString> const& strProductName, QList<int> nCount, QList<double> dCost);
+	void AddTransactionData(QString const& strCustomerName, QList<QString> const& strProductName, QList<int> nCount, QList<double> dCost, double dDealCost, double dCustomerCost);
 
 	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByCustomerName(QString const& strCustomerName);
 

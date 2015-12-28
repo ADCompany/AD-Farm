@@ -84,10 +84,14 @@ public:// Interface Methodes
 
 	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByStorageName(QString const& strCustomerName);
 
+	void BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount);
+
 	QList<QString> GetStorageNames();
 
 protected:// Helper Methodes
 	void UpdateSqlTableModel();
+	void UpdateSqlTableModel(QString const& strStorageName);
+	void RemoveSqlTableModel(QString const& strStorageName);
 
 signals:
 	void sigChangeData();

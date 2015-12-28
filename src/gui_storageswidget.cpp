@@ -43,6 +43,7 @@ void CStoragesWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
 		return;
 
 	m_pStoragesData = std::static_pointer_cast<db::CStoragesData>(pDBManager->GetDBComponent(db::CDBManager::component::storages));
+	FM_CONNECT(m_pStoragesData.get(), sigChangeData(), this, onChangeData());
 
 	UpdateData(true);
 }

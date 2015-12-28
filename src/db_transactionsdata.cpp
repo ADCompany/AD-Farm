@@ -40,7 +40,9 @@ void CTransactionsData::Initialize()
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS deal ("
 		"id					INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"cost				REAL	NOT NULL, "
 		"customer_id		INTEGER NOT NULL, "
+		"customer_cost		REAL	NOT NULL, "
 		"date_time			TEXT	NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction_info ("
@@ -73,7 +75,7 @@ void CTransactionsData::SetDBManager(std::shared_ptr<CDBManager> pDBManager)
 	CDBComponent::SetDBManager(pDBManager);
 }
 
-void CTransactionsData::AddTransactionData(QString const& strCustomerName, QList<QString> const& lstProductNames, QList<int> lstCount, QList<double> lstCost)
+void CTransactionsData::AddTransactionData(QString const& strCustomerName, QList<QString> const& lstProductNames, QList<int> lstCount, QList<double> lstCost, double dDealCost, double dCustomerCost)
 {
 	QString strFirstName = "";
 	QString strLastName = "";
@@ -96,7 +98,7 @@ void CTransactionsData::AddTransactionData(QString const& strCustomerName, QList
 	QDateTime dateTime = QDateTime::currentDateTimeUtc();
 	QString strDateTime = dateTime.toString();
 
-	sqlQuery.exec(QString("INSERT INTO deal ( customer_id, date_time ) VALUES ( %1 , \"%2\" );").arg(strCustomerId, strDateTime));
+	sqlQuery.exec(QString("INSERT INTO deal ( cost, customer_id, customer_cost, date_time ) VALUES ( %1, %2, %3, \"%4\" );").arg(QString::number(dDealCost), strCustomerId, QString::number(dCustomerCost), strDateTime));
 	sqlQuery.exec(QString("SELECT id FROM deal WHERE customer_id == %1 AND date_time == \"%2\" ").arg(strCustomerId, strDateTime));
 	sqlQuery.next();
 	QString strTransactionId = sqlQuery.value(0).toString();
@@ -116,13 +118,13 @@ void CTransactionsData::AddTransactionData(QString const& strCustomerName, QList
 void CTransactionsData::UpdateSqlTableModel(QString const& strCustomerName)
 {
 	RemoveSqlTableModel(strCustomerName);
-
-	emit sigChangeData();
 }
 
 void CTransactionsData::RemoveSqlTableModel(QString const& strCustomerName)
 {
 	m_mapStringToModel.erase(strCustomerName);
+
+	emit sigChangeData();
 }
 
 std::shared_ptr<QSqlQueryModel> CTransactionsData::GetSqlTableModelByCustomerName(QString const& strCustomerName)
@@ -152,14 +154,17 @@ std::shared_ptr<QSqlQueryModel> CTransactionsData::GetSqlTableModelByCustomerNam
 	QString strCustomerId = sqlQuery.value(0).toString();
 
 	std::shared_ptr<QSqlQueryModel> pTransactionSqlTableModel(new QSqlQueryModel);
-	pTransactionSqlTableModel->setQuery(QString("SELECT producte.name, transaction_info.count, transaction_info.cost, deal.date_time FROM "
+	pTransactionSqlTableModel->setQuery(QString("SELECT deal.id, producte.name, transaction_info.count, transaction_info.cost, deal.cost, deal.customer_cost, deal.date_time FROM "
 		"transaction_info INNER JOIN deal INNER JOIN producte "
 		"ON deal.customer_id == %1 AND transaction_info.transaction_id == deal.id AND transaction_info.product_id == producte.id").arg(strCustomerId));
 
-	pTransactionSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant("Type"));
-	pTransactionSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("Count"));
-	pTransactionSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant("Cost"));
-	pTransactionSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant("Date"));
+	pTransactionSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant("ID"));
+	pTransactionSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("Type"));
+	pTransactionSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant("Count"));
+	pTransactionSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant("Cost"));
+	pTransactionSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant("Deal cost"));
+	pTransactionSqlTableModel->setHeaderData(5, Qt::Horizontal, QVariant("Customer cost"));
+	pTransactionSqlTableModel->setHeaderData(6, Qt::Horizontal, QVariant("Date"));
 
 	m_mapStringToModel.emplace(strCustomerName, pTransactionSqlTableModel);
 
