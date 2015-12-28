@@ -7,6 +7,7 @@
 //
 #include "db_transactionsdata.h"
 #include "db_customersdata.h"
+#include "db_storagesdata.h"
 #include "gui_newdealdlg.h"
 
 #include "ui_gorcarqner.h"
@@ -32,10 +33,7 @@ class CTransactionsWidget : public QWidget
 	Q_OBJECT
 public:// Constructors
 	CTransactionsWidget(QWidget* pwParent = nullptr, std::shared_ptr<db::CDBManager> pDBManager = nullptr);
-	~CTransactionsWidget()
-	{
-		delete m_pNewDealDlg;
-	};
+	~CTransactionsWidget() = default;
 
 public:// Interface Methodes
 	void SetDBManager(std::shared_ptr<db::CDBManager> pDBManager);
@@ -63,11 +61,12 @@ protected slots:// Slots
 private:// Members
 	std::shared_ptr<db::CTransactionsData> m_pTransactionsData;
 	std::shared_ptr<db::CCustomersData> m_pCustomersData;
+	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 	std::shared_ptr<QStringListModel> m_pStringListModel;
 	QString m_strCurrentCustomerName;
 
 	Ui::widget   ui;
-	CNewDealDlg* m_pNewDealDlg;
+	std::shared_ptr<CNewDealDlg> m_pNewDealDlg;
 };
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -89,7 +88,12 @@ inline void CTransactionsWidget::UpdateData(bool bFull)
 {
 	if (bFull)
 	{
-		m_pStringListModel = std::shared_ptr<QStringListModel>(new QStringListModel(m_pCustomersData->GetCustomersName()));
+		QStringList lstCustomerNames( m_pCustomersData->GetCustomersName() );
+		QStringList lstStorageNames( m_pStoragesData->GetStorageNames() );
+		m_pNewDealDlg = std::shared_ptr<CNewDealDlg>(new CNewDealDlg( lstCustomerNames, lstStorageNames ));
+		FM_CONNECT( ui.btnNewDeal, clicked(), m_pNewDealDlg.get(), show() );
+
+		m_pStringListModel = std::shared_ptr<QStringListModel>( new QStringListModel( lstCustomerNames ) );
 
 		ui.listView->setModel(m_pStringListModel.get());
 		ui.listView->update();

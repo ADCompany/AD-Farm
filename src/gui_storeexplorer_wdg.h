@@ -82,7 +82,7 @@ class CStoreExplorer : public QWidget
 	Q_OBJECT
 
 public:// Constructors
-	CStoreExplorer( QWidget* pwParent = nullptr );
+	CStoreExplorer( QStringList const& lstStores, QWidget* pwParent = nullptr );
 	~CStoreExplorer() = default;
 
 public slots:

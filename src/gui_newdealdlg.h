@@ -40,7 +40,7 @@ class CNewDealDlg : public QDialog
 	Q_OBJECT
 
 public:// Constructors
-	CNewDealDlg( QWidget* pwParent = nullptr );
+	CNewDealDlg( QStringList const& lstCustomerNames, QStringList const&  lstStorageNames, QWidget* pwParent = nullptr);
 	~CNewDealDlg() = default;
 
 public:

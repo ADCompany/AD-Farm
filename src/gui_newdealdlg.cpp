@@ -22,15 +22,19 @@ namespace gui {
 //
 
 // Constructors
-CNewDealDlg::CNewDealDlg( QWidget *pwParent )
+CNewDealDlg::CNewDealDlg( QStringList const& lstCustomerNames,
+						  QStringList const& lstStorageNames,
+						  QWidget *pwParent )
 	: QDialog( pwParent )
 {
+	FM_ASSERT( !lstCustomerNames.isEmpty() );
 	ui.setupUi( this );
 	// Setup Customer Selector
 	ui.wOtherCustomer->hide();
+	ui.cbxCustomer->addItems( lstCustomerNames );
 
 	// Setup Store Explorer widget
-	m_pwStoreExplorer = new CStoreExplorer();
+	m_pwStoreExplorer = new CStoreExplorer( lstStorageNames );
 	QVBoxLayout* pVExpLayout = new QVBoxLayout();
 	pVExpLayout->addWidget( m_pwStoreExplorer );
 	ui.gbxItemSelection->setLayout( pVExpLayout );

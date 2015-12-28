@@ -21,7 +21,7 @@ namespace gui {
 //
 
 // Constructors
-CStoreExplorer::CStoreExplorer( QWidget *pwParent )
+CStoreExplorer::CStoreExplorer( QStringList const& lstStores, QWidget* pwParent )
 	: QWidget( pwParent )
 {
 	ui.setupUi( this );
@@ -33,6 +33,9 @@ CStoreExplorer::CStoreExplorer( QWidget *pwParent )
 	//
 	// Count Spin Box Setup
 	ui.wdgCount->setDisabled( true );
+
+	// Setup Storage List
+	ui.wdgStoreList->addItems( lstStores );
 
 	// Connections
 	FM_CONNECT( ui.wdgStoreList, currentItemChanged(QListWidgetItem*, QListWidgetItem*),

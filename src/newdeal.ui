@@ -54,26 +54,6 @@
               <pointsize>10</pointsize>
              </font>
             </property>
-            <item>
-             <property name="text">
-              <string>Վալոդ</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Աշոտ</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Դիվանի</string>
-             </property>
-            </item>
-            <item>
-             <property name="text">
-              <string>Թելման</string>
-             </property>
-            </item>
            </widget>
           </item>
          </layout>
