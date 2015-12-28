@@ -96,15 +96,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gui_storeexplorer_wdg.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="gui_newdealdlg.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="gui_querytablemodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="gui_storeexplorer_wdg.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="gui_totalviewer_wdg.cpp">
       <Filter>Gui</Filter>
     </ClCompile>
@@ -155,6 +146,24 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_db_transactionsdata.cpp">
       <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_financeswidget.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_financeswidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_financeswidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_newdealdlg.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_querytablemodel.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="gui_storeexplorer_wdg.cpp">
+      <Filter>Gui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -218,17 +227,8 @@
     <CustomBuild Include="gui_customerswidget.h">
       <Filter>Gui</Filter>
     </CustomBuild>
-    <CustomBuild Include="gui_newdealdlg.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="gui_querytablemodel.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="newdeal.ui">
       <Filter>Form Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="gui_storeexplorer_wdg.h">
-      <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="storeexplorer.ui">
       <Filter>Form Files</Filter>
@@ -259,6 +259,24 @@
     </CustomBuild>
     <CustomBuild Include="db_customersdata.h">
       <Filter>Data Base</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_financeswidget.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="finances.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_newdealdlg.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_querytablemodel.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_storeexplorer_wdg.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_finances.h">
+      <Filter>Generated Files</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

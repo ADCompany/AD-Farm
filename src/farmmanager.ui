@@ -46,7 +46,7 @@
        <enum>QTabWidget::Rounded</enum>
       </property>
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <property name="iconSize">
        <size>
@@ -66,15 +66,6 @@
       <property name="movable">
        <bool>false</bool>
       </property>
-      <widget class="QWidget" name="tabFinances">
-       <attribute name="icon">
-        <iconset resource="farmmanager.qrc">
-         <normaloff>:/FarmManager/Resources/finances.png</normaloff>:/FarmManager/Resources/finances.png</iconset>
-       </attribute>
-       <attribute name="title">
-        <string>Ֆինանսներ</string>
-       </attribute>
-      </widget>
       <widget class="QWidget" name="tabSettings">
        <attribute name="icon">
         <iconset resource="farmmanager.qrc">

@@ -1,22 +1,10 @@
-#ifndef GUI_FARM_MANAGER_WIDGET_H
-#define GUI_FARM_MANAGER_WIDGET_H
-
 ////////////////////////////////////////////////////////////////////////////////
 //
-// Includes
+//	Includes
 //
-#include "ui_farmmanager.h"
-#include "ui_addgorcarq.h"
 #include "gui_financeswidget.h"
-#include "gui_storageswidget.h"
-#include "gui_customerswidget.h"
-#include "gui_transactionswidget.h"
 
-#include "db_manager.h"
-
-// Qt includes
-#include <QWidget>
-#include <QMainWindow>
+// Qt Includes
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -26,32 +14,36 @@ namespace fm {
 namespace gui {
 ////////////////////////////////////////////////////////////////////////////////
 
+
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CFarmManagerWidget
+// class CFinancesWidget
 //
-class CFarmManagerWidget : public QMainWindow
+
+// Constructors
+CFinancesWidget::CFinancesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager)
+	: QWidget(pwParent),
+	m_pCustomersData(nullptr)
 {
-	Q_OBJECT
+	m_uiFinancesWidget.setupUi(this);
 
-public:
-	CFarmManagerWidget(QWidget *parent = 0);
-	~CFarmManagerWidget() = default;
+	SetDBManager(pDBManager);
 
-private:
-	Ui::FarmManagerClass ui;
+	m_uiFinancesWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+}
 
-	Ui::Dialog dialogUi;
+void CFinancesWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
+{
+	if (pDBManager == nullptr)
+		return;
 
-	std::shared_ptr<CStoragesWidget>		m_pwStorages;
-	std::shared_ptr<CFinancesWidget>		m_pwFinances;
-	std::shared_ptr<CCustomersWidget>		m_pwCustomers;
-	std::shared_ptr<CTransactionsWidget>	m_pwTrnsactions;
+	m_pCustomersData = std::static_pointer_cast<db::CCustomersData>(pDBManager->GetDBComponent(db::CDBManager::component::customers));
 
-	std::shared_ptr<QDialog> m_CreateTrnDlg;
+	FM_CONNECT(m_pCustomersData.get(), sigChangeData(), this, onChangeData());
 
-	std::shared_ptr<db::CDBManager> m_pDBManager;
-};
+	UpdateData();
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -60,5 +52,3 @@ private:
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
-
-#endif // GUI_FARM_MANAGER_WIDGET_H
