@@ -25,11 +25,6 @@ CStoreContentModel::CStoreContentModel( QObject *pParent )
 	: Base( pParent )
 {
 	// TODO ...
-
-	// Configure Model
-	setHeaderData( 0, Qt::Horizontal, tr( "Type" ) );
-	setHeaderData( 1, Qt::Horizontal, tr( "Count" ) );
-	// TODO
 }
 
 // setActiveStore
@@ -43,8 +38,8 @@ void CStoreContentModel::setActiveStore( QString const& sStoreName )
 		"AND storage_name.name == '%1' "
 		"AND producte.id == storage_info.product_id" ).arg( sStoreName ) );
 	
-	setHeaderData( 0, Qt::Horizontal, tr( "Type" ) );
-	setHeaderData( 1, Qt::Horizontal, tr( "Count" ) );
+	setHeaderData( 0, Qt::Horizontal, QString::fromUtf8("\325\217\325\245\325\275\325\241\325\257\325\250") );
+	setHeaderData( 1, Qt::Horizontal, QString::fromUtf8("\325\224\325\241\325\266\325\241\325\257\325\250") );
 	// Check Result TODO
 	QSqlError oErr = lastError();
 	if (oErr.isValid())

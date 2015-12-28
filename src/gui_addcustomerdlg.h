@@ -60,6 +60,27 @@ private:
 };
 ////////////////////////////////////////////////////////////////////////////////
 
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// class CPhoneNuberValidator
+//
+class CPhoneNuberValidator : public QIntValidator
+{
+	typedef QIntValidator Base;
+public:
+	//
+	State validate( QString& sInput, int& pos ) const override
+	{
+		State eState = Base::validate( sInput, pos );
+		if (eState == Intermediate && sInput[0] == '0')
+			 return Acceptable;
+	}
+};
+////////////////////////////////////////////////////////////////////////////////
+
+
+
 ////////////////////////////////////////////////////////////////////////////////
 //
 //	Inline Implementations
@@ -73,7 +94,10 @@ inline QString CAddCustomerDlg::GetLastName() const
 { return m_uiAddCustomer.editLastName->text(); }
 // GetPhoneNumber
 inline QString CAddCustomerDlg::GetPhoneNumber() const
-{ return m_uiAddCustomer.editPhone->text(); }
+{ 
+	QString sPhone = m_uiAddCustomer.editPhone->displayText();
+	return sPhone;
+}
 // Clear
 inline void CAddCustomerDlg::Clear()
 {
