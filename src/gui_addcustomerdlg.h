@@ -75,6 +75,7 @@ public:
 		State eState = Base::validate( sInput, pos );
 		if (eState == Intermediate && sInput[0] == '0')
 			 return Acceptable;
+		return eState;
 	}
 };
 ////////////////////////////////////////////////////////////////////////////////

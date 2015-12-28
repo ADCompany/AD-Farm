@@ -37,7 +37,7 @@ void CStoragesData::Initialize()
 		"history_id		INTEGER NOT NULL, "
 		"product_id		INTEGER NOT NULL, " 
 		"count			INTEGER NOT NULL, "
-		"cost			INTEGER NOT NULL);");
+		"cost			REAL	NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_history ("
 		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -48,16 +48,16 @@ void CStoragesData::Initialize()
 		"storage_id		INTEGER NOT NULL, "
 		"product_id		INTEGER NOT NULL, "
 		"count			INTEGER NOT NULL, "
-		"prime_cost		INTEGER NOT NULL);");
+		"prime_cost		REAL	NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_name ("
 		"id		INTEGER PRIMARY KEY AUTOINCREMENT, "
 		"name	TEXT    NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS producte ("
-		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"id				INTEGER PRIMARY KEY NOT NULL, "
 		"name			TEXT    NOT NULL,"
-		"prime_cost		INTEGER NOT NULL);");
+		"prime_cost		REAL	NOT NULL);");
 	//.arg(table::customer,
 	//								table::customer::id,
 	//								table::customer::first_name,
@@ -90,8 +90,7 @@ std::shared_ptr<QSqlQueryModel> CStoragesData::GetSqlTableModelByStorageName(QSt
 		return itMap->second;
 
 	QSqlQuery sqlQuery;
-	sqlQuery.prepare(QString("SELECT id FROM storage_name WHERE name == \"%1\"").arg(strStorageName));
-	sqlQuery.exec();
+	sqlQuery.exec(QString("SELECT id FROM storage_name WHERE name == \"%1\"").arg(strStorageName));
 	sqlQuery.next();
 
 	QString strStorageId = sqlQuery.value(0).toString();
@@ -118,8 +117,7 @@ QList<QString> CStoragesData::GetStorageNames()
 	//	return lstString;
 
 	QSqlQuery sqlQuery;
-	sqlQuery.prepare(QString("SELECT name FROM %1").arg(table::storage));
-	sqlQuery.exec();
+	sqlQuery.exec(QString("SELECT name FROM %1").arg(table::storage));
 
 	QString strStorageName = "";
 	while (sqlQuery.next())

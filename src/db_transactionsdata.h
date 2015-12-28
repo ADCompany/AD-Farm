@@ -26,6 +26,7 @@ namespace db {
 //
 class CTransactionsData : public CDBComponent
 {
+	Q_OBJECT
 public:// Data Property
 	struct table
 	{
@@ -61,10 +62,17 @@ public:// Interface Methodes
 
 	inline int GetColumnCount() const;
 
+	void AddTransactionData(QString const& strCustomerName, QList<QString> const& strProductName, QList<int> nCount, QList<double> dCost);
+
 	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByCustomerName(QString const& strCustomerName);
 
 protected:// Helper Methodes
 	void UpdateSqlTableModel();
+	void UpdateSqlTableModel(QString const& strCustomerName);
+	void RemoveSqlTableModel(QString const& strCustomerName);
+
+signals:
+	void sigChangeData();
 
 private:// Members
 	std::map< QString, std::shared_ptr<QSqlQueryModel> > m_mapStringToModel;

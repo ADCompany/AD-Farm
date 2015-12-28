@@ -62,7 +62,7 @@ public:// Interface Methodes
 	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel();
 	inline std::shared_ptr<QSqlTableModel> GetSqlTableModel() const;
 
-	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, int nPhoneNumber);
+	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, QString strPhoneNumber);
 	void RemoveCustomer(QString const& strFirstName, QString const& strLastName);
 	void RemoveCustomer(int nRow);
 

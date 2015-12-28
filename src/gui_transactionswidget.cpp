@@ -31,9 +31,6 @@ CTransactionsWidget::CTransactionsWidget(QWidget* pwParent, std::shared_ptr<db::
 {
 	ui.setupUi(this);
 
-	//
-	//	Connections
-	//
 	FM_CONNECT(ui.listView, clicked(QModelIndex const&), this, onActivatedCustomer(QModelIndex const&));
 	SetDBManager(pDBManager);
 
@@ -50,7 +47,8 @@ void CTransactionsWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManage
 	m_pStoragesData = std::static_pointer_cast<db::CStoragesData>(pDBManager->GetDBComponent( db::CDBManager::component::storages ));
 
 	FM_CONNECT(m_pCustomersData.get(), sigChangeData(), this, onChangeData());
-	FM_CONNECT( m_pStoragesData.get(), sigChangeData(), this, onChangeData() );
+	FM_CONNECT(m_pStoragesData.get(), sigChangeData(), this, onChangeData());
+	FM_CONNECT(m_pTransactionsData.get(), sigChangeData(), this, onChangeDataByTransactionData());
 
 	UpdateData(true);
 }

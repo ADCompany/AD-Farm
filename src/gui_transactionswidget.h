@@ -37,6 +37,7 @@ public:// Constructors
 
 public:// Interface Methodes
 	void SetDBManager(std::shared_ptr<db::CDBManager> pDBManager);
+
 	inline std::shared_ptr<QSqlTableModel> GetTableModel();
 
 protected:// Helper Methodes
@@ -46,6 +47,29 @@ protected:// Helper Methodes
 protected slots:// Slots
 	void onChangeData()
 	{
+		UpdateData(true);
+	}
+	void onChangeDataByTransactionData()
+	{
+		UpdateData();
+	}
+	void onAddTransaction()
+	{
+		STransactionDetails trDetails = m_pNewDealDlg->GetDealDetails();
+		CFarmInfo farmInfo = m_pNewDealDlg->GetFarmUpdateInfo();
+
+		QString strCustomerName = trDetails.sCustomerName;
+		QList<QString> lstProductName;
+		QList<int> lstCount;
+		QList<double> lstCost;
+		for (int i = 0; i < trDetails.lstProductInfo.count(); ++i)
+		{
+			lstProductName.push_back(trDetails.lstProductInfo[i].sProductName);
+			lstCount.push_back(trDetails.lstProductInfo[i].nCount);
+			lstCost.push_back(trDetails.lstProductInfo[i].fPrice);
+		}
+
+		m_pTransactionsData->AddTransactionData(strCustomerName, lstProductName, lstCount, lstCost);
 		UpdateData(true);
 	}
 	void onActivatedCustomer(QModelIndex const& modelIndex)
@@ -91,7 +115,8 @@ inline void CTransactionsWidget::UpdateData(bool bFull)
 		QStringList lstCustomerNames( m_pCustomersData->GetCustomersName() );
 		QStringList lstStorageNames( m_pStoragesData->GetStorageNames() );
 		m_pNewDealDlg = std::shared_ptr<CNewDealDlg>(new CNewDealDlg( lstCustomerNames, lstStorageNames ));
-		FM_CONNECT( ui.btnNewDeal, clicked(), m_pNewDealDlg.get(), show() );
+		FM_CONNECT(ui.btnNewDeal, clicked(), m_pNewDealDlg.get(), show());
+		FM_CONNECT(m_pNewDealDlg.get(), accepted(), this, onAddTransaction());
 
 		m_pStringListModel = std::shared_ptr<QStringListModel>( new QStringListModel( lstCustomerNames ) );
 

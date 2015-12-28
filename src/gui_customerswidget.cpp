@@ -54,12 +54,12 @@ void CCustomersWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
 	UpdateData();
 }
 
-void CCustomersWidget::AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, int nPhoneNumber)
+void CCustomersWidget::AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, QString strPhoneNumber)
 {
 	if (m_pCustomersData == nullptr)
 		return;
 
-	m_pCustomersData->AddCustomer(strFirstName, strLastName, nDept, nPhoneNumber);
+	m_pCustomersData->AddCustomer(strFirstName, strLastName, nDept, strPhoneNumber);
 }
 
 void CCustomersWidget::RemoveCustomer(int nRow)
@@ -84,7 +84,7 @@ void CCustomersWidget::onAddCustomer()
 	if (pAddCustomerDlg == nullptr)
 		return;
 
-	AddCustomer(pAddCustomerDlg->GetFirstName(), pAddCustomerDlg->GetLastName(), 0, pAddCustomerDlg->GetPhoneNumber().toInt());
+	AddCustomer(pAddCustomerDlg->GetFirstName(), pAddCustomerDlg->GetLastName(), 0, pAddCustomerDlg->GetPhoneNumber());
 }
 
 ////////////////////////////////////////////////////////////////////////////////

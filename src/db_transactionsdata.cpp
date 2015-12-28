@@ -47,13 +47,7 @@ void CTransactionsData::Initialize()
 		"transaction_id		INTEGER NOT NULL, "
 		"product_id			INTEGER NOT NULL, "
 		"count				INTEGER NOT NULL, "
-		"cost				INTEGER NOT NULL);");
-
-	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS producte ("
-		"id				INTEGER PRIMARY KEY NOT NULL, "
-		"name			TEXT    NOT NULL,"
-		"prime_cost		INTEGER NOT NULL);");
-
+		"cost				REAL	NOT NULL);");
 	//.arg(table::customer,
 	//								table::customer::id,
 	//								table::customer::first_name,
@@ -79,6 +73,58 @@ void CTransactionsData::SetDBManager(std::shared_ptr<CDBManager> pDBManager)
 	CDBComponent::SetDBManager(pDBManager);
 }
 
+void CTransactionsData::AddTransactionData(QString const& strCustomerName, QList<QString> const& lstProductNames, QList<int> lstCount, QList<double> lstCost)
+{
+	QString strFirstName = "";
+	QString strLastName = "";
+	int nIndex = 0;
+	for (; nIndex < strCustomerName.size() && strCustomerName[nIndex] != ' '; ++nIndex)
+	{
+		strFirstName += strCustomerName[nIndex];
+	}
+	++nIndex;
+	for (; nIndex < strCustomerName.size(); ++nIndex)
+	{
+		strLastName += strCustomerName[nIndex];
+	}
+
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("SELECT id FROM customer WHERE first_name == \"%1\" AND last_name == \"%2\"").arg(strFirstName, strLastName));
+	sqlQuery.next();
+
+	QString strCustomerId = sqlQuery.value(0).toString();
+	QDateTime dateTime = QDateTime::currentDateTimeUtc();
+	QString strDateTime = dateTime.toString();
+
+	sqlQuery.exec(QString("INSERT INTO deal ( customer_id, date_time ) VALUES ( %1 , \"%2\" );").arg(strCustomerId, strDateTime));
+	sqlQuery.exec(QString("SELECT id FROM deal WHERE customer_id == %1 AND date_time == \"%2\" ").arg(strCustomerId, strDateTime));
+	sqlQuery.next();
+	QString strTransactionId = sqlQuery.value(0).toString();
+
+	for (int i = 0; i < lstProductNames.count(); ++i)
+	{
+		sqlQuery.exec(QString("SELECT id FROM producte WHERE name == \"%1\" ").arg(lstProductNames[i]));
+		sqlQuery.next();
+		QString strProductId = sqlQuery.value(0).toString();
+
+		sqlQuery.exec(QString("INSERT INTO transaction_info VALUES ( %1 , %2, %3, %4 );").arg(strTransactionId, strProductId, QString::number(lstCount[i]), QString::number(lstCost[i])));
+	}
+
+	UpdateSqlTableModel(strCustomerName);
+}
+
+void CTransactionsData::UpdateSqlTableModel(QString const& strCustomerName)
+{
+	RemoveSqlTableModel(strCustomerName);
+
+	emit sigChangeData();
+}
+
+void CTransactionsData::RemoveSqlTableModel(QString const& strCustomerName)
+{
+	m_mapStringToModel.erase(strCustomerName);
+}
+
 std::shared_ptr<QSqlQueryModel> CTransactionsData::GetSqlTableModelByCustomerName(QString const& strCustomerName)
 {
 	auto itMap = m_mapStringToModel.find(strCustomerName);
@@ -99,9 +145,8 @@ std::shared_ptr<QSqlQueryModel> CTransactionsData::GetSqlTableModelByCustomerNam
 	}
 
 	QSqlQuery sqlQuery;
-	sqlQuery.prepare(QString("SELECT id FROM customer WHERE first_name == \"%1\" AND last_name == \"%2\"").arg(
+	sqlQuery.exec(QString("SELECT id FROM customer WHERE first_name == \"%1\" AND last_name == \"%2\"").arg(
 		strFirstName, strLastName));
-	sqlQuery.exec();
 	sqlQuery.next();
 
 	QString strCustomerId = sqlQuery.value(0).toString();

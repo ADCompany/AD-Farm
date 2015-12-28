@@ -48,7 +48,7 @@ public:// Interface Methodes
 protected:// Helper Methodes
 	inline void UpdateData();
 
-	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept = 0, int nPhoneNumber = 0);
+	void AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept = 0, QString nPhoneNumber = "");
 
 	void RemoveCustomer(int nRow);
 	void RemoveCustomer(QString const& strFirstName, QString const& strLastName);

@@ -42,7 +42,7 @@ void CCustomersData::Initialize()
 		"first_name	TEXT    NOT NULL, "
 		"last_name	TEXT    NOT NULL, "
 		"debt INTEGER NOT NULL, "
-		"phone_number	INTEGER NOT NULL );"));
+		"phone_number	TEXT NOT NULL );"));
 	//.arg(table::customer,
 	//								table::customer::id,
 	//								table::customer::first_name,
@@ -119,8 +119,7 @@ QList<QString> CCustomersData::GetCustomersName() const
 		return lstString;
 
 	QSqlQuery sqlQuery = pSqlTableModel->query();
-	sqlQuery.prepare(QString("SELECT first_name, last_name FROM %1").arg(table::customer));
-	sqlQuery.exec();
+	sqlQuery.exec(QString("SELECT first_name, last_name FROM %1").arg(table::customer));
 
 	QString strFirstName = "";
 	while (sqlQuery.next())
@@ -132,7 +131,7 @@ QList<QString> CCustomersData::GetCustomersName() const
 	return lstString;
 }
 
-void CCustomersData::AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, int nPhoneNumber)
+void CCustomersData::AddCustomer(QString const& strFirstName, QString const& strLastName, int nDept, QString strPhoneNumber)
 {
 	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::customer);
 	if (pSqlTableModel == nullptr)
@@ -144,7 +143,7 @@ void CCustomersData::AddCustomer(QString const& strFirstName, QString const& str
 	pSqlTableModel->setData(pSqlTableModel->index(nRowCount, 1), strFirstName);
 	pSqlTableModel->setData(pSqlTableModel->index(nRowCount, 2),  strLastName);
 	pSqlTableModel->setData(pSqlTableModel->index(nRowCount, 3),		nDept);
-	pSqlTableModel->setData(pSqlTableModel->index(nRowCount, 4), nPhoneNumber);
+	pSqlTableModel->setData(pSqlTableModel->index(nRowCount, 4), strPhoneNumber);
 
 	pSqlTableModel->submitAll();
 
@@ -158,8 +157,7 @@ void CCustomersData::RemoveCustomer(QString const& strFirstName, QString const& 
 		return;
 
 	QSqlQuery sqlQuery = pSqlTableModel->query();
-	sqlQuery.prepare(QString("DELETE FROM %1 WHERE first_name = %2 AND last_name = %3").arg(table::customer, strFirstName, strLastName));
-	sqlQuery.exec();
+	sqlQuery.exec(QString("DELETE FROM %1 WHERE first_name = %2 AND last_name = %3").arg(table::customer, strFirstName, strLastName));
 
 	UpdateSqlTableModel();
 }
@@ -180,10 +178,8 @@ void CCustomersData::RemoveCustomer(int nRow)
 int CCustomersData::GetCustomerId(QString const& strFirstName, QString const& strLastName)
 {
 	QSqlQuery sqlQuery;
-	sqlQuery.prepare(QString("SELECT %1 FROM %2 WHERE first_name = %3 AND last_name = %4").arg(
+	sqlQuery.exec(QString("SELECT %1 FROM %2 WHERE first_name = %3 AND last_name = %4").arg(
 		table::customer::id, table::customer, "\"" + strFirstName + "\"", "\"" + strLastName + "\""));
-
-	sqlQuery.exec();
 
 	int nId = sqlQuery.value(0).toInt();
 
