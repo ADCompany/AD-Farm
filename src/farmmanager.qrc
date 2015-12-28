@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="FarmManager">
+    <file>Resources/cancel.png</file>
+    <file>Resources/cancel.ico</file>
+    <file>Resources/submit.png</file>
     <file>Resources/app_icon.png</file>
     <file>Resources/barn.png</file>
     <file>Resources/plus.png</file>

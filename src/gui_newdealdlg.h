@@ -13,6 +13,10 @@
 #	include "gui_storeexplorer_wdg.h"
 #endif
 
+#ifndef GUI_TOTAL_VIEWER_WDG_H
+#	include "gui_totalviewer_wdg.h"
+#endif
+
 // Ui
 #include "ui_newdeal.h"
 
@@ -24,20 +28,6 @@
 namespace fm {
 ////////////////////////////////////////////////////////////////////////////////
 namespace gui {
-////////////////////////////////////////////////////////////////////////////////
-
-////////////////////////////////////////////////////////////////////////////////
-//
-//	Storage Cpdateing Configuration
-//
-struct SProductInfo
-{
-	QString sName;
-	int     nCount;
-};
-
-typedef QList<SProductInfo>          CStoreageUpdateConfig;
-typedef QList<CStoreageUpdateConfig> CFarmUpdateConfig;
 ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -65,6 +55,8 @@ public slots:
 	//	Slots
 	//
 	void OnCustomerChanged( int nIndex );
+	void OnUpedateDebt();
+	void OnCreateDeal();
 
 protected:// Helper Methodes
 	void SetLabelColor( QLabel* pLabel, bool bValid );
@@ -81,6 +73,7 @@ private:
 	//
 	Ui::NewDealUI ui;
 	CStoreExplorer* m_pwStoreExplorer;
+	CTotalViewer*   m_pwTotalViewer;
 };
 ////////////////////////////////////////////////////////////////////////////////
 
