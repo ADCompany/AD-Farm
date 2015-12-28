@@ -99,9 +99,9 @@ std::shared_ptr<QSqlQueryModel> CStoragesData::GetSqlTableModelByStorageName(QSt
 		"storage_info INNER JOIN producte "
 		"ON storage_info.storage_id == %1 AND producte.id = storage_info.product_id").arg(strStorageId));
 
-	pStorageSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant("Type"));
-	pStorageSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("Count"));
-	pStorageSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant("Prime Cost"));
+	pStorageSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant(QString::fromUtf8("\325\217\325\245\325\275\325\241\325\257")));
+	pStorageSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant(QString::fromUtf8("\325\224\325\241\325\266\325\241\325\257")));
+	pStorageSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant(QString::fromUtf8("\324\273\325\266\326\204\325\266\325\241\326\200\325\252\325\245\326\204")));
 
 	m_mapStringToModel.emplace(strStorageName, pStorageSqlTableModel);
 

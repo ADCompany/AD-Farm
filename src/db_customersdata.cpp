@@ -86,10 +86,10 @@ void CCustomersData::SetDBManager(std::shared_ptr<CDBManager> pDBManager)
 	}
 
 	pSqlTableModel->setTable(table::customer);
-	pSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("First name"));
-	pSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant("Last name"));
-	pSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant("Dept"));
-	pSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant("Phone number"));
+	pSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant(QString::fromUtf8("\324\261\325\266\325\270\326\202\325\266")));
+	pSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant(QString::fromUtf8("\324\261\325\246\325\243\325\241\325\266\325\270\326\202\325\266")));
+	pSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant(QString::fromUtf8("\325\212\325\241\326\200\325\277\326\204")));
+	pSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant(QString::fromUtf8("\325\200\325\245\325\274. \325\260\325\241\325\264\325\241\326\200")));
 	pSqlTableModel->setEditStrategy(QSqlTableModel::OnManualSubmit);
 	pSqlTableModel->select();
 	pSqlTableModel->submitAll();

@@ -158,13 +158,13 @@ std::shared_ptr<QSqlQueryModel> CTransactionsData::GetSqlTableModelByCustomerNam
 		"transaction_info INNER JOIN deal INNER JOIN producte "
 		"ON deal.customer_id == %1 AND transaction_info.transaction_id == deal.id AND transaction_info.product_id == producte.id").arg(strCustomerId));
 
-	pTransactionSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant("ID"));
-	pTransactionSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant("Type"));
-	pTransactionSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant("Count"));
-	pTransactionSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant("Cost"));
-	pTransactionSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant("Deal cost"));
-	pTransactionSqlTableModel->setHeaderData(5, Qt::Horizontal, QVariant("Customer cost"));
-	pTransactionSqlTableModel->setHeaderData(6, Qt::Horizontal, QVariant("Date"));
+	pTransactionSqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant(QString::fromUtf8("\324\263\325\270\326\200\325\256. \325\260\325\241\325\264\325\241\326\200")));
+	pTransactionSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant(QString::fromUtf8("\325\217\325\245\325\275\325\241\325\257")));
+	pTransactionSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant(QString::fromUtf8("\325\224\325\241\325\266\325\241\325\257")));
+	pTransactionSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant(QString::fromUtf8("\325\204\325\253\325\241\325\276\325\270\326\200\325\253 \325\243\325\253\325\266")));
+	pTransactionSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant(QString::fromUtf8("\324\263\325\270\326\200\325\256\325\241\326\200\326\204\325\253 \325\243\325\270\326\202\325\264\325\241\326\200")));
+	pTransactionSqlTableModel->setHeaderData(5, Qt::Horizontal, QVariant(QString::fromUtf8("\325\216\325\263\325\241\326\200\325\276\325\241\325\256 \325\243\325\270\326\202\325\264\325\241\326\200")));
+	pTransactionSqlTableModel->setHeaderData(6, Qt::Horizontal, QVariant(QString::fromUtf8("\324\261\325\264\325\275\325\241\325\251\325\253\325\276")));
 
 	m_mapStringToModel.emplace(strCustomerName, pTransactionSqlTableModel);
 
