@@ -87,6 +87,22 @@ protected slots:// Slots
 			}
 			m_pStoragesData->BuyStorageData(strStorageName, lstProducts, lstPrCount);
 		}
+
+		QString strFirstName = "";
+		QString strLastName = "";
+		int nIndex = 0;
+		for (; nIndex< strCustomerName.size(); ++nIndex)
+		{
+			if (strCustomerName[nIndex] == ' ')
+				break;
+			strFirstName += strCustomerName[nIndex];
+		}
+		++nIndex;
+		for (; nIndex < strCustomerName.size(); ++nIndex)
+		{
+			strLastName += strCustomerName[nIndex];
+		}
+		m_pCustomersData->UpdateCustomerDebt(strFirstName, strLastName, trDetails.fTotalPrice - trDetails.fPayedMoney);
 		UpdateData(true);
 	}
 	void onActivatedCustomer(QModelIndex const& modelIndex)

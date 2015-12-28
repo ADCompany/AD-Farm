@@ -66,6 +66,8 @@ public:// Interface Methodes
 	void RemoveCustomer(QString const& strFirstName, QString const& strLastName);
 	void RemoveCustomer(int nRow);
 
+	void UpdateCustomerDebt(QString const& strFirstName, QString const& strLastName, double dDebt);
+
 	int GetCustomerId(QString const& strFirstName, QString const& strLastName);
 
 	QString GetNameByIndex(int nColumn, int nRow) const;

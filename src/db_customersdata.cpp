@@ -174,13 +174,30 @@ void CCustomersData::RemoveCustomer(int nRow)
 	emit sigChangeData();
 }
 
+void CCustomersData::UpdateCustomerDebt(QString const& strFirstName, QString const& strLastName, double dDebt)
+{
+	std::shared_ptr<QSqlTableModel> pSqlTableModel = CDBComponent::GetSqlTableModel(table::customer);
+	if (pSqlTableModel == nullptr)
+		return;
+
+	int nCustomerId = GetCustomerId(strFirstName, strLastName);
+	QSqlQuery sqlQuery = pSqlTableModel->query();
+	sqlQuery.exec(QString("SELECT debt FROM %1 WHERE id == %2").arg(table::customer, QString::number(nCustomerId)));
+	sqlQuery.next();
+	double dCurrDebt = sqlQuery.value(0).toDouble();
+
+	dCurrDebt += dDebt;
+	sqlQuery.exec(QString("UPDATE %1 SET debt = %2 WHERE id == %3").arg(table::customer, QString::number(dCurrDebt), QString::number(nCustomerId)));
+
+	UpdateSqlTableModel();
+}
 
 int CCustomersData::GetCustomerId(QString const& strFirstName, QString const& strLastName)
 {
 	QSqlQuery sqlQuery;
-	sqlQuery.exec(QString("SELECT %1 FROM %2 WHERE first_name = %3 AND last_name = %4").arg(
-		table::customer::id, table::customer, "\"" + strFirstName + "\"", "\"" + strLastName + "\""));
-
+	sqlQuery.exec(QString("SELECT %1 FROM %2 WHERE first_name == \"%3\" AND last_name == \"%4\"").arg(
+		table::customer::id, table::customer, strFirstName, strLastName));
+	sqlQuery.next();
 	int nId = sqlQuery.value(0).toInt();
 
 	return nId;
