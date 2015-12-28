@@ -49,6 +49,8 @@ public:
 	//
 	// Clear Dialog
 	inline void Clear();
+	STransactionDetails GetDealDetails()    const;
+	CFarmInfo           GetFarmUpdateInfo() const;
 
 public slots:
 	//
@@ -74,6 +76,9 @@ private:
 	Ui::NewDealUI ui;
 	CStoreExplorer* m_pwStoreExplorer;
 	CTotalViewer*   m_pwTotalViewer;
+	// 
+	STransactionDetails m_oDetails;
+	CFarmInfo           m_lstFarmInfo;
 };
 ////////////////////////////////////////////////////////////////////////////////
 

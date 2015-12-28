@@ -29,9 +29,9 @@ namespace gui {
 //	class CTransactionDetails
 //
 
-struct SProductBuyInfo
+struct SProductPriceInfo
 {
-	SProductBuyInfo( QString sProductName,
+	SProductPriceInfo( QString sProductName,
 					 int nCount,
 					 double dPrice )
 					 : sProductName( sProductName ),
@@ -52,15 +52,20 @@ public:
 	double  fPrice;
 };
 
-typedef QList<SProductBuyInfo> t_lstProductBuyInfo;
+typedef QList<SProductPriceInfo> t_lstProductPriceInfo;
 
 struct STransactionDetails
 {
+	// Default Construction
+	STransactionDetails()
+		: fTotalPrice(-1),
+		  fPayedMoney(-1)
+	{}
 	//
 	//	Content
 	//
 	QString             sCustomerName;
-	t_lstProductBuyInfo lstProductInfo;
+	t_lstProductPriceInfo lstProductInfo;
 	double              fTotalPrice;
 	double              fPayedMoney;
 };
@@ -129,6 +134,8 @@ public:
 	bool isEmpty() const { return m_hshProductInfo.isEmpty(); }
 	double GetTotalPrice() const { return ui.lcdTotalPrice->value(); }
 
+	t_lstProductPriceInfo GetProductPriceInfo() const;
+
 public slots:
 	//
 	//	Public Slots
@@ -166,7 +173,7 @@ private:
 	Ui::TotalViewerWdgUI ui;
 
 	QHash<QString, CProductInfoWidgets> m_hshProductInfo;
-	t_lstProductBuyInfo  m_lstSelectedProducts;
+	t_lstProductPriceInfo  m_lstSelectedProducts;
 };
 ////////////////////////////////////////////////////////////////////////////////
 

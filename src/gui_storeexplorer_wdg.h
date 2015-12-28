@@ -85,6 +85,12 @@ public:// Constructors
 	CStoreExplorer( QStringList const& lstStores, QWidget* pwParent = nullptr );
 	~CStoreExplorer() = default;
 
+public:
+	//
+	//	Main Interface
+	//
+	CFarmInfo GetFarmUpdateInfo() const { return m_lstConfig; };
+
 public slots:
 	//
 	//	Public Slots
@@ -125,7 +131,7 @@ private:
 	QHash<QString, int> m_hshCountSelection;
 
 	//
-	CFarmInfo m_pConfig;
+	CFarmInfo m_lstConfig;
 };
 ////////////////////////////////////////////////////////////////////////////////
 

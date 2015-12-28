@@ -127,7 +127,7 @@ void CTotalViewer::OnClear()
 	m_hshProductInfo.clear();
 }
 
-// 
+// OnUpdateTotalPrice
 void CTotalViewer::OnUpdateTotalPrice()
 {
 	double dTotalPrice = 0;
@@ -139,6 +139,21 @@ void CTotalViewer::OnUpdateTotalPrice()
 	ui.lcdTotalPrice->display( dTotalPrice );
 	if (dOldPrice != dTotalPrice)
 		emit sigTotalPriceChanged( dTotalPrice );
+}
+
+// GetProductPriceInfo
+t_lstProductPriceInfo CTotalViewer::GetProductPriceInfo() const
+{
+	t_lstProductPriceInfo lstResult;
+	QList<CProductInfoWidgets> lstInfo = m_hshProductInfo.values();
+	for each(CProductInfoWidgets const& oInfo in lstInfo)
+	{
+		QString sName  = oInfo.getName();
+		int     nCount = oInfo.getCount();
+		double  dPrice = oInfo.getPrice();
+		lstResult.append( SProductPriceInfo( sName, nCount, dPrice ) );
+	}
+	return lstResult;
 }
 
 ////////////////////////////////////////////////////////////////////////////////

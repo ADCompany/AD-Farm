@@ -135,17 +135,17 @@ void CStoreExplorer::OnAdd()
 	m_hshCountSelection.insert( makeKey( sStoreName, m_sCurrentProductName ), nCount );
 	// Ready
 	//// Register in Coinfiguration
-	int nIdx = m_pConfig.indexOf( sStoreName );
+	int nIdx = m_lstConfig.indexOf( sStoreName );
 	if (nIdx < 0)
 	{
 		SProductInfo oProductInfo( m_sCurrentProductName, nCount );
 		QList<SProductInfo> lstProducts;
 		lstProducts.append( oProductInfo );
-		m_pConfig.append( SStoreageInfo( sStoreName, lstProducts ) );
+		m_lstConfig.append( SStoreageInfo( sStoreName, lstProducts ) );
 	}
 	else
 	{
-		SStoreageInfo cfg = m_pConfig.at( nIdx );
+		SStoreageInfo cfg = m_lstConfig.at( nIdx );
 		int nProductIndex = cfg.lstProducts.indexOf( m_sCurrentProductName );
 		if (nProductIndex < 0)
 		{

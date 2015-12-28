@@ -82,11 +82,33 @@ void CNewDealDlg::OnUpedateDebt()
 		ui.btnCreateDeal->setDisabled( true );
 }
 
+// GetDealDetails
+STransactionDetails CNewDealDlg::GetDealDetails() const
+{
+	return m_oDetails;
+}
+
+// GetFarmUpdateInfo
+CFarmInfo CNewDealDlg::GetFarmUpdateInfo() const
+{
+	return m_lstFarmInfo;
+}
+
 
 // OnCreateDeal [SLOT]
 void CNewDealDlg::OnCreateDeal()
 {
+	// Register Information
+	//[1] Details
+	m_oDetails.sCustomerName = ui.cbxCustomer->currentText();
+	m_oDetails.lstProductInfo = m_pwTotalViewer->GetProductPriceInfo();
+	m_oDetails.fTotalPrice = m_pwTotalViewer->GetTotalPrice();
+	m_oDetails.fPayedMoney = ui.sbxPay->value();
 
+	//[2] Farm Info
+	m_lstFarmInfo = m_pwStoreExplorer->GetFarmUpdateInfo();
+
+	// Accept
 	QDialog::accept();
 }
 
