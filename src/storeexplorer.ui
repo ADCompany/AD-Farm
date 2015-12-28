@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>441</width>
-    <height>156</height>
+    <width>636</width>
+    <height>178</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -86,23 +86,17 @@
          <property name="enabled">
           <bool>true</bool>
          </property>
-         <property name="sizePolicy">
-          <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-           <horstretch>0</horstretch>
-           <verstretch>0</verstretch>
-          </sizepolicy>
-         </property>
          <property name="text">
-          <string>Ավելացնել</string>
+          <string>Հաստատել</string>
          </property>
          <property name="icon">
           <iconset resource="farmmanager.qrc">
-           <normaloff>:/FarmManager/Resources/plus.png</normaloff>:/FarmManager/Resources/plus.png</iconset>
+           <normaloff>:/FarmManager/Resources/submit.png</normaloff>:/FarmManager/Resources/submit.png</iconset>
          </property>
          <property name="iconSize">
           <size>
-           <width>16</width>
-           <height>16</height>
+           <width>20</width>
+           <height>20</height>
           </size>
          </property>
          <property name="autoDefault">

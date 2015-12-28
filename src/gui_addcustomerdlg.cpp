@@ -30,7 +30,7 @@ CAddCustomerDlg::CAddCustomerDlg( QWidget *pwParent )
 	m_uiAddCustomer.setupUi( this );
 	setFixedSize( 416, 161 );
 	// Set Validators
-	CPhoneNuberValidator* pPhoneNumberValidator = new CPhoneNuberValidator();
+	QIntValidator* pPhoneNumberValidator = new QIntValidator();
 	pPhoneNumberValidator->setBottom( 0 );
 	m_uiAddCustomer.editPhone->setValidator( pPhoneNumberValidator );
 

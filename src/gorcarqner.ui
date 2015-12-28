@@ -40,7 +40,7 @@
                <item>
                 <widget class="QLabel" name="label">
                  <property name="text">
-                  <string>Գնորդներ</string>
+                  <string>Առաքիչներ</string>
                  </property>
                 </widget>
                </item>
@@ -71,7 +71,7 @@
                <item>
                 <widget class="QLabel" name="label_2">
                  <property name="text">
-                  <string>Պատմություն</string>
+                  <string>Ցուցակ</string>
                  </property>
                 </widget>
                </item>
@@ -102,11 +102,7 @@
            <item>
             <widget class="QPushButton" name="btnNewDeal">
              <property name="text">
-              <string>Նոր Գործարք</string>
-             </property>
-             <property name="icon">
-              <iconset resource="farmmanager.qrc">
-               <normaloff>:/FarmManager/Resources/transactions3.png</normaloff>:/FarmManager/Resources/transactions3.png</iconset>
+              <string>Ստեղծել</string>
              </property>
             </widget>
            </item>
@@ -133,8 +129,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="farmmanager.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
