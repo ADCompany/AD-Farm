@@ -1,0 +1,69 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//	Includes
+//
+#include "gui_addstore_dlg.h"
+
+// Qt Includes
+#include <QMessageBox>
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+namespace fm {
+////////////////////////////////////////////////////////////////////////////////
+namespace gui {
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// class CAddProductDlg
+//
+
+// Constructors
+CAddStoreDlg::CAddStoreDlg( QWidget *pwParent )
+	: QDialog(pwParent)
+{
+	ui.setupUi(this);
+	setFixedSize(416, 161);
+
+	// Connections
+	//FM_CONNECT(m_uiAddProduct.btnAddProduct, clicked(), this, OnAdd());
+}
+
+void CAddStoreDlg::OnAdd()
+{
+	/*QString strFirstName = m_uiAddProduct.editName->text();
+	QString strCount = m_uiAddProduct.editCount->text();
+	QString strPrimeCost = m_uiAddProduct.editPrimeCost->text();
+	bool bValidName = !strFirstName.isEmpty();
+	bool bValidCount = !strCount.isEmpty();
+	bool bValidPrimeCost = !strPrimeCost.isEmpty();
+
+	SetLabelColor(m_uiAddProduct.lblName, bValidName);
+	SetLabelColor(m_uiAddProduct.lblCount, bValidCount);
+	SetLabelColor(m_uiAddProduct.lblPrimeCost, bValidPrimeCost);
+
+	if (bValidName && bValidCount && bValidPrimeCost)
+		QDialog::accept();*/
+}
+
+// setLabelColor
+void CAddStoreDlg::SetLabelColor( QLabel* pLabel, bool bValid )
+{
+	if (!pLabel)
+		return;
+
+	QPalette palette = pLabel->palette();
+	palette.setColor(pLabel->foregroundRole(), bValid ? Qt::black : Qt::red);
+	pLabel->setPalette(palette);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+} // namespace gui
+////////////////////////////////////////////////////////////////////////////////
+} // namespace fm
+////////////////////////////////////////////////////////////////////////////////
