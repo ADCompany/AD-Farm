@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditStorageDlgUI</class>
+ <widget class="QDialog" name="EditStorageDlgUI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>291</width>
+    <height>105</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ավելացնել Ապրանք</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="farmmanager.qrc">
+    <normaloff>:/FarmManager/Resources/add1.png</normaloff>:/FarmManager/Resources/add1.png</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_2">
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Տեսակի ընտրություն</string>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <layout class="QHBoxLayout" name="horizontalLayout">
+        <item>
+         <widget class="QLabel" name="label">
+          <property name="text">
+           <string>Տեսակը</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QComboBox" name="comboBox">
+          <item>
+           <property name="text">
+            <string>Hav</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Chut</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Juja</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Varek</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Aqlor</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Buli</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Sag</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Bad</string>
+           </property>
+          </item>
+         </widget>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCancel">
+       <property name="text">
+        <string>Չեղարկել</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnAdd">
+       <property name="text">
+        <string>Ավելացնել</string>
+       </property>
+       <property name="icon">
+        <iconset resource="farmmanager.qrc">
+         <normaloff>:/FarmManager/Resources/add1.png</normaloff>:/FarmManager/Resources/add1.png</iconset>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="farmmanager.qrc"/>
+ </resources>
+ <connections/>
+</ui>

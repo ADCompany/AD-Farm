@@ -47,16 +47,18 @@
 //	Macros Helpers
 //
 #if defined (QT_DEBUG)
-#	define FM_ASSERT(_test_) Q_ASSERT(_test_)
+#	define FM_ASSERT(_test_)              Q_ASSERT(_test_)
 #   define FM_ASSERT_EX( _test_, _what_ ) Q_ASSERT_X( _test_, '\0', _what_ )
+#   define FM_VERIFY(_test_)              FM_ASSERT(_test_)
 #elif defined (QT_NO_DEBUG)
 #	define FM_ASSERT(_test_)             ((void)(0))
 #	define FM_ASSERT_X( _test_, _what_ ) ((void)(0))
+#	define FM_VERIFY( _test_ )	         ((void)(_test_))
 #endif
 
 // Signal-Slot Connections
 #define FM_CONNECT( _sender_, _signal_, _receiver_, _slot_ )			\
-	FM_ASSERT(QObject::connect(_sender_,SIGNAL(_signal_),_receiver_,SLOT(_slot_)))
+	FM_VERIFY(QObject::connect(_sender_,SIGNAL(_signal_),_receiver_,SLOT(_slot_)))
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////

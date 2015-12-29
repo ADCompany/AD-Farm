@@ -27,7 +27,6 @@ CNewDealDlg::CNewDealDlg( QStringList const& lstCustomerNames,
 						  QWidget *pwParent )
 	: QDialog( pwParent )
 {
-	FM_ASSERT( !lstCustomerNames.isEmpty() );
 	ui.setupUi( this );
 	// Setup Customer Selector
 	ui.wOtherCustomer->hide();
@@ -76,7 +75,7 @@ void CNewDealDlg::OnUpedateDebt()
 	double dPeyedMoney = ui.sbxPay->value();
 	double dDebt = dTotalPrice - dPeyedMoney;
 	ui.lcdDebt->display( dDebt );
-	if (dDebt != 0 || dTotalPrice != 0)
+	if ( !ui.cbxCustomer->currentText().isEmpty() && ( dDebt != 0 || dTotalPrice != 0) )
 		ui.btnCreateDeal->setEnabled( true );
 	else
 		ui.btnCreateDeal->setDisabled( true );

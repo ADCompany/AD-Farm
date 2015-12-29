@@ -41,6 +41,8 @@ struct SProductInfo
 	//
 	QString sName;
 	int     nCount;
+	
+
 
 public:
 	// operator == 

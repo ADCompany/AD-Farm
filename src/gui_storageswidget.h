@@ -12,7 +12,10 @@
 #	include "db_storagesdata.h"
 #endif
 
+// Ui
 #include "ui_storages.h"
+#include "ui_addstoreitem.h"
+#include "ui_subtractproduct.h"
 
 // Qt includes
 #include <QWidget>
