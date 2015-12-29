@@ -83,6 +83,7 @@ public:// Interface Methodes
 	inline int GetColumnCount() const;
 
 	std::shared_ptr<QSqlQueryModel> GetProductSqlQueryModel(QString const& strTableName);
+	std::shared_ptr<QSqlQueryModel> GetStorageSqlQueryModel(QString const& strTableName);
 
 	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByStorageName(QString const& strCustomerName);
 
