@@ -109,15 +109,11 @@ std::shared_ptr<QSqlQueryModel> CStoragesData::GetStorageSqlQueryModel(QString c
 		return itMap->second;
 
 	std::shared_ptr<QSqlQueryModel> pSqlQueryModel(new QSqlQueryModel);
-	pSqlQueryModel->setQuery(QString("SELECT storage_name.name, producte.name, storage_info.count, storage_info.prime_cost FROM "
-		"storage_info INNER JOIN producte INNER JOIN storage_name "
-		"ON "
-		"storage_name.id == storage_info.storage_id AND producte.id = storage_info.product_id"));
+	pSqlQueryModel->setQuery(QString("SELECT * FROM "
+		"%1 ").arg(strTableName));
 
-	pSqlQueryModel->setHeaderData(0, Qt::Horizontal, QVariant(QString::fromUtf8("\324\261\325\266\325\270\326\202\325\266")));
-	pSqlQueryModel->setHeaderData(1, Qt::Horizontal, QVariant(QString::fromUtf8("\325\217\325\245\325\275\325\241\325\257")));
-	pSqlQueryModel->setHeaderData(2, Qt::Horizontal, QVariant(QString::fromUtf8("\325\224\325\241\325\266\325\241\325\257")));
-	pSqlQueryModel->setHeaderData(3, Qt::Horizontal, QVariant(QString::fromUtf8("\324\273\325\266\326\204\325\266\325\241\326\200\325\252\325\245\326\204")));
+	pSqlQueryModel->setHeaderData(0, Qt::Horizontal, QVariant(QString::fromUtf8("\325\212\325\241\325\260. \325\260\325\241\325\264\325\241\326\200")));
+	pSqlQueryModel->setHeaderData(1, Qt::Horizontal, QVariant(QString::fromUtf8("\324\261\325\266\325\270\326\202\325\266")));
 
 	m_mapStringToModel.emplace(strTableName, pSqlQueryModel);
 	return pSqlQueryModel;

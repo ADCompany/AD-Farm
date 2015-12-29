@@ -75,8 +75,7 @@ inline QString CAddProductDlg::GetName() const
 // GetLastName
 inline int CAddProductDlg::GetCount() const
 {
-	QString strCount = m_uiAddProduct.editCount->text();
-	return strCount.toInt();
+	return 0;
 }
 // GetPhoneNumber
 inline double CAddProductDlg::GetPrimeCost() const
@@ -88,11 +87,11 @@ inline double CAddProductDlg::GetPrimeCost() const
 inline void CAddProductDlg::Clear()
 {
 	m_uiAddProduct.editName->clear();
-	m_uiAddProduct.editCount->clear();
+	//m_uiAddProduct.editCount->clear();
 	m_uiAddProduct.editPrimeCost->clear();
 
 	SetLabelColor(m_uiAddProduct.lblName, true);
-	SetLabelColor(m_uiAddProduct.lblCount, true);
+	//SetLabelColor(m_uiAddProduct.lblCount, true);
 	SetLabelColor(m_uiAddProduct.lblPrimeCost, true);
 }
 
