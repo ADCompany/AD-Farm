@@ -41,7 +41,7 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 
 	// Customers
 	QIcon icon2;
-	icon2.addFile(QString::fromUtf8(":/FarmManager/Resources/suppliers.png"), QSize(), QIcon::Normal, QIcon::Off);
+	icon2.addFile(QString::fromUtf8(":/FarmManager/Resources/customers.png"), QSize(), QIcon::Normal, QIcon::Off);
 
 	m_pwCustomers = std::shared_ptr<CCustomersWidget> (new CCustomersWidget(this, m_pDBManager));
 	ui.tabWidget->insertTab(1, m_pwCustomers.get(), icon2,
@@ -49,7 +49,7 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 
 	// Storages
 	QIcon icon3;
-	icon3.addFile(QString::fromUtf8(":/FarmManager/Resources/farm.png"), QSize(), QIcon::Normal, QIcon::Off);
+	icon3.addFile(QString::fromUtf8(":/FarmManager/Resources/barn.png"), QSize(), QIcon::Normal, QIcon::Off);
 
 	m_pwStorages = std::shared_ptr<CStoragesWidget>(new CStoragesWidget(this, m_pDBManager));
 	ui.tabWidget->insertTab(2, m_pwStorages.get(), icon3,
@@ -57,7 +57,7 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 
 	// Finances
 	QIcon icon4;
-	icon4.addFile(QString::fromUtf8(":/FarmManager/Resources/finances.png"), QSize(), QIcon::Normal, QIcon::Off);
+	icon4.addFile(QString::fromUtf8(":/FarmManager/Resources/finances4.png"), QSize(), QIcon::Normal, QIcon::Off);
 
 	m_pwFinances = std::shared_ptr<CFinancesWidget>(new CFinancesWidget(this, m_pDBManager));
 	ui.tabWidget->insertTab(3, m_pwFinances.get(), icon4,

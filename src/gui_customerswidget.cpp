@@ -30,7 +30,7 @@ CCustomersWidget::CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBMan
 	m_uiCustomersWidget.setupUi(this);
 	SetDBManager(pDBManager);
 
-	QAction* pAction = new QAction("Heracnel", this);
+	QAction* pAction = new QAction( QString::fromUtf8("\325\200\325\245\325\274\325\241\326\201\325\266\325\245\325\254"), this );
 	m_pMenu->addAction(pAction);
 
 	m_uiCustomersWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);

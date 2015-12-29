@@ -85,8 +85,6 @@
     </property>
     <addaction name="actNewDeal"/>
     <addaction name="actAddCustomer"/>
-    <addaction name="separator"/>
-    <addaction name="actExit"/>
    </widget>
    <widget class="QMenu" name="menuFarm">
     <property name="title">
