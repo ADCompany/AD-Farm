@@ -105,6 +105,9 @@ inline void CAddCustomerDlg::Clear()
 	m_uiAddCustomer.editFirstName->clear();
 	m_uiAddCustomer.editLastName->clear();
 	m_uiAddCustomer.editPhone->clear();
+
+	SetLabelColor(m_uiAddCustomer.lblFirstName, true);
+	SetLabelColor(m_uiAddCustomer.lblLastName, true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
