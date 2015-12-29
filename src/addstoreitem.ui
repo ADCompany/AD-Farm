@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>291</width>
-    <height>105</height>
+    <width>414</width>
+    <height>185</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -21,61 +21,33 @@
    <item>
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
-      <string>Տեսակի ընտրություն</string>
+      <string>Ապրանքի ընտրություն</string>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
+       <layout class="QFormLayout" name="formLayout">
+        <property name="fieldGrowthPolicy">
+         <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+        </property>
+        <item row="0" column="0">
          <widget class="QLabel" name="label">
           <property name="text">
            <string>Տեսակը</string>
           </property>
          </widget>
         </item>
-        <item>
-         <widget class="QComboBox" name="comboBox">
-          <item>
-           <property name="text">
-            <string>Hav</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Chut</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Juja</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Varek</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Aqlor</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Buli</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Sag</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
-            <string>Bad</string>
-           </property>
-          </item>
+        <item row="0" column="1">
+         <widget class="QComboBox" name="cbxItemType"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QLabel" name="label_2">
+          <property name="text">
+           <string>Քանակը</string>
+          </property>
          </widget>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="sbxCount"/>
         </item>
        </layout>
       </item>
@@ -106,6 +78,9 @@
      </item>
      <item>
       <widget class="QPushButton" name="btnAdd">
+       <property name="enabled">
+        <bool>false</bool>
+       </property>
        <property name="text">
         <string>Ավելացնել</string>
        </property>
@@ -122,5 +97,38 @@
  <resources>
   <include location="farmmanager.qrc"/>
  </resources>
- <connections/>
+ <connections>
+  <connection>
+   <sender>btnCancel</sender>
+   <signal>clicked()</signal>
+   <receiver>EditStorageDlgUI</receiver>
+   <slot>reject()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>314</x>
+     <y>146</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>246</x>
+     <y>146</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>cbxItemType</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>sbxCount</receiver>
+   <slot>clear()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>118</x>
+     <y>45</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>123</x>
+     <y>70</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
 </ui>

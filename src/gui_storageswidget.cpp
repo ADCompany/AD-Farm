@@ -24,7 +24,8 @@ namespace gui {
 CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager)
 	: QWidget(pwParent),
 	m_pStringListModel(nullptr),
-	m_strCurrentStorageName("")
+	m_strCurrentStorageName(""),
+	m_pAddItemDlg( nullptr )
 {
 	m_uiStorages.setupUi(this);
 
@@ -32,6 +33,7 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	//	Connections
 	//
 	FM_CONNECT(m_uiStorages.listView, clicked(QModelIndex const&), this, onActivatedStorage(QModelIndex const&));
+	FM_CONNECT( m_uiStorages.btnAddItem, clicked(), this, onAddItemClicked() );
 	SetDBManager(pDBManager);
 
 	m_uiStorages.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -46,6 +48,16 @@ void CStoragesWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
 	FM_CONNECT(m_pStoragesData.get(), sigChangeData(), this, onChangeData());
 
 	UpdateData(true);
+}
+
+// onAddItemClicked
+void CStoragesWidget::onAddItemClicked() // BAD Solustion
+{
+	if (m_pAddItemDlg)
+		delete m_pAddItemDlg;
+
+	m_pAddItemDlg = new CAddStoreItem( QStringList()<<"Hav"<<"Chut"<<"Varek"<<"Buli", this );
+	m_pAddItemDlg->show();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

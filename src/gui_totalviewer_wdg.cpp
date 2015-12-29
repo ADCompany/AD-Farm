@@ -32,8 +32,7 @@ CTotalViewer::CTotalViewer( QWidget *pwParent )
 }
 
 // OnNewSelection
-void CTotalViewer::OnNewSelection( QString const& sStoreName,
-								   QString const& sItemName,
+void CTotalViewer::OnNewSelection( QString const& sItemName,
 								   int nCount )
 {
 	FM_ASSERT( !sItemName.isEmpty() );

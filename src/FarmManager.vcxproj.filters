@@ -183,6 +183,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gui_addproduct.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="gui_addstoreitem_dlg.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_addstoreitem_dlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_addstoreitem_dlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="farmmanager.ui">
@@ -312,6 +321,9 @@
       <Filter>Form Files</Filter>
     </CustomBuild>
     <CustomBuild Include="gui_addproduct.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_addstoreitem_dlg.h">
       <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>

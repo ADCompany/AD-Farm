@@ -11,6 +11,10 @@
 #ifndef DB_STORAGES_DATA_H
 #	include "db_storagesdata.h"
 #endif
+#ifndef GUI_ADD_STORE_ITEM_DLG_H
+#	include "gui_addstoreitem_dlg.h"
+#endif
+
 
 // Ui
 #include "ui_storages.h"
@@ -48,7 +52,7 @@ protected:// Helper Methodes
 	inline void UpdateData(bool bFull = false);
 
 
-	protected slots:// Slots
+protected slots:// Slots
 	void onChangeData()
 	{
 		UpdateData(true);
@@ -63,11 +67,14 @@ protected:// Helper Methodes
 
 		UpdateData();
 	}
+	//
+	void onAddItemClicked();
 
 private:
 	Ui::storages m_uiStorages;
 
 	//QDialog* m_pCreateSplDlg;
+	CAddStoreItem* m_pAddItemDlg;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 	std::shared_ptr<db::CDBManager> m_pDBManager;

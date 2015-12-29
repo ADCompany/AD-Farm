@@ -1,0 +1,70 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+//	Includes
+//
+#include "gui_addstoreitem_dlg.h"
+
+// Qt Includes
+#include <QMessageBox>
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+namespace fm {
+////////////////////////////////////////////////////////////////////////////////
+namespace gui {
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// class CAddCustomerDlg
+//
+
+// Constructors
+CAddStoreItem::CAddStoreItem( QStringList const& lstItemNames, QWidget* pwParent )
+	: QDialog( pwParent ),
+	  m_nOldCount(0)
+{
+	ui.setupUi( this );
+	// Setup Customer Selector
+	
+	ui.cbxItemType->addItems( lstItemNames );
+
+	// Setup Total Viewer widget
+	m_pwTotalViewer = new CTotalViewer();
+	QVBoxLayout* pVTotalLayout = dynamic_cast<QVBoxLayout*>(layout());
+	FM_ASSERT( pVTotalLayout );
+	pVTotalLayout->insertWidget( 1, m_pwTotalViewer );
+	
+	// Connections
+	FM_CONNECT( ui.sbxCount, valueChanged(int), this, OnCountChanged(int) );
+	FM_CONNECT( ui.btnAdd, clicked(), this, OnAddClicked() );
+}
+
+void CAddStoreItem::OnCountChanged( int nNewCount )
+{
+	QString sItem = ui.cbxItemType->currentText();
+	if (sItem.isEmpty())
+		// Nothig to do
+		return;
+	int nActualCount = nNewCount - m_nOldCount;
+	m_pwTotalViewer->OnNewSelection( sItem, nActualCount );
+	m_nOldCount = nNewCount;
+	if (!m_pwTotalViewer->isEmpty())
+		ui.btnAdd->setEnabled( true );
+	else 
+		ui.btnAdd->setDisabled( true );
+}
+
+void CAddStoreItem::OnAddClicked()
+{
+	QDialog::accept();
+}
+////////////////////////////////////////////////////////////////////////////////
+
+
+////////////////////////////////////////////////////////////////////////////////
+} // namespace gui
+////////////////////////////////////////////////////////////////////////////////
+} // namespace fm
+////////////////////////////////////////////////////////////////////////////////
