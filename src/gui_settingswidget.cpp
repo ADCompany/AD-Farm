@@ -31,7 +31,8 @@ CSettingsWidget::CSettingsWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	SetDBManager(pDBManager);
 
 	FM_CONNECT(m_uiSettingsWidget.pushButton, clicked(), this, onShowAddProductDlg());
-	FM_CONNECT(m_pAddProductDlg.get(), accepted(), this, onAddCustomer());
+
+	FM_CONNECT(m_pAddProductDlg.get(), accepted(), this, onAddNewProduct());
 
 	m_uiSettingsWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 }

@@ -49,9 +49,13 @@ protected slots:
 	{
 		UpdateData();
 	}
-	void onAddCustomer()
+	void onAddNewProduct()
 	{
+		QString strNewProductName = m_pAddProductDlg->GetName();
+		int nCount = m_pAddProductDlg->GetCount();
+		double dPrimeCost = m_pAddProductDlg->GetPrimeCost();
 
+		m_pStoragesData->AddNewProduct(strNewProductName, nCount, dPrimeCost);
 	}
 	void onShowAddProductDlg()
 	{

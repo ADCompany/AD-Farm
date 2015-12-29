@@ -40,9 +40,9 @@ public:
 	//	Main Interface
 	//
 	// Customer Data Accessors
-	inline int GetCount() const;
-	inline QString GetName() const;
-	inline QString GetPrimeCost() const;
+	inline QString	GetName() const;
+	inline int		GetCount() const;
+	inline double	GetPrimeCost() const;
 	// Clear Dialog
 	inline void Clear();
 
@@ -79,10 +79,10 @@ inline int CAddProductDlg::GetCount() const
 	return strCount.toInt();
 }
 // GetPhoneNumber
-inline QString CAddProductDlg::GetPrimeCost() const
+inline double CAddProductDlg::GetPrimeCost() const
 {
-	QString sPrimeCost = m_uiAddProduct.editPrimeCost->displayText();
-	return sPrimeCost;
+	QString strPrimeCost = m_uiAddProduct.editPrimeCost->displayText();
+	return strPrimeCost.toDouble();
 }
 // Clear
 inline void CAddProductDlg::Clear()
@@ -90,6 +90,10 @@ inline void CAddProductDlg::Clear()
 	m_uiAddProduct.editName->clear();
 	m_uiAddProduct.editCount->clear();
 	m_uiAddProduct.editPrimeCost->clear();
+
+	SetLabelColor(m_uiAddProduct.lblName, true);
+	SetLabelColor(m_uiAddProduct.lblCount, true);
+	SetLabelColor(m_uiAddProduct.lblPrimeCost, true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -232,6 +232,15 @@ void CStoragesData::BuyStorageData(QString const& strStorageName, QList<QString>
 	UpdateSqlTableModel(table::producte);
 }
 
+void CStoragesData::AddNewProduct(QString const& strNewProductName, int nCount, double dPrimeCost)
+{
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("INSERT INTO producte ( name, count, prime_cost ) VALUES ( \"%1\" , %2, %3 );").arg(
+		strNewProductName, QString::number(nCount), QString::number(dPrimeCost)));
+
+	UpdateSqlTableModel(table::producte);
+}
+
 void CStoragesData::UpdateSqlTableModel(QString const& strStorageName)
 {
 	RemoveSqlTableModel(strStorageName);

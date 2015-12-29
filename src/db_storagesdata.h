@@ -91,6 +91,8 @@ public:// Interface Methodes
 
 	void BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount);
 
+	void AddNewProduct(QString const& strNewProductName, int nCount, double dPrimeCost);
+
 	QList<QString> GetStorageNames();
 
 protected:// Helper Methodes
