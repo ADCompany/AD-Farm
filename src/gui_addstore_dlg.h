@@ -75,6 +75,7 @@ inline QString CAddStoreDlg::GetName() const
 inline void CAddStoreDlg::Clear()
 {
 	ui.editStoreName->clear();
+	SetLabelColor( ui.label, true );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

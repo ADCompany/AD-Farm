@@ -81,43 +81,132 @@
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
-     <string>File</string>
+     <string>Գործողություններ</string>
     </property>
-   </widget>
-   <widget class="QMenu" name="menuMenus">
-    <property name="title">
-     <string>Tools</string>
-    </property>
-   </widget>
-   <widget class="QMenu" name="menuHelp">
-    <property name="title">
-     <string>Transactions</string>
-    </property>
+    <addaction name="actNewDeal"/>
+    <addaction name="actAddCustomer"/>
+    <addaction name="separator"/>
+    <addaction name="actExit"/>
    </widget>
    <widget class="QMenu" name="menuFarm">
     <property name="title">
-     <string>Farm</string>
+     <string>Պատուհաններ</string>
     </property>
-   </widget>
-   <widget class="QMenu" name="menuHelp_2">
-    <property name="title">
-     <string>Help</string>
-    </property>
+    <addaction name="actShowDeals"/>
+    <addaction name="actCustomers"/>
+    <addaction name="actStores"/>
+    <addaction name="actFinances"/>
+    <addaction name="actSettings"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFarm"/>
-   <addaction name="menuHelp"/>
-   <addaction name="menuMenus"/>
-   <addaction name="menuHelp_2"/>
   </widget>
   <widget class="QToolBar" name="mainToolBar">
    <attribute name="toolBarArea">
     <enum>TopToolBarArea</enum>
    </attribute>
    <attribute name="toolBarBreak">
-    <bool>false</bool>
+    <bool>true</bool>
    </attribute>
+   <addaction name="actNewDeal"/>
+   <addaction name="actAddCustomer"/>
   </widget>
+  <action name="actNewDeal">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/transactions3.png</normaloff>:/FarmManager/Resources/transactions3.png</iconset>
+   </property>
+   <property name="text">
+    <string>Նոր Գործարք</string>
+   </property>
+   <property name="toolTip">
+    <string>Ստեղծել նոր գործարք</string>
+   </property>
+  </action>
+  <action name="actAddCustomer">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/add_customer2.png</normaloff>:/FarmManager/Resources/add_customer2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ավելացնել Գնորդ</string>
+   </property>
+   <property name="toolTip">
+    <string>Ավելացնել նոր գնորդ</string>
+   </property>
+  </action>
+  <action name="actShowDeals">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/transactions2.png</normaloff>:/FarmManager/Resources/transactions2.png</iconset>
+   </property>
+   <property name="text">
+    <string>Գործարքներ</string>
+   </property>
+   <property name="toolTip">
+    <string>Ցուցադրել գործարքների պատուհանը</string>
+   </property>
+  </action>
+  <action name="actCustomers">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/customers.png</normaloff>:/FarmManager/Resources/customers.png</iconset>
+   </property>
+   <property name="text">
+    <string>Գնորդներ</string>
+   </property>
+   <property name="toolTip">
+    <string>Ցուցադրել գնորդներ պատուհանը</string>
+   </property>
+  </action>
+  <action name="actStores">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/barn.png</normaloff>:/FarmManager/Resources/barn.png</iconset>
+   </property>
+   <property name="text">
+    <string>Պահոցներ</string>
+   </property>
+   <property name="toolTip">
+    <string>Ցուցադրել պահոցների պատուհանը</string>
+   </property>
+  </action>
+  <action name="actFinances">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/finances4.png</normaloff>:/FarmManager/Resources/finances4.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ֆինանսներ</string>
+   </property>
+   <property name="toolTip">
+    <string>Ցուցադրել ֆինանսների պատուհանը</string>
+   </property>
+  </action>
+  <action name="actSettings">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/settings.png</normaloff>:/FarmManager/Resources/settings.png</iconset>
+   </property>
+   <property name="text">
+    <string>Կարգավորումներ</string>
+   </property>
+   <property name="toolTip">
+    <string>Ցուցադրել կարգավորումների պատուհանը</string>
+   </property>
+  </action>
+  <action name="actExit">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/exit.png</normaloff>:/FarmManager/Resources/exit.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ելք</string>
+   </property>
+   <property name="toolTip">
+    <string>Փակել ծրագիրը</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <resources>

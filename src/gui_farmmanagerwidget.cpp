@@ -26,7 +26,6 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	m_pDBManager(new db::CDBManager())
 {
 	ui.setupUi(this);
-
 	m_pDBManager->Initialize();
 
 	m_CreateTrnDlg = std::shared_ptr<QDialog>(new QDialog(this));
@@ -74,6 +73,46 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	// Connections
 	//QObject::connect( ui.btnCreateTransaction, SIGNAL( clicked() ),
 	//				  m_CreateTrnDlg, SLOT( show() ) );
+	FM_CONNECT( ui.actShowDeals, triggered(), this, OnActionDeals() );
+	FM_CONNECT( ui.actCustomers, triggered(), this, OnActionCustomers() );
+	FM_CONNECT( ui.actStores,    triggered(), this, OnActionStorages() );
+	FM_CONNECT( ui.actFinances,  triggered(), this, OnActionFinances() );
+	FM_CONNECT( ui.actSettings,  triggered(), this, OnActionSettings() );
+	FM_CONNECT( ui.actExit, triggered(), qApp, quit() );
+}
+
+
+//
+//	Action Handlers
+//
+
+void CFarmManagerWidget::OnActionDeals()
+{
+	ui.tabWidget->setCurrentWidget( m_pwTrnsactions.get() );
+}
+void CFarmManagerWidget::OnActionCustomers()
+{
+	ui.tabWidget->setCurrentWidget( m_pwCustomers.get() );
+}
+void CFarmManagerWidget::OnActionStorages()
+{
+	ui.tabWidget->setCurrentWidget( m_pwStorages.get() );
+}
+void CFarmManagerWidget::OnActionFinances()
+{
+	ui.tabWidget->setCurrentWidget( m_pwFinances.get() );
+}
+void CFarmManagerWidget::OnActionSettings()
+{
+	ui.tabWidget->setCurrentWidget( m_pwSettings.get() );
+}
+void CFarmManagerWidget::OnActionNewDeal()
+{
+	//m_
+}
+void CFarmManagerWidget::OnActionAddCustomer()
+{
+	//m_pwCustomers->GetAddCustomerDlg()->onShowAddCustomerDlg();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

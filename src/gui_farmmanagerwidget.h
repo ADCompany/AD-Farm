@@ -39,6 +39,19 @@ public:
 	CFarmManagerWidget(QWidget *parent = 0);
 	~CFarmManagerWidget() = default;
 
+
+	protected slots:
+	//
+	//	Action Handlers
+	//
+	void OnActionDeals();
+	void OnActionCustomers();
+	void OnActionStorages();
+	void OnActionFinances();
+	void OnActionSettings();
+	void OnActionNewDeal();
+	void OnActionAddCustomer();
+
 private:
 	Ui::FarmManagerClass ui;
 

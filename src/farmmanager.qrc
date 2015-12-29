@@ -1,5 +1,8 @@
 <RCC>
   <qresource prefix="FarmManager">
+    <file>Resources/exit.png</file>
+    <file>Resources/finances4.png</file>
+    <file>Resources/customers.png</file>
     <file>Resources/add1.png</file>
     <file>Resources/deadbird.png</file>
     <file>Resources/cancel.png</file>
