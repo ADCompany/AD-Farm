@@ -35,11 +35,11 @@ CStoreContentModel::CStoreContentModel( QObject *pParent )
 void CStoreContentModel::setActiveStore( QString const& sStoreName )
 {
 	setQuery( QString( 
-		"SELECT producte.name, count FROM "
+		"SELECT producte.name, storage_info.count FROM "
 		"storage_name INNER JOIN storage_info INNER JOIN producte "
 		"ON "
 		"storage_name.id == storage_info.storage_id "
-		"AND storage_name.name == '%1' "
+		"AND storage_name.name == \"%1\" "
 		"AND producte.id == storage_info.product_id" ).arg( sStoreName ) );
 	
 	setHeaderData( 0, Qt::Horizontal, QString::fromUtf8( "\325\217\325\245\325\275\325\241\325\257\325\250" ) ); // Type
