@@ -101,16 +101,6 @@
    <addaction name="menuFile"/>
    <addaction name="menuFarm"/>
   </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>true</bool>
-   </attribute>
-   <addaction name="actNewDeal"/>
-   <addaction name="actAddCustomer"/>
-  </widget>
   <action name="actNewDeal">
    <property name="icon">
     <iconset resource="farmmanager.qrc">
