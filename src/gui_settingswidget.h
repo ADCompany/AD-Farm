@@ -57,6 +57,11 @@ protected slots:
 
 		m_pStoragesData->AddNewProduct(strNewProductName, nCount, dPrimeCost);
 	}
+	void onAddNewStore()
+	{
+		QString strStoreName = m_pAddStoreDlg->GetName();
+		m_pStoragesData->AddNewStore(strStoreName);
+	}
 	void onShowAddProductDlg()
 	{
 		if (m_pAddProductDlg == nullptr)
@@ -77,7 +82,7 @@ private:// Members
 	Ui::settingsWidget m_uiSettingsWidget;
 	
 	std::shared_ptr<CAddProductDlg> m_pAddProductDlg;
-	CAddStoreDlg*                   m_pAddStoreDlg;
+	std::shared_ptr<CAddStoreDlg> m_pAddStoreDlg;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 };

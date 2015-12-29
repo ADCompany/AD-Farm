@@ -14,7 +14,9 @@
 #ifndef GUI_ADD_STORE_ITEM_DLG_H
 #	include "gui_addstoreitem_dlg.h"
 #endif
-
+#ifndef GUI_SUBTRACT_STORE_ITEM_DLG_H
+#	include "gui_subtractstoreitem_dlg.h"
+#endif
 
 // Ui
 #include "ui_storages.h"
@@ -66,6 +68,7 @@ protected slots:// Slots
 		m_strCurrentStorageName = strSelectCustomerName;
 
 		m_uiStorages.btnAddItem->setEnabled(true);
+		m_uiStorages.btnSubItem->setDisabled(true);
 
 		UpdateData();
 	}
@@ -84,19 +87,50 @@ protected slots:// Slots
 
 		m_pStoragesData->AddProductInStorage(m_strCurrentStorageName, lstProductName, lstProductCount, lstProductCost);
 	}
+	void onSelectProduct(QModelIndex const& modelIndex)
+	{
+		m_currModelIndex = modelIndex;
+		m_uiStorages.btnSubItem->setEnabled(true);
+	}
+	void onSubItem()
+	{
+		int nRow = m_currModelIndex.row();
+		int nCount = m_pSubtractItemDlg->GetSutractionCount();
+		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
+		QString strProductName = record.value(0).toString();
+
+		m_pStoragesData->SubstractProductInStorage(m_strCurrentStorageName, strProductName, nCount);
+		UpdateData();
+	}
 	//
 	void onAddItemClicked();
+	void onSubItemClicked()
+	{
+		int nRow = m_currModelIndex.row();
+
+		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
+		int nCount = record.value(1).toInt();
+
+		m_pSubtractItemDlg = std::shared_ptr<CSubtractStoreItem>(new CSubtractStoreItem(nCount, this));
+		FM_CONNECT(m_pSubtractItemDlg.get(), accepted(), this, onSubItem());
+
+		m_pSubtractItemDlg->show();
+	}
 
 private:
 	Ui::storages m_uiStorages;
 
 	//QDialog* m_pCreateSplDlg;
 	std::shared_ptr<CAddStoreItem> m_pAddItemDlg;
+	std::shared_ptr<CSubtractStoreItem> m_pSubtractItemDlg;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 	std::shared_ptr<db::CDBManager> m_pDBManager;
 
 	std::shared_ptr<QStringListModel> m_pStringListModel;
+
+	QModelIndex m_currModelIndex;
+
 	QString m_strCurrentStorageName;
 };
 ////////////////////////////////////////////////////////////////////////////////

@@ -78,6 +78,8 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	FM_CONNECT( ui.actStores,    triggered(), this, OnActionStorages() );
 	FM_CONNECT( ui.actFinances,  triggered(), this, OnActionFinances() );
 	FM_CONNECT( ui.actSettings,  triggered(), this, OnActionSettings() );
+	FM_CONNECT(ui.actAddCustomer, triggered(), this, OnActionAddCustomer());
+	FM_CONNECT(ui.actNewDeal, triggered(), this, OnActionNewDeal());
 	FM_CONNECT( ui.actExit, triggered(), qApp, quit() );
 }
 
@@ -108,11 +110,11 @@ void CFarmManagerWidget::OnActionSettings()
 }
 void CFarmManagerWidget::OnActionNewDeal()
 {
-	//m_
+	m_pwTrnsactions->GetAddTransactionDialog()->show();
 }
 void CFarmManagerWidget::OnActionAddCustomer()
 {
-	//m_pwCustomers->GetAddCustomerDlg()->onShowAddCustomerDlg();
+	m_pwCustomers->GetAddCustomerDialog()->show();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

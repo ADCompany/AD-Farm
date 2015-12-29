@@ -45,6 +45,11 @@ public:// Interface Methodes
 	void SetDBManager(std::shared_ptr<db::CDBManager> pDBManager);
 	inline std::shared_ptr<QSqlTableModel> GetTableModel();
 
+	std::shared_ptr<QDialog> GetAddCustomerDialog()
+	{
+		return m_pAddCustomerDlg;
+	}
+
 protected:// Helper Methodes
 	inline void UpdateData();
 

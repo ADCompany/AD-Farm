@@ -40,6 +40,11 @@ public:// Interface Methodes
 
 	inline std::shared_ptr<QSqlTableModel> GetTableModel();
 
+	std::shared_ptr<QDialog> GetAddTransactionDialog()
+	{
+		return m_pNewDealDlg;
+	}
+
 protected:// Helper Methodes
 	inline void UpdateData(bool bFull = false);
 

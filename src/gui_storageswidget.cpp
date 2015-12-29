@@ -25,16 +25,23 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	: QWidget(pwParent),
 	m_pStringListModel(nullptr),
 	m_strCurrentStorageName(""),
+	m_pSubtractItemDlg(nullptr),
 	m_pAddItemDlg( nullptr )
 {
 	m_uiStorages.setupUi(this);
+	m_uiStorages.splitter->setStretchFactor(0, 1);
+	m_uiStorages.splitter->setStretchFactor(1, 3);
 
 	//
 	//	Connections
 	//
 	m_uiStorages.btnAddItem->setDisabled(true);
+	m_uiStorages.btnSubItem->setDisabled(true);
 	FM_CONNECT(m_uiStorages.listView, clicked(QModelIndex const&), this, onActivatedStorage(QModelIndex const&));
-	FM_CONNECT( m_uiStorages.btnAddItem, clicked(), this, onAddItemClicked() );
+	FM_CONNECT(m_uiStorages.tableView, clicked(QModelIndex const&), this, onSelectProduct(QModelIndex const&));
+	FM_CONNECT(m_uiStorages.btnAddItem, clicked(), this, onAddItemClicked());
+	FM_CONNECT(m_uiStorages.btnSubItem, clicked(), this, onSubItemClicked());
+
 	SetDBManager(pDBManager);
 
 	m_uiStorages.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -56,6 +63,7 @@ void CStoragesWidget::onAddItemClicked() // BAD Solustion
 {
 	m_pAddItemDlg = std::shared_ptr<CAddStoreItem>(new CAddStoreItem(m_pStoragesData->GetProductNames(), this));
 	FM_CONNECT(m_pAddItemDlg.get(), accepted(), this, onAddItem());
+
 	m_pAddItemDlg->show();
 }
 

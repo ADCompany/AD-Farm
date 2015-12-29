@@ -31,12 +31,13 @@ CSettingsWidget::CSettingsWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	SetDBManager(pDBManager);
 
 	// Setup Add Storage Dialog
-	m_pAddStoreDlg = new CAddStoreDlg( this );
+	m_pAddStoreDlg = std::shared_ptr<CAddStoreDlg>(new CAddStoreDlg(this));
 
 	FM_CONNECT( m_uiSettingsWidget.btnAddProduct, clicked(), this, onShowAddProductDlg() );
 	FM_CONNECT( m_uiSettingsWidget.btnAddStore, clicked(), this, onShowAddStoreDlg() );
 
 	FM_CONNECT(m_pAddProductDlg.get(), accepted(), this, onAddNewProduct());
+	FM_CONNECT(m_pAddStoreDlg.get(), accepted(), this, onAddNewStore());
 
 	m_uiSettingsWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 }

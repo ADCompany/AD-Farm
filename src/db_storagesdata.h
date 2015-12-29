@@ -80,6 +80,12 @@ public:// Interface Methodes
 	bool SetParent(QObject* pParent);
 	void SetDBManager(std::shared_ptr<CDBManager> pDBManager);
 
+	void UpdateAllSqlTableModel()
+	{
+		m_mapStringToModel.clear();
+		emit sigChangeData();
+	}
+
 	inline int GetColumnCount() const;
 
 	std::shared_ptr<QSqlQueryModel> GetProductSqlQueryModel(QString const& strTableName);
@@ -92,9 +98,12 @@ public:// Interface Methodes
 	void BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount);
 
 	void AddNewProduct(QString const& strNewProductName, int nCount, double dPrimeCost);
+	void AddNewStore(QString const& strStoreName);
 
 	void AddProductInStorage(QString const& strStorageName, QList<QString> const& lstProductName,
 		QList<int> const& lstProductCount, QList<double> const& lstProductCost);
+
+	void SubstractProductInStorage(QString const& strStorageName, QString const& strProductName, int nCount);
 
 	QList<QString> GetStorageNames();
 
