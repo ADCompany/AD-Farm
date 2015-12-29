@@ -49,6 +49,7 @@ public:
 	inline t_lstProductPriceInfo GetProductInfo() const;
 
 protected slots:
+    void OnItemSelectionChanged( int nIndex );
     void OnCountChanged( int nNewCount );
     void OnAddClicked();
 
@@ -80,7 +81,10 @@ private:
 // Clear
 inline void CAddStoreItem::Clear()
 {
-	// TODO
+	m_nOldCount = 0;
+	m_pwTotalViewer->OnClear();
+	ui.cbxItemType->clear();
+	ui.sbxCount->setValue( 0 );
 }
 
 inline t_lstProductPriceInfo CAddStoreItem::GetProductInfo() const

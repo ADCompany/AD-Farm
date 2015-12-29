@@ -37,6 +37,7 @@ CAddStoreItem::CAddStoreItem( QStringList const& lstItemNames, QWidget* pwParent
 	pVTotalLayout->insertWidget( 1, m_pwTotalViewer );
 	
 	// Connections
+	FM_CONNECT( ui.cbxItemType, currentIndexChanged(int), this, OnItemSelectionChanged(int) );
 	FM_CONNECT( ui.sbxCount, valueChanged(int), this, OnCountChanged(int) );
 	FM_CONNECT( ui.btnAdd, clicked(), this, OnAddClicked() );
 }
@@ -59,6 +60,12 @@ void CAddStoreItem::OnCountChanged( int nNewCount )
 void CAddStoreItem::OnAddClicked()
 {
 	QDialog::accept();
+}
+
+void CAddStoreItem::OnItemSelectionChanged( int )
+{
+	m_nOldCount = 0;
+	ui.sbxCount->setValue( 0 );
 }
 ////////////////////////////////////////////////////////////////////////////////
 

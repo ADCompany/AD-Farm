@@ -47,7 +47,8 @@ void CTotalViewer::OnNewSelection( QString const& sItemName,
 	CProductInfoWidgets oInfoWidgets = m_hshProductInfo.value( sItemName );
 	if (oInfoWidgets.isEmpty())
 	{
-		AddProduct( sItemName, nCount );
+		if (nCount > 0)
+			AddProduct( sItemName, nCount );
 	}
 	else
 	{

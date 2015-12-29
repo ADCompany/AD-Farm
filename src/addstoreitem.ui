@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>414</width>
-    <height>185</height>
+    <width>471</width>
+    <height>163</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -47,7 +47,11 @@
          </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="sbxCount"/>
+         <widget class="QSpinBox" name="sbxCount">
+          <property name="maximum">
+           <number>100000</number>
+          </property>
+         </widget>
         </item>
        </layout>
       </item>
@@ -70,13 +74,6 @@
       </spacer>
      </item>
      <item>
-      <widget class="QPushButton" name="btnCancel">
-       <property name="text">
-        <string>Չեղարկել</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QPushButton" name="btnAdd">
        <property name="enabled">
         <bool>false</bool>
@@ -87,6 +84,13 @@
        <property name="icon">
         <iconset resource="farmmanager.qrc">
          <normaloff>:/FarmManager/Resources/add1.png</normaloff>:/FarmManager/Resources/add1.png</iconset>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCancel">
+       <property name="text">
+        <string>Չեղարկել</string>
        </property>
       </widget>
      </item>
@@ -105,28 +109,12 @@
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>314</x>
-     <y>146</y>
+     <x>345</x>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
      <x>246</x>
      <y>146</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>cbxItemType</sender>
-   <signal>currentIndexChanged(int)</signal>
-   <receiver>sbxCount</receiver>
-   <slot>clear()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>118</x>
-     <y>45</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>123</x>
-     <y>70</y>
     </hint>
    </hints>
   </connection>
