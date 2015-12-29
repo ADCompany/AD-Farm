@@ -65,7 +65,24 @@ protected slots:// Slots
 
 		m_strCurrentStorageName = strSelectCustomerName;
 
+		m_uiStorages.btnAddItem->setEnabled(true);
+
 		UpdateData();
+	}
+	void onAddItem()
+	{
+		t_lstProductPriceInfo productInfo = m_pAddItemDlg->GetProductInfo();
+		QList<QString> lstProductName;
+		QList<int> lstProductCount;
+		QList<double> lstProductCost;
+		for (int i = 0; i < productInfo.count(); ++i)
+		{
+			lstProductName.push_back(productInfo[i].sProductName);
+			lstProductCount.push_back(productInfo[i].nCount);
+			lstProductCost.push_back(productInfo[i].fPrice);
+		}
+
+		m_pStoragesData->AddProductInStorage(m_strCurrentStorageName, lstProductName, lstProductCount, lstProductCost);
 	}
 	//
 	void onAddItemClicked();
@@ -74,7 +91,7 @@ private:
 	Ui::storages m_uiStorages;
 
 	//QDialog* m_pCreateSplDlg;
-	CAddStoreItem* m_pAddItemDlg;
+	std::shared_ptr<CAddStoreItem> m_pAddItemDlg;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 	std::shared_ptr<db::CDBManager> m_pDBManager;

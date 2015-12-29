@@ -32,6 +32,7 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	//
 	//	Connections
 	//
+	m_uiStorages.btnAddItem->setDisabled(true);
 	FM_CONNECT(m_uiStorages.listView, clicked(QModelIndex const&), this, onActivatedStorage(QModelIndex const&));
 	FM_CONNECT( m_uiStorages.btnAddItem, clicked(), this, onAddItemClicked() );
 	SetDBManager(pDBManager);
@@ -53,10 +54,8 @@ void CStoragesWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
 // onAddItemClicked
 void CStoragesWidget::onAddItemClicked() // BAD Solustion
 {
-	if (m_pAddItemDlg)
-		delete m_pAddItemDlg;
-
-	m_pAddItemDlg = new CAddStoreItem( QStringList()<<"Hav"<<"Chut"<<"Varek"<<"Buli", this );
+	m_pAddItemDlg = std::shared_ptr<CAddStoreItem>(new CAddStoreItem(m_pStoragesData->GetProductNames(), this));
+	FM_CONNECT(m_pAddItemDlg.get(), accepted(), this, onAddItem());
 	m_pAddItemDlg->show();
 }
 

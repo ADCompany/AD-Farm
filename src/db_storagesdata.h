@@ -93,7 +93,12 @@ public:// Interface Methodes
 
 	void AddNewProduct(QString const& strNewProductName, int nCount, double dPrimeCost);
 
+	void AddProductInStorage(QString const& strStorageName, QList<QString> const& lstProductName,
+		QList<int> const& lstProductCount, QList<double> const& lstProductCost);
+
 	QList<QString> GetStorageNames();
+
+	QList<QString> GetProductNames();
 
 protected:// Helper Methodes
 	void UpdateSqlTableModel();
