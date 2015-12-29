@@ -64,6 +64,13 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	ui.tabWidget->insertTab(3, m_pwFinances.get(), icon4,
 		QString::fromUtf8("\325\226\325\253\325\266\325\241\325\266\325\275\325\266\325\245\326\200"));
 
+	QIcon icon5;
+	icon5.addFile(QString::fromUtf8(":/FarmManager/Resources/settings.png"), QSize(), QIcon::Normal, QIcon::Off);
+
+	m_pwSettings = std::shared_ptr<CSettingsWidget>(new CSettingsWidget(this, m_pDBManager));
+	ui.tabWidget->insertTab(4, m_pwSettings.get(), icon5,
+		QString::fromUtf8("\324\277\325\241\326\200\325\243\325\241\325\276\325\270\326\200\325\270\326\202\325\264\325\266\325\245\326\200"));
+
 	// Connections
 	//QObject::connect( ui.btnCreateTransaction, SIGNAL( clicked() ),
 	//				  m_CreateTrnDlg, SLOT( show() ) );

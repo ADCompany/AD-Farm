@@ -82,6 +82,8 @@ public:// Interface Methodes
 
 	inline int GetColumnCount() const;
 
+	std::shared_ptr<QSqlQueryModel> GetProductSqlQueryModel(QString const& strTableName);
+
 	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByStorageName(QString const& strCustomerName);
 
 	void SubstractProducts(QList<QString> lstProductName, QList<int> lstProductCount);

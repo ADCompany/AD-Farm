@@ -9,6 +9,7 @@
 #include "ui_addgorcarq.h"
 #include "gui_financeswidget.h"
 #include "gui_storageswidget.h"
+#include "gui_settingswidget.h"
 #include "gui_customerswidget.h"
 #include "gui_transactionswidget.h"
 
@@ -45,6 +46,7 @@ private:
 
 	std::shared_ptr<CStoragesWidget>		m_pwStorages;
 	std::shared_ptr<CFinancesWidget>		m_pwFinances;
+	std::shared_ptr<CSettingsWidget>		m_pwSettings;
 	std::shared_ptr<CCustomersWidget>		m_pwCustomers;
 	std::shared_ptr<CTransactionsWidget>	m_pwTrnsactions;
 

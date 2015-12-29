@@ -84,6 +84,24 @@ void CStoragesData::SetDBManager(std::shared_ptr<CDBManager> pDBManager)
 	CDBComponent::SetDBManager(pDBManager);
 }
 
+std::shared_ptr<QSqlQueryModel> CStoragesData::GetProductSqlQueryModel(QString const& strTableName)
+{
+	auto itMap = m_mapStringToModel.find(strTableName);
+	if (itMap != m_mapStringToModel.end())
+		return itMap->second;
+
+	std::shared_ptr<QSqlQueryModel> pSqlQueryModel(new QSqlQueryModel);
+	pSqlQueryModel->setQuery(QString("SELECT * FROM %1").arg(strTableName));
+
+	pSqlQueryModel->setHeaderData(0, Qt::Horizontal, QVariant(QString::fromUtf8("\325\217\325\245\325\275. \325\260\325\241\325\264\325\241\326\200")));
+	pSqlQueryModel->setHeaderData(1, Qt::Horizontal, QVariant(QString::fromUtf8("\324\261\325\266\325\270\326\202\325\266")));
+	pSqlQueryModel->setHeaderData(2, Qt::Horizontal, QVariant(QString::fromUtf8("\325\224\325\241\325\266\325\241\325\257")));
+	pSqlQueryModel->setHeaderData(3, Qt::Horizontal, QVariant(QString::fromUtf8("\324\273\325\266\326\204\325\266\325\241\326\200\325\252\325\245\326\204")));
+
+	m_mapStringToModel.emplace(strTableName, pSqlQueryModel);
+	return pSqlQueryModel;
+}
+
 std::shared_ptr<QSqlQueryModel> CStoragesData::GetSqlTableModelByStorageName(QString const& strStorageName)
 {
 	auto itMap = m_mapStringToModel.find(strStorageName);
@@ -189,6 +207,7 @@ void CStoragesData::BuyStorageData(QString const& strStorageName, QList<QString>
 	}
 
 	UpdateSqlTableModel(strStorageName);
+	UpdateSqlTableModel(table::producte);
 }
 
 void CStoragesData::UpdateSqlTableModel(QString const& strStorageName)
