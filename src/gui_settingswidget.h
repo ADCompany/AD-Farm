@@ -8,6 +8,7 @@
 #ifndef DB_STORAGES_DATA_H
 #	include "db_storagesdata.h"
 #endif
+#include "gui_addproduct.h"
 
 // Ui
 #include "ui_settings.h"
@@ -48,8 +49,22 @@ protected slots:
 	{
 		UpdateData();
 	}
+	void onAddCustomer()
+	{
+
+	}
+	void onShowAddProductDlg()
+	{
+		if (m_pAddProductDlg == nullptr)
+			return;
+
+		m_pAddProductDlg->Clear();
+		m_pAddProductDlg->show();
+	}
 private:// Members
 	Ui::settingsWidget m_uiSettingsWidget;
+	
+	std::shared_ptr<CAddProductDlg> m_pAddProductDlg;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 };

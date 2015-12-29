@@ -23,11 +23,15 @@ namespace gui {
 // Constructors
 CSettingsWidget::CSettingsWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager)
 	: QWidget(pwParent),
-	m_pStoragesData(nullptr)
+	m_pStoragesData(nullptr),
+	m_pAddProductDlg(new CAddProductDlg(this))
 {
 	m_uiSettingsWidget.setupUi(this);
 
 	SetDBManager(pDBManager);
+
+	FM_CONNECT(m_uiSettingsWidget.pushButton, clicked(), this, onShowAddProductDlg());
+	FM_CONNECT(m_pAddProductDlg.get(), accepted(), this, onAddCustomer());
 
 	m_uiSettingsWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 }
