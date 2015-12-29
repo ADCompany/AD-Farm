@@ -25,27 +25,20 @@ CAddStoreDlg::CAddStoreDlg( QWidget *pwParent )
 	: QDialog(pwParent)
 {
 	ui.setupUi(this);
-	setFixedSize(416, 161);
+	setFixedSize(285, 104);
 
 	// Connections
-	//FM_CONNECT(m_uiAddProduct.btnAddProduct, clicked(), this, OnAdd());
+	FM_CONNECT(ui.btnAdd, clicked(), this, OnAdd());
 }
 
+// OnAdd
 void CAddStoreDlg::OnAdd()
 {
-	/*QString strFirstName = m_uiAddProduct.editName->text();
-	QString strCount = m_uiAddProduct.editCount->text();
-	QString strPrimeCost = m_uiAddProduct.editPrimeCost->text();
-	bool bValidName = !strFirstName.isEmpty();
-	bool bValidCount = !strCount.isEmpty();
-	bool bValidPrimeCost = !strPrimeCost.isEmpty();
-
-	SetLabelColor(m_uiAddProduct.lblName, bValidName);
-	SetLabelColor(m_uiAddProduct.lblCount, bValidCount);
-	SetLabelColor(m_uiAddProduct.lblPrimeCost, bValidPrimeCost);
-
-	if (bValidName && bValidCount && bValidPrimeCost)
-		QDialog::accept();*/
+	QString sStoreName = ui.editStoreName->text();
+	bool bValidName = !sStoreName.isEmpty();
+	SetLabelColor(ui.label, bValidName);
+	if (bValidName)
+		QDialog::accept();
 }
 
 // setLabelColor

@@ -39,7 +39,7 @@ public:
 	//
 	//	Main Interface
 	//
-	// Customer Data Accessors
+	// Get Store Name
 	inline QString	GetName() const;
 	// Clear Dialog
 	inline void Clear();

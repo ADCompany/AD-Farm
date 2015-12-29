@@ -9,7 +9,7 @@
 #	include "db_storagesdata.h"
 #endif
 #include "gui_addproduct.h"
-
+#include "gui_addstore_dlg.h"
 // Ui
 #include "ui_settings.h"
 
@@ -65,10 +65,19 @@ protected slots:
 		m_pAddProductDlg->Clear();
 		m_pAddProductDlg->show();
 	}
+	void onShowAddStoreDlg()
+	{
+		if (m_pAddStoreDlg == nullptr)
+			return;
+
+		m_pAddStoreDlg->Clear();
+		m_pAddStoreDlg->show();
+	}
 private:// Members
 	Ui::settingsWidget m_uiSettingsWidget;
 	
 	std::shared_ptr<CAddProductDlg> m_pAddProductDlg;
+	CAddStoreDlg*                   m_pAddStoreDlg;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 };

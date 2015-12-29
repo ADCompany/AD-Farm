@@ -30,7 +30,11 @@ CSettingsWidget::CSettingsWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 
 	SetDBManager(pDBManager);
 
-	FM_CONNECT(m_uiSettingsWidget.pushButton, clicked(), this, onShowAddProductDlg());
+	// Setup Add Storage Dialog
+	m_pAddStoreDlg = new CAddStoreDlg( this );
+
+	FM_CONNECT( m_uiSettingsWidget.btnAddProduct, clicked(), this, onShowAddProductDlg() );
+	FM_CONNECT( m_uiSettingsWidget.btnAddStore, clicked(), this, onShowAddStoreDlg() );
 
 	FM_CONNECT(m_pAddProductDlg.get(), accepted(), this, onAddNewProduct());
 

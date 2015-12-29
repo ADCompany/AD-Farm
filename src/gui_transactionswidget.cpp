@@ -30,6 +30,8 @@ CTransactionsWidget::CTransactionsWidget(QWidget* pwParent, std::shared_ptr<db::
 	m_pNewDealDlg(nullptr)
 {
 	ui.setupUi(this);
+	ui.splitter->setStretchFactor( 0, 1 );
+	ui.splitter->setStretchFactor( 1, 3 );
 
 	FM_CONNECT(ui.listView, clicked(QModelIndex const&), this, onActivatedCustomer(QModelIndex const&));
 	SetDBManager(pDBManager);
