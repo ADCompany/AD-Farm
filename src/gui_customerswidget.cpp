@@ -35,7 +35,6 @@ CCustomersWidget::CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBMan
 
 	m_uiCustomersWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
 	m_uiCustomersWidget.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
-	m_uiCustomersWidget.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 	FM_CONNECT(m_uiCustomersWidget.btnAddCustomers, clicked(), this, onShowAddCustomerDlg());
 
@@ -52,6 +51,7 @@ void CCustomersWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
 		return;
 
 	m_pCustomersData = std::static_pointer_cast<db::CCustomersData>(pDBManager->GetDBComponent(db::CDBManager::component::customers));
+	FM_CONNECT(m_pCustomersData.get(), sigChangeData(), this, onChangeData());
 
 	UpdateData();
 }

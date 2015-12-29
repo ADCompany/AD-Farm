@@ -293,12 +293,24 @@
     <CustomBuild Include="gui_settingswidget.h">
       <Filter>Gui</Filter>
     </CustomBuild>
+    <CustomBuild Include="addstoreitem.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="subtractproduct.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app_icon.rc" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_settings.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_addstoreitem.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_subtractproduct.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

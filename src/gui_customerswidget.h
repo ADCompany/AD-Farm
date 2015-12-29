@@ -55,6 +55,10 @@ protected:// Helper Methodes
 
 protected slots:// Slots
 	void onAddCustomer();
+	void onChangeData()
+	{
+		UpdateData();
+	}
 	void onShowAddCustomerDlg()
 	{
 		if (m_pAddCustomerDlg == nullptr)
