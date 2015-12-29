@@ -72,6 +72,9 @@ protected slots:// Slots
 
 		m_pTransactionsData->AddTransactionData(strCustomerName, lstProductName, lstCount, lstCost, trDetails.fTotalPrice, trDetails.fPayedMoney);
 
+		// PRDATA
+		m_pStoragesData->SubstractProducts(lstProductName, lstCount);
+
 		// STDATA
 		CFarmInfo farmInfo = m_pNewDealDlg->GetFarmUpdateInfo();
 

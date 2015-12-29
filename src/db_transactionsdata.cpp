@@ -162,8 +162,8 @@ std::shared_ptr<QSqlQueryModel> CTransactionsData::GetSqlTableModelByCustomerNam
 	pTransactionSqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant(QString::fromUtf8("\325\217\325\245\325\275\325\241\325\257")));
 	pTransactionSqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant(QString::fromUtf8("\325\224\325\241\325\266\325\241\325\257")));
 	pTransactionSqlTableModel->setHeaderData(3, Qt::Horizontal, QVariant(QString::fromUtf8("\325\204\325\253\325\241\325\276\325\270\326\200\325\253 \325\243\325\253\325\266")));
-	pTransactionSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant(QString::fromUtf8("\324\263\325\270\326\200\325\256\325\241\326\200\326\204\325\253 \325\243\325\270\326\202\325\264\325\241\326\200")));
-	pTransactionSqlTableModel->setHeaderData(5, Qt::Horizontal, QVariant(QString::fromUtf8("\325\216\325\263\325\241\326\200\325\276\325\241\325\256 \325\243\325\270\326\202\325\264\325\241\326\200")));
+	pTransactionSqlTableModel->setHeaderData(4, Qt::Horizontal, QVariant(QString::fromUtf8("\324\263\325\270\326\200\325\256. \325\243\325\270\326\202\325\264\325\241\326\200")));
+	pTransactionSqlTableModel->setHeaderData(5, Qt::Horizontal, QVariant(QString::fromUtf8("\325\216\325\263\325\241\326\200. \325\243\325\270\326\202\325\264\325\241\326\200")));
 	pTransactionSqlTableModel->setHeaderData(6, Qt::Horizontal, QVariant(QString::fromUtf8("\324\261\325\264\325\275\325\241\325\251\325\253\325\276")));
 
 	m_mapStringToModel.emplace(strCustomerName, pTransactionSqlTableModel);

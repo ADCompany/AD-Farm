@@ -84,6 +84,8 @@ public:// Interface Methodes
 
 	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByStorageName(QString const& strCustomerName);
 
+	void SubstractProducts(QList<QString> lstProductName, QList<int> lstProductCount);
+
 	void BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount);
 
 	QList<QString> GetStorageNames();

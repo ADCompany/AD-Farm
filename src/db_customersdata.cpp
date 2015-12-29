@@ -38,10 +38,10 @@ void CCustomersData::Initialize()
 
 	EXECUTE_QUERY(sqlQuery, QString(
 		"CREATE TABLE IF NOT EXISTS customer ("
-		"id	INTEGER PRIMARY KEY AUTOINCREMENT,"
-		"first_name	TEXT    NOT NULL, "
-		"last_name	TEXT    NOT NULL, "
-		"debt INTEGER NOT NULL, "
+		"id	INTEGER		PRIMARY KEY AUTOINCREMENT,"
+		"first_name		TEXT    NOT NULL, "
+		"last_name		TEXT    NOT NULL, "
+		"debt			REAL NOT NULL, "
 		"phone_number	TEXT NOT NULL );"));
 	//.arg(table::customer,
 	//								table::customer::id,

@@ -34,6 +34,8 @@ CCustomersWidget::CCustomersWidget(QWidget* pwParent, std::shared_ptr<db::CDBMan
 	m_pMenu->addAction(pAction);
 
 	m_uiCustomersWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+	m_uiCustomersWidget.tableView->setSelectionMode(QAbstractItemView::SingleSelection);
+	m_uiCustomersWidget.tableView->setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 	FM_CONNECT(m_uiCustomersWidget.btnAddCustomers, clicked(), this, onShowAddCustomerDlg());
 

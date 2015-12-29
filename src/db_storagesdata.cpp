@@ -56,7 +56,8 @@ void CStoragesData::Initialize()
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS producte ("
 		"id				INTEGER PRIMARY KEY NOT NULL, "
-		"name			TEXT    NOT NULL,"
+		"name			TEXT    NOT NULL, "
+		"count			INTEGER NOT NULL, "
 		"prime_cost		REAL	NOT NULL);");
 	//.arg(table::customer,
 	//								table::customer::id,
@@ -127,6 +128,23 @@ QList<QString> CStoragesData::GetStorageNames()
 	}
 
 	return lstString;
+}
+
+void CStoragesData::SubstractProducts(QList<QString> lstProductName, QList<int> lstProductCount)
+{
+	QSqlQuery sqlQuery;
+	for (int i = 0; i < lstProductName.count(); ++i)
+	{
+		sqlQuery.exec(QString("SELECT id FROM producte WHERE name == \"%1\" ").arg(lstProductName[i]));
+		sqlQuery.next();
+		QString strProductId = sqlQuery.value(0).toString();
+		sqlQuery.exec(QString("SELECT count FROM producte WHERE id == %1 ").arg(strProductId));
+		sqlQuery.next();
+		int nCurrCount = sqlQuery.value(0).toInt();
+		nCurrCount -= lstProductCount[i];
+
+		sqlQuery.exec(QString("UPDATE producte SET count = %1 WHERE id == %2").arg(QString::number(nCurrCount), strProductId));
+	}
 }
 
 void CStoragesData::BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount)
