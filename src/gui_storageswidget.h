@@ -17,6 +17,12 @@
 #ifndef GUI_SUBTRACT_STORE_ITEM_DLG_H
 #	include "gui_subtractstoreitem_dlg.h"
 #endif
+#ifndef GUI_ADD_FARM_COSTS_DLG_H
+#	include "gui_addfarmcostsdlg.h"
+#endif
+#ifndef GUI_ADD_STORAGE_COSTS_DLG_H
+#	include "gui_addstoragecostsdlg.h"
+#endif
 
 // Ui
 #include "ui_storages.h"
@@ -68,6 +74,7 @@ protected slots:// Slots
 		m_strCurrentStorageName = strSelectCustomerName;
 
 		m_uiStorages.btnAddItem->setEnabled(true);
+		m_uiStorages.btnAddStorageCosts->setEnabled(true);
 		m_uiStorages.btnSubItem->setDisabled(true);
 
 		UpdateData();
@@ -116,13 +123,43 @@ protected slots:// Slots
 
 		m_pSubtractItemDlg->show();
 	}
+	void onAddStorageCostsClicked()
+	{
+		m_pAddStorageCostsDlg = std::shared_ptr<CAddStorageCostsDlg>(new CAddStorageCostsDlg(this));
+		FM_CONNECT(m_pAddStorageCostsDlg.get(), accepted(), this, onAddStorageCosts());
+
+		m_pAddStorageCostsDlg->show();
+	}
+	void onAddStorageCosts()
+	{
+		double dCosts = m_pAddStorageCostsDlg->GetCosts();
+		m_pStoragesData->AddStoragesCosts(m_strCurrentStorageName, dCosts);
+
+		UpdateData();
+	}
+	void onAddFarmCostsClicked()
+	{
+		m_pAddFarmCostsDlg = std::shared_ptr<CAddFarmCostsDlg>(new CAddFarmCostsDlg(this));
+		FM_CONNECT(m_pAddFarmCostsDlg.get(), accepted(), this, onAddFarmCosts());
+
+		m_pAddFarmCostsDlg->show();
+	}
+	void onAddFarmCosts()
+	{
+		double dCosts = m_pAddFarmCostsDlg->GetCosts();
+		m_pStoragesData->AddFarmCosts(dCosts);
+
+		UpdateData();
+	}
 
 private:
 	Ui::storages m_uiStorages;
 
 	//QDialog* m_pCreateSplDlg;
-	std::shared_ptr<CAddStoreItem> m_pAddItemDlg;
-	std::shared_ptr<CSubtractStoreItem> m_pSubtractItemDlg;
+	std::shared_ptr<CAddStoreItem>			m_pAddItemDlg;
+	std::shared_ptr<CSubtractStoreItem>		m_pSubtractItemDlg;
+	std::shared_ptr<CAddFarmCostsDlg>		m_pAddFarmCostsDlg;
+	std::shared_ptr<CAddStorageCostsDlg>	m_pAddStorageCostsDlg;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 	std::shared_ptr<db::CDBManager> m_pDBManager;

@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>626</width>
+    <width>778</width>
     <height>555</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>606</width>
+        <width>758</width>
         <height>535</height>
        </rect>
       </property>
@@ -41,7 +41,7 @@
            </font>
           </property>
          </widget>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <widget class="QTableView" name="tableView">
@@ -56,7 +56,28 @@
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
              <item>
+              <widget class="QPushButton" name="btnAddFarmCosts">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Ծախս</string>
+               </property>
+               <property name="icon">
+                <iconset resource="farmmanager.qrc">
+                 <normaloff>:/FarmManager/Resources/app_icon.png</normaloff>:/FarmManager/Resources/app_icon.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
               <widget class="QPushButton" name="btnAddItem">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="text">
                 <string>Ավելացնել</string>
                </property>
@@ -67,9 +88,30 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btnSubItem">
+              <widget class="QPushButton" name="btnAddStorageCosts">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
                <property name="text">
-                <string>Պակասացնել</string>
+                <string>Ծախս</string>
+               </property>
+               <property name="icon">
+                <iconset resource="farmmanager.qrc">
+                 <normaloff>:/FarmManager/Resources/barn.png</normaloff>:/FarmManager/Resources/barn.png</iconset>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btnSubItem">
+               <property name="font">
+                <font>
+                 <pointsize>10</pointsize>
+                </font>
+               </property>
+               <property name="text">
+                <string>Անկում</string>
                </property>
                <property name="icon">
                 <iconset resource="farmmanager.qrc">

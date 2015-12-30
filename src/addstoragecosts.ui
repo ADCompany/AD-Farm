@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>addProductDlg</class>
- <widget class="QDialog" name="addProductDlg">
+ <class>addStorageCostsDlg</class>
+ <widget class="QDialog" name="addStorageCostsDlg">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>411</width>
-    <height>176</height>
+    <width>400</width>
+    <height>300</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Ավելացնել Ապրանքատեսակ</string>
+   <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="0" column="0">
@@ -24,8 +24,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>391</width>
-        <height>156</height>
+        <width>380</width>
+        <height>280</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -34,53 +34,25 @@
          <item>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <item>
-              <layout class="QHBoxLayout" name="horizontalLayout">
-               <item>
-                <widget class="QLabel" name="lblName">
-                 <property name="text">
-                  <string>Անուն *         </string>
-                 </property>
-                 <property name="wordWrap">
-                  <bool>false</bool>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </item>
-             <item>
-              <widget class="QLineEdit" name="editName">
-               <property name="font">
-                <font>
-                 <family>MS Shell Dlg 2</family>
-                 <pointsize>10</pointsize>
-                 <weight>50</weight>
-                 <bold>false</bold>
-                </font>
-               </property>
-               <property name="maxLength">
-                <number>20</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
             <layout class="QHBoxLayout" name="horizontalLayout_6">
              <item>
               <layout class="QHBoxLayout" name="horizontalLayout_3">
                <item>
-                <widget class="QLabel" name="lblPrimeCost">
+                <widget class="QLabel" name="lblCosts">
+                 <property name="font">
+                  <font>
+                   <pointsize>10</pointsize>
+                  </font>
+                 </property>
                  <property name="text">
-                  <string>Ինքնարժեք *</string>
+                  <string>Գումար</string>
                  </property>
                 </widget>
                </item>
               </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="editPrimeCost">
+              <widget class="QLineEdit" name="editCosts">
                <property name="font">
                 <font>
                  <pointsize>10</pointsize>
@@ -126,7 +98,7 @@
               </spacer>
              </item>
              <item>
-              <widget class="QPushButton" name="btnAddProduct">
+              <widget class="QPushButton" name="btnAddCosts">
                <property name="sizePolicy">
                 <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
                  <horstretch>0</horstretch>
@@ -135,7 +107,7 @@
                </property>
                <property name="font">
                 <font>
-                 <pointsize>8</pointsize>
+                 <pointsize>10</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -154,7 +126,7 @@
               <widget class="QPushButton" name="btnCancel">
                <property name="font">
                 <font>
-                 <pointsize>8</pointsize>
+                 <pointsize>10</pointsize>
                 </font>
                </property>
                <property name="text">
@@ -184,16 +156,16 @@
   <connection>
    <sender>btnCancel</sender>
    <signal>clicked()</signal>
-   <receiver>addProductDlg</receiver>
+   <receiver>addStorageCostsDlg</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>333</x>
-     <y>129</y>
+     <x>336</x>
+     <y>261</y>
     </hint>
     <hint type="destinationlabel">
-     <x>395</x>
-     <y>118</y>
+     <x>391</x>
+     <y>205</y>
     </hint>
    </hints>
   </connection>

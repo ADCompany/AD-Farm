@@ -440,6 +440,94 @@ void CStoragesData::SubstractProductInStorage(QString const& strStorageName, QSt
 	UpdateAllSqlTableModel();
 }
 
+void CStoragesData::AddFarmCosts(double dCosts)
+{
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("SELECT * FROM producte"));
+
+	double dAllFarmCurrCost = 0;
+	while (sqlQuery.next())
+		dAllFarmCurrCost += sqlQuery.value(2).toInt() * sqlQuery.value(3).toDouble();
+
+	if (dAllFarmCurrCost == 0)
+		return; // ASSERT
+
+	double dProductTypeCost = 0;
+	int nProductTypeCount = 0;
+	sqlQuery.exec(QString("SELECT * FROM producte"));
+	while (sqlQuery.next())
+	{
+		nProductTypeCount = sqlQuery.value(2).toInt();
+		dProductTypeCost = sqlQuery.value(3).toDouble() * nProductTypeCount;
+
+		dProductTypeCost = (dProductTypeCost / dAllFarmCurrCost) * (dAllFarmCurrCost + dCosts);
+		QSqlQuery sqlTempQuery;
+		sqlTempQuery.exec(QString("UPDATE producte SET prime_cost = %1 WHERE id == %2").arg(
+			QString::number(dProductTypeCost / nProductTypeCount), sqlQuery.value(0).toString()));
+	}
+
+	sqlQuery.exec(QString("SELECT * FROM storage_info"));
+	while (sqlQuery.next())
+	{
+		nProductTypeCount = sqlQuery.value(2).toInt();
+		dProductTypeCost = sqlQuery.value(3).toDouble() * nProductTypeCount;
+
+		dProductTypeCost = (dProductTypeCost / dAllFarmCurrCost) * (dAllFarmCurrCost + dCosts);
+		QSqlQuery sqlTempQuery;
+		sqlTempQuery.exec(QString("UPDATE storage_info SET prime_cost = %1 WHERE storage_id == %2 AND product_id == %3").arg(
+			QString::number(dProductTypeCost / nProductTypeCount), sqlQuery.value(0).toString(), sqlQuery.value(1).toString()));
+	}
+
+	UpdateAllSqlTableModel();
+}
+
+void CStoragesData::AddStoragesCosts(QString const& strStorageName, double dCosts)
+{
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("SELECT id FROM storage_name WHERE name == \"%1\"").arg(strStorageName));
+	sqlQuery.next();
+	QString strStorageId = sqlQuery.value(0).toString();
+
+	sqlQuery.exec(QString("SELECT * FROM storage_info WHERE storage_id == %1").arg(strStorageId));
+
+	double dAllStorageCurrCost = 0;
+	while (sqlQuery.next())
+		dAllStorageCurrCost += sqlQuery.value(2).toInt() * sqlQuery.value(3).toDouble();
+
+	if (dAllStorageCurrCost == 0)
+		return; // ASSERT
+
+	double dProductTypeCost = 0;
+	int nProductTypeCount = 0;
+	sqlQuery.exec(QString("SELECT * FROM storage_info WHERE storage_id == %1").arg(strStorageId));
+	while (sqlQuery.next())
+	{
+		nProductTypeCount = sqlQuery.value(2).toInt();
+		if (nProductTypeCount == 0)
+			continue;
+
+		dProductTypeCost = sqlQuery.value(3).toDouble() * nProductTypeCount;
+		QString strProductId = sqlQuery.value(1).toString();
+
+		dProductTypeCost = (dProductTypeCost / dAllStorageCurrCost) * (dAllStorageCurrCost + dCosts);
+		double dDeltaCost = dProductTypeCost - sqlQuery.value(3).toDouble() * nProductTypeCount;
+		QSqlQuery sqlTempQuery;
+		sqlTempQuery.exec(QString("UPDATE storage_info SET prime_cost = %1 WHERE storage_id == %2 AND product_id == %3").arg(
+			QString::number(dProductTypeCost / nProductTypeCount), sqlQuery.value(0).toString(), sqlQuery.value(1).toString()));
+
+		sqlTempQuery.exec(QString("SELECT count, prime_cost FROM producte WHERE id == %1").arg(strProductId));
+		sqlTempQuery.next();
+ 
+		nProductTypeCount = sqlTempQuery.value(0).toInt();
+		dProductTypeCost = dDeltaCost + sqlTempQuery.value(1).toDouble() * nProductTypeCount;
+
+		sqlTempQuery.exec(QString("UPDATE producte SET prime_cost = %1 WHERE id == %2").arg(
+			QString::number(dProductTypeCost / nProductTypeCount), strProductId));
+	}
+
+	UpdateAllSqlTableModel();
+}
+
 void CStoragesData::UpdateSqlTableModel(QString const& strStorageName)
 {
 	RemoveSqlTableModel(strStorageName);
