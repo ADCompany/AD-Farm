@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>319</width>
-    <height>152</height>
+    <width>375</width>
+    <height>138</height>
    </rect>
   </property>
   <property name="font">
@@ -29,8 +29,8 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>299</width>
-        <height>132</height>
+        <width>355</width>
+        <height>118</height>
        </rect>
       </property>
       <layout class="QGridLayout" name="gridLayout_2">
@@ -50,7 +50,7 @@
                   </font>
                  </property>
                  <property name="text">
-                  <string>Գումար</string>
+                  <string>Գումար *</string>
                  </property>
                 </widget>
                </item>
@@ -149,6 +149,7 @@
         </layout>
        </item>
       </layout>
+      <zorder></zorder>
      </widget>
     </widget>
    </item>

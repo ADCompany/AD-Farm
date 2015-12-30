@@ -45,7 +45,7 @@
                   </font>
                  </property>
                  <property name="text">
-                  <string>Գումար</string>
+                  <string>Գումար *</string>
                  </property>
                 </widget>
                </item>
