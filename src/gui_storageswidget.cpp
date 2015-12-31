@@ -26,6 +26,7 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	m_pStringListModel(nullptr),
 	m_strCurrentStorageName(""),
 	m_pSubtractItemDlg(nullptr),
+	m_pDeclineItemDlg(nullptr),
 	m_pAddFarmCostsDlg(nullptr),
 	m_pAddStorageCostsDlg(nullptr),
 	m_pAddItemDlg( nullptr )
@@ -39,11 +40,13 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	//
 	m_uiStorages.btnAddItem->setDisabled(true);
 	m_uiStorages.btnSubItem->setDisabled(true);
+	m_uiStorages.btnDecline->setDisabled(true);
 	m_uiStorages.btnAddStorageCosts->setDisabled(true);
 	FM_CONNECT(m_uiStorages.listView, clicked(QModelIndex const&), this, onActivatedStorage(QModelIndex const&));
 	FM_CONNECT(m_uiStorages.tableView, clicked(QModelIndex const&), this, onSelectProduct(QModelIndex const&));
 	FM_CONNECT(m_uiStorages.btnAddItem, clicked(), this, onAddItemClicked());
 	FM_CONNECT(m_uiStorages.btnSubItem, clicked(), this, onSubItemClicked());
+	FM_CONNECT(m_uiStorages.btnDecline, clicked(), this, onDeclineItemClicked());
 	FM_CONNECT(m_uiStorages.btnAddFarmCosts, clicked(), this, onAddFarmCostsClicked());
 	FM_CONNECT(m_uiStorages.btnAddStorageCosts, clicked(), this, onAddStorageCostsClicked());
 

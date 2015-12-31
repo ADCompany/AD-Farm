@@ -1,5 +1,5 @@
-#ifndef GUI_ADD_PRODUCT_DLG_H
-#define GUI_ADD_PRODUCT_DLG_H
+#ifndef GUI_DECLINE_STORE_ITEM_DLG_H
+#define GUI_DECLINE_STORE_ITEM_DLG_H
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -10,7 +10,7 @@
 #endif
 
 // Ui
-#include "ui_addproduct.h"
+#include "ui_declineproduct.h"
 
 // Qt Includes
 #include <QDialog>
@@ -25,73 +25,70 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
-// class CAddProductDlg
+// class CDeclineStoreItem
 //
-class CAddProductDlg : public QDialog
+class CDeclineStoreItem : public QDialog
 {
 	Q_OBJECT
 
 public:// Constructors
-	CAddProductDlg(QWidget* pwParent = nullptr);
-	~CAddProductDlg() = default;
+	CDeclineStoreItem( int nAvailableCount,
+				   QWidget* pwParent = nullptr );
+	~CDeclineStoreItem() = default;
 
 public:
 	//
 	//	Main Interface
 	//
-	// Customer Data Accessors
-	inline QString	GetName() const;
-	inline int		GetCount() const;
-	inline double	GetPrimeCost() const;
 	// Clear Dialog
 	inline void Clear();
+	inline void SetAvailableCount( int nCount );
+	inline int  GetDeclineCount() const;
 
-	public slots:
-	void OnAdd();
+protected slots:
+    void OnCountChanged( int nNewCount );
+    //void OnSubtractClicked();
 
 protected:// Helper Methodes
-	void SetLabelColor(QLabel* pLabel, bool bValid);
+	void SetLabelColor( QLabel* pLabel, bool bValid );
 
 private:
 	//
 	//	Content
 	//
-	Ui::addProductDlg m_uiAddProduct;
+	Ui::declineStoreItemDlg ui;
+	int m_nAvailableCount;
 };
 ////////////////////////////////////////////////////////////////////////////////
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 //
 //	Inline Implementations
 //
 ////////////////////////////////////////////////////////////////////////////////
-// GetFirstName
-inline QString CAddProductDlg::GetName() const
-{
-	return m_uiAddProduct.editName->text();
-}
-// GetLastName
-inline int CAddProductDlg::GetCount() const
-{
-	return 0;
-}
-// GetPhoneNumber
-inline double CAddProductDlg::GetPrimeCost() const
-{
-	return 0;
-}
-// Clear
-inline void CAddProductDlg::Clear()
-{
-	m_uiAddProduct.editName->clear();
-	//m_uiAddProduct.editCount->clear();
-	//m_uiAddProduct.editPrimeCost->clear();
 
-	SetLabelColor(m_uiAddProduct.lblName, true);
-	//SetLabelColor(m_uiAddProduct.lblCount, true);
-	//SetLabelColor(m_uiAddProduct.lblPrimeCost, true);
+// Clear
+inline void CDeclineStoreItem::Clear()
+{
+	m_nAvailableCount = 0;
+	ui.sbxSubtractCount->setValue( 0 );
+}
+
+// SetAvailableCount
+inline void CDeclineStoreItem::SetAvailableCount( int nCount )
+{
+	if (nCount > 0)
+	{
+		m_nAvailableCount = nCount;
+		ui.sbxSubtractCount->setMaximum( m_nAvailableCount );
+	}
+}
+
+// SetAvailableCount
+inline int CDeclineStoreItem::GetDeclineCount() const
+{
+	FM_ASSERT( ui.sbxSubtractCount );
+	return ui.sbxSubtractCount->value();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -99,5 +96,4 @@ inline void CAddProductDlg::Clear()
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
 ////////////////////////////////////////////////////////////////////////////////
-
-#endif // GUI_ADD_PRODUCT_DLG_H
+#endif // GUI_DECLINE_STORE_ITEM_DLG_H

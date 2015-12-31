@@ -107,6 +107,7 @@ public:// Interface Methodes
 		QList<int> const& lstProductCount, QList<double> const& lstProductCost);
 
 	void SubstractProductInStorage(QString const& strStorageName, QString const& strProductName, int nCount);
+	void DeclineProductInStorage(QString const& strStorageName, QString const& strProductName, int nCount);
 
 	void AddFarmCosts(double dCosts);
 	void AddStoragesCosts(QString const& strStorageName, double dCosts);

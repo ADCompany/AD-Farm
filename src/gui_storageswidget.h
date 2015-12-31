@@ -17,6 +17,9 @@
 #ifndef GUI_SUBTRACT_STORE_ITEM_DLG_H
 #	include "gui_subtractstoreitem_dlg.h"
 #endif
+#ifndef GUI_DECLINE_STORE_ITEM_DLG_H
+#	include "gui_declinestoreitemdlg.h"
+#endif
 #ifndef GUI_ADD_FARM_COSTS_DLG_H
 #	include "gui_addfarmcostsdlg.h"
 #endif
@@ -76,6 +79,7 @@ protected slots:// Slots
 		m_uiStorages.btnAddItem->setEnabled(true);
 		m_uiStorages.btnAddStorageCosts->setEnabled(true);
 		m_uiStorages.btnSubItem->setDisabled(true);
+		m_uiStorages.btnDecline->setDisabled(true);
 
 		UpdateData();
 	}
@@ -98,6 +102,7 @@ protected slots:// Slots
 	{
 		m_currModelIndex = modelIndex;
 		m_uiStorages.btnSubItem->setEnabled(true);
+		m_uiStorages.btnDecline->setEnabled(true);
 	}
 	void onSubItem()
 	{
@@ -107,6 +112,16 @@ protected slots:// Slots
 		QString strProductName = record.value(0).toString();
 
 		m_pStoragesData->SubstractProductInStorage(m_strCurrentStorageName, strProductName, nCount);
+		UpdateData();
+	}
+	void onDeclineItem()
+	{
+		int nRow = m_currModelIndex.row();
+		int nCount = m_pDeclineItemDlg->GetDeclineCount();
+		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
+		QString strProductName = record.value(0).toString();
+
+		m_pStoragesData->DeclineProductInStorage(m_strCurrentStorageName, strProductName, nCount);
 		UpdateData();
 	}
 	//
@@ -122,6 +137,18 @@ protected slots:// Slots
 		FM_CONNECT(m_pSubtractItemDlg.get(), accepted(), this, onSubItem());
 
 		m_pSubtractItemDlg->show();
+	}
+	void onDeclineItemClicked()
+	{
+		int nRow = m_currModelIndex.row();
+
+		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
+		int nCount = record.value(1).toInt();
+
+		m_pDeclineItemDlg = std::shared_ptr<CDeclineStoreItem>(new CDeclineStoreItem(nCount, this));
+		FM_CONNECT(m_pDeclineItemDlg.get(), accepted(), this, onDeclineItem());
+
+		m_pDeclineItemDlg->show();
 	}
 	void onAddStorageCostsClicked()
 	{
@@ -157,6 +184,7 @@ private:
 
 	//QDialog* m_pCreateSplDlg;
 	std::shared_ptr<CAddStoreItem>			m_pAddItemDlg;
+	std::shared_ptr<CDeclineStoreItem>		m_pDeclineItemDlg;
 	std::shared_ptr<CSubtractStoreItem>		m_pSubtractItemDlg;
 	std::shared_ptr<CAddFarmCostsDlg>		m_pAddFarmCostsDlg;
 	std::shared_ptr<CAddStorageCostsDlg>	m_pAddStorageCostsDlg;

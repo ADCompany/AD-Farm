@@ -31,8 +31,8 @@ CAddProductDlg::CAddProductDlg(QWidget *pwParent)
 	setFixedSize(416, 161);
 
 	// Set Validators
-	QIntValidator* pIntValidator = new QIntValidator();
-	m_uiAddProduct.editPrimeCost->setValidator(pIntValidator);
+//	QIntValidator* pIntValidator = new QIntValidator();
+//	m_uiAddProduct.editPrimeCost->setValidator(pIntValidator);
 //	pIntValidator = new QIntValidator();
 //	m_uiAddProduct.editCount->setValidator(pIntValidator);
 
@@ -44,16 +44,16 @@ void CAddProductDlg::OnAdd()
 {
 	QString strFirstName = m_uiAddProduct.editName->text();
 //	QString strCount = m_uiAddProduct.editCount->text();
-	QString strPrimeCost = m_uiAddProduct.editPrimeCost->text();
+//	QString strPrimeCost = m_uiAddProduct.editPrimeCost->text();
 	bool bValidName = !strFirstName.isEmpty();
 //	bool bValidCount = !strCount.isEmpty();
-	bool bValidPrimeCost = !strPrimeCost.isEmpty();
+//	bool bValidPrimeCost = !strPrimeCost.isEmpty();
 
 	SetLabelColor(m_uiAddProduct.lblName, bValidName);
 //	SetLabelColor(m_uiAddProduct.lblCount, bValidCount);
-	SetLabelColor(m_uiAddProduct.lblPrimeCost, bValidPrimeCost);
+//	SetLabelColor(m_uiAddProduct.lblPrimeCost, bValidPrimeCost);
 
-	if (bValidName && bValidPrimeCost)
+	if (bValidName)
 		QDialog::accept();
 }
 
