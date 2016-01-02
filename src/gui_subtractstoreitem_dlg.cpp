@@ -25,7 +25,8 @@ CSubtractStoreItem::CSubtractStoreItem( int nAvailableCount, QWidget* pwParent )
 	: QDialog( pwParent ),
 	  m_nAvailableCount(0)
 {
-	ui.setupUi( this );	
+	ui.setupUi( this );
+	setFixedSize(300, 143);
 	SetAvailableCount( nAvailableCount );
 	ui.sbxTotal->setValue( m_nAvailableCount );
 	// Connections

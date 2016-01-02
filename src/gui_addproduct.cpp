@@ -28,7 +28,7 @@ CAddProductDlg::CAddProductDlg(QWidget *pwParent)
 	: QDialog(pwParent)
 {
 	m_uiAddProduct.setupUi(this);
-	setFixedSize(416, 161);
+	setFixedSize(300, 104);
 
 	// Set Validators
 //	QIntValidator* pIntValidator = new QIntValidator();
