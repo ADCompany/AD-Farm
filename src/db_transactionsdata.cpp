@@ -29,33 +29,40 @@ const QString CTransactionsData::table::transaction_info::product_id		= "product
 const QString CTransactionsData::table::transaction_info::count				= "count";
 const QString CTransactionsData::table::transaction_info::cost				= "cost";
 
-const QString CTransactionsData::table::deal::id				= "id";
+const QString CTransactionsData::table::deal::id			= "id";
+const QString CTransactionsData::table::deal::cost			= "cost";
 const QString CTransactionsData::table::deal::customer_id	= "customer_id";
-const QString CTransactionsData::table::deal::date_time = "date_time";
+const QString CTransactionsData::table::deal::customer_cost = "customer_cost";
+const QString CTransactionsData::table::deal::date_time		= "date_time";
 
 // Interface Methodes
 void CTransactionsData::Initialize()
 {
 	QSqlQuery sqlQuery;
 
-	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS deal ("
-		"id					INTEGER PRIMARY KEY AUTOINCREMENT, "
-		"cost				REAL	NOT NULL, "
-		"customer_id		INTEGER NOT NULL, "
-		"customer_cost		REAL	NOT NULL, "
-		"date_time			TEXT	NOT NULL);");
+	EXECUTE_QUERY(sqlQuery, QString("CREATE TABLE IF NOT EXISTS %1 ("
+		"%2		INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"%3		REAL	NOT NULL, "
+		"%4		INTEGER NOT NULL, "
+		"%5		REAL	NOT NULL, "
+		"%6		TEXT	NOT NULL);").arg(
+		table::deal,
+		table::deal::id,
+		table::deal::cost,
+		table::deal::customer_id,
+		table::deal::customer_cost,
+		table::deal::date_time));
 
-	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS transaction_info ("
-		"transaction_id		INTEGER NOT NULL, "
-		"product_id			INTEGER NOT NULL, "
-		"count				INTEGER NOT NULL, "
-		"cost				REAL	NOT NULL);");
-	//.arg(table::customer,
-	//								table::customer::id,
-	//								table::customer::first_name,
-	//								table::customer::last_name,
-	//								table::customer::debt,
-	//								table::customer::phone_number));
+	EXECUTE_QUERY(sqlQuery, QString("CREATE TABLE IF NOT EXISTS %1 ("
+		"%2		INTEGER NOT NULL, "
+		"%3		INTEGER NOT NULL, "
+		"%4		INTEGER NOT NULL, "
+		"%5		REAL	NOT NULL);").arg(
+		table::transaction_info,
+		table::transaction_info::transaction_id,
+		table::transaction_info::product_id,
+		table::transaction_info::count,
+		table::transaction_info::cost));
 	
 	std::shared_ptr<CDBManager> pDBManager = GetDBManager();
 	if (pDBManager != nullptr)QString strFirstName = "";

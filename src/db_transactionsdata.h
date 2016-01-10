@@ -45,7 +45,9 @@ public:// Data Property
 		struct deal
 		{
 			static const QString id;
+			static const QString cost;
 			static const QString customer_id;
+			static const QString customer_cost;
 			static const QString date_time;
 		};
 	};
