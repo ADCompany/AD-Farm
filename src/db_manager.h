@@ -101,11 +101,56 @@ private:// Members
 class CDBManager
 {
 public:// Types
+	enum class EMonth
+	{
+		January = 1,
+		February = 2,
+
+		March = 3,
+		April = 4,
+		May = 5,
+
+		June = 6,
+		July = 7,
+		August = 8,
+
+		September = 9,
+		October = 10,
+		November = 11,
+
+		December = 12,
+
+		Min = January,
+		Max = December,
+
+		Invalid = -1
+	};
+
+	struct SMonthLongName
+	{
+		static const QString January;
+		static const QString February;
+
+		static const QString March;
+		static const QString April;
+		static const QString May;
+
+		static const QString June;
+		static const QString July;
+		static const QString August;
+
+		static const QString September;
+		static const QString October;
+		static const QString November;
+
+		static const QString December;
+	};
+
 	struct component
 	{
+		static const QString transactions;
 		static const QString storages;
 		static const QString customers;
-		static const QString transactions;
 	};
 
 public:// Constructors
@@ -117,6 +162,12 @@ public:// Interface Methodes
 
 	inline QSqlDatabase& GetDataBase();
 	inline std::shared_ptr<IDBComponent> GetDBComponent(QString const& strComponentName);
+
+	EMonth GetMonthByLongName(QString const& strMonthLongName);
+	EMonth GetMontByMonthNumber(int nMonth);
+
+	QString GetMonthLongNameByMonthNumber(int nMonth);
+	QString GetMonthLongNameByMonth(EMonth eMonth);
 
 protected:// Helper Methodes
 	bool SetDBComponent(std::shared_ptr<IDBComponent> pDBComponent, QString const& strComponentName, bool bInitialize = true);

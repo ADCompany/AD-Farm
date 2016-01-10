@@ -95,11 +95,13 @@ void CTransactionsData::AddTransactionData(QString const& strCustomerName, QList
 	sqlQuery.next();
 
 	QString strCustomerId = sqlQuery.value(0).toString();
-	QDateTime dateTime = QDateTime::currentDateTimeUtc();
-	QString strDateTime = dateTime.toString();
+	QString strDate = QDate::currentDate().toString("dd") + ' ' +
+		GetDBManager()->GetMonthLongNameByMonthNumber(QDate::currentDate().month()) + ' ' + QDate::currentDate().toString("yyyy");
 
-	sqlQuery.exec(QString("INSERT INTO deal ( cost, customer_id, customer_cost, date_time ) VALUES ( %1, %2, %3, \"%4\" );").arg(QString::number(dDealCost), strCustomerId, QString::number(dCustomerCost), strDateTime));
-	sqlQuery.exec(QString("SELECT id FROM deal WHERE customer_id == %1 AND date_time == \"%2\" ").arg(strCustomerId, strDateTime));
+	sqlQuery.exec(QString("INSERT INTO deal ( cost, customer_id, customer_cost, date_time ) VALUES ( %1, %2, %3, \"%4\" );").arg(
+		QString::number(dDealCost), strCustomerId, QString::number(dCustomerCost), strDate));
+
+	sqlQuery.exec(QString("SELECT id FROM deal WHERE customer_id == %1 AND date_time == \"%2\" ").arg(strCustomerId, strDate));
 	sqlQuery.next();
 	QString strTransactionId = sqlQuery.value(0).toString();
 
