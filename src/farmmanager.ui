@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>894</width>
-    <height>637</height>
+    <width>970</width>
+    <height>665</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -43,6 +43,35 @@
        <font>
         <pointsize>10</pointsize>
        </font>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QtPerspectiveSwitcherTabBar::tab
+	{
+		min - height: 24px;
+		border - top: 1px solid palette( mid );
+		border - left: 1px solid palette( mid );
+		border - bottom: 0px;
+		border - top - left - radius: 8px;
+		border - top - right - radius: 8px;
+		margin - top: -1px;
+		margin - right: 4px;
+		padding - left: 5px;
+	    background: rgb( 210, 221, 239 );
+	}
+	
+	QtPerspectiveSwitcherTabBar::tab:selected : hover{
+		border - bottom: 1px solid palette( mid );
+		background: yellow;
+	}
+			
+		QtPerspectiveSwitcherTabBar::tab : !selected{
+		margin - top: 5px;
+		background: qlineargradient( x1 : 0, y1 : 0, x2 : 0, y2 : 1, stop : 0 rgb( 156, 181, 220 ), stop : 1 rgb( 130, 160, 210 ) );
+	}
+				
+		QtPerspectiveSwitcherTabBar::tab : !selected : hover{
+		background: yellow;
+	}</string>
       </property>
       <property name="tabPosition">
        <enum>QTabWidget::North</enum>
@@ -80,7 +109,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>894</width>
+     <width>970</width>
      <height>21</height>
     </rect>
    </property>
@@ -90,6 +119,7 @@
     </property>
     <addaction name="actNewDeal"/>
     <addaction name="actAddCustomer"/>
+    <addaction name="actMoveStoreItem"/>
    </widget>
    <widget class="QMenu" name="menuFarm">
     <property name="title">
@@ -198,6 +228,18 @@
    </property>
    <property name="toolTip">
     <string>Փակել ծրագիրը</string>
+   </property>
+  </action>
+  <action name="actMoveStoreItem">
+   <property name="icon">
+    <iconset resource="farmmanager.qrc">
+     <normaloff>:/FarmManager/Resources/moving.png</normaloff>:/FarmManager/Resources/moving.png</iconset>
+   </property>
+   <property name="text">
+    <string>Ապրանքի տեղափոխություն</string>
+   </property>
+   <property name="toolTip">
+    <string>Պահոցից-պահոց ապրանքի տեղափոխություն</string>
    </property>
   </action>
  </widget>

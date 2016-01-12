@@ -46,8 +46,8 @@ CNewDealDlg::CNewDealDlg( QStringList const& lstCustomerNames,
 	//adjustSize();
 	// Connections
 	FM_CONNECT( ui.cbxCustomer, currentIndexChanged( int ), this, OnCustomerChanged( int ) );
-	FM_CONNECT( m_pwStoreExplorer, sigNewSelection(QString const&, int), 
-				m_pwTotalViewer,    OnNewSelection(QString const&, int) );
+	FM_CONNECT( m_pwStoreExplorer, sigNewSelection(QString const&, QString const&, int), 
+				m_pwTotalViewer,    OnNewSelection(QString const&, QString const&, int) );
 	FM_CONNECT( m_pwTotalViewer, sigTotalPriceChanged(double),
 				this,             OnUpedateDebt() );
 	FM_CONNECT( ui.sbxPay, valueChanged(double),

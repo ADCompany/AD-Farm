@@ -35,6 +35,9 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	m_uiStorages.splitter->setStretchFactor(0, 1);
 	m_uiStorages.splitter->setStretchFactor(1, 3);
 
+	// Setup Move Store Item dialog 
+	m_pMoveStoreItemDlg = new CMoveStoreItemDlg( QStringList() << "Gom_1" << "Gom_2" << "Gom_3", this );
+
 	//
 	//	Connections
 	//
@@ -49,7 +52,8 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	FM_CONNECT(m_uiStorages.btnDecline, clicked(), this, onDeclineItemClicked());
 	FM_CONNECT(m_uiStorages.btnAddFarmCosts, clicked(), this, onAddFarmCostsClicked());
 	FM_CONNECT(m_uiStorages.btnAddStorageCosts, clicked(), this, onAddStorageCostsClicked());
-
+	FM_CONNECT(m_uiStorages.btnMoveStoreItem, clicked(), this, onShowMoveStoreItemDialog());
+	
 	SetDBManager(pDBManager);
 
 	m_uiStorages.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
@@ -73,6 +77,13 @@ void CStoragesWidget::onAddItemClicked() // BAD Solustion
 	FM_CONNECT(m_pAddItemDlg.get(), accepted(), this, onAddItem());
 
 	m_pAddItemDlg->show();
+}
+
+// onShowMoveStoreItemDialog
+void CStoragesWidget::onShowMoveStoreItemDialog()
+{
+	m_pMoveStoreItemDlg->Clear();
+	m_pMoveStoreItemDlg->show();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MoveStoreItemDlgUI</class>
+ <widget class="QDialog" name="MoveStoreItemDlgUI">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>753</width>
+    <height>306</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Ապրանքի տեղափոխություն</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="farmmanager.qrc">
+    <normaloff>:/FarmManager/Resources/moving.png</normaloff>:/FarmManager/Resources/moving.png</iconset>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="vlayStoreExplorer">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>Ապրանքի ընտրություն</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="text">
+          <string>Տեղափոխել դեպի</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QListWidget" name="wdgTargetStores"/>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="farmmanager.qrc"/>
+ </resources>
+ <connections/>
+</ui>

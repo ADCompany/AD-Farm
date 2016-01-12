@@ -157,7 +157,7 @@ void CStoreExplorer::OnAdd()
 		}
 	}
 	////
-	emit sigNewSelection( m_sCurrentProductName, nDiffCount );
+	emit sigNewSelection( sStoreName, m_sCurrentProductName, nDiffCount );
 }
 
 void CStoreExplorer::OnCountCountChanged( int nCount )
@@ -165,7 +165,6 @@ void CStoreExplorer::OnCountCountChanged( int nCount )
 	/*if (nCount > 0)
 		ui.btnAdd->setEnabled( true );
 	else if (ui.viewContentTable->selectionModel()->r)*/
-
 }
 
 // OnAdd
@@ -196,6 +195,26 @@ QString CStoreExplorer::makeKey( QString const& sStoreName,
 
 ////////////////////////////////////////////////////////////////////////////////
 
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//	class CMovingItemSelector
+//
+CMovingItemSelector::CMovingItemSelector( QStringList const& lstStores, QWidget* pwParent )
+	: Base( lstStores, pwParent )
+{
+	QWidget* pCountSelector = ui.wdgCount;
+	layout()->removeWidget( pCountSelector );
+	ui.vlayItems->addWidget( pCountSelector );
+	// Setup Count Selector
+	ui.btnAdd->setText( QString::fromUtf8( "\325\217\325\245\325\262\325\241\326\203\325\270\325\255\325\245\325\254" ) );
+	QIcon oIcon;
+	oIcon.addFile( QString::fromUtf8( ":/FarmManager/Resources/move_right2.png" ), QSize(), QIcon::Normal, QIcon::Off );
+	ui.btnAdd->setIcon( oIcon );
+
+	ui.wdgCount->layout()->removeItem( ui.verticalSpacer );
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 } // namespace gui

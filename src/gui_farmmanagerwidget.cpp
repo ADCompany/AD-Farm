@@ -70,6 +70,9 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	ui.tabWidget->insertTab(4, m_pwSettings.get(), icon5,
 		QString::fromUtf8("\324\277\325\241\326\200\325\243\325\241\325\276\325\270\326\200\325\270\326\202\325\264\325\266\325\245\326\200"));
 
+	//
+	//
+	//
 	// Connections
 	//QObject::connect( ui.btnCreateTransaction, SIGNAL( clicked() ),
 	//				  m_CreateTrnDlg, SLOT( show() ) );
@@ -80,6 +83,7 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	FM_CONNECT( ui.actSettings,  triggered(), this, OnActionSettings() );
 	FM_CONNECT(ui.actAddCustomer, triggered(), this, OnActionAddCustomer());
 	FM_CONNECT(ui.actNewDeal, triggered(), this, OnActionNewDeal());
+	FM_CONNECT( ui.actMoveStoreItem, triggered(), m_pwStorages.get(), onShowMoveStoreItemDialog() );
 	FM_CONNECT( ui.actExit, triggered(), qApp, quit() );
 }
 
@@ -116,7 +120,6 @@ void CFarmManagerWidget::OnActionAddCustomer()
 {
 	m_pwCustomers->GetAddCustomerDialog()->show();
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 
 

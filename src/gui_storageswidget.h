@@ -26,6 +26,11 @@
 #ifndef GUI_ADD_STORAGE_COSTS_DLG_H
 #	include "gui_addstoragecostsdlg.h"
 #endif
+#ifndef GUI_MOVE_STORE_ITEM_DLG_H
+#	include "gui_movestoreitem_dlg.h"
+#endif
+
+
 
 // Ui
 #include "ui_storages.h"
@@ -58,6 +63,9 @@ public:// Constructors
 public:// Interface Methodes
 	void SetDBManager(std::shared_ptr<db::CDBManager> pDBManager);
 	inline std::shared_ptr<QSqlTableModel> GetTableModel();
+
+public slots:
+	void onShowMoveStoreItemDialog();
 
 protected:// Helper Methodes
 	inline void UpdateData(bool bFull = false);
@@ -188,7 +196,7 @@ private:
 	std::shared_ptr<CSubtractStoreItem>		m_pSubtractItemDlg;
 	std::shared_ptr<CAddFarmCostsDlg>		m_pAddFarmCostsDlg;
 	std::shared_ptr<CAddStorageCostsDlg>	m_pAddStorageCostsDlg;
-
+	CMoveStoreItemDlg*                      m_pMoveStoreItemDlg;
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 	std::shared_ptr<db::CDBManager> m_pDBManager;
 

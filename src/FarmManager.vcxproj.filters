@@ -237,6 +237,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gui_declinestoreitemdlg.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="gui_movestoreitem_dlg.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_movestoreitem_dlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_movestoreitem_dlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="farmmanager.ui">
@@ -413,6 +422,12 @@
     <CustomBuild Include="gui_declinestoreitemdlg.h">
       <Filter>Gui</Filter>
     </CustomBuild>
+    <CustomBuild Include="gui_movestoreitem_dlg.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="movestoreitem.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app_icon.rc" />
@@ -425,6 +440,9 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_declineproduct.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_movestoreitem.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

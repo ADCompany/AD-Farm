@@ -109,7 +109,7 @@ signals:
 	//
 	//	Signals
 	//
-	void sigNewSelection( QString const& sItemName, int nCount );
+	void sigNewSelection( QString const& sStoreName, QString const& sItemName, int nCount );
 
 private:
 	//
@@ -120,7 +120,7 @@ private:
 	QString makeKey( QString const& sStoreName,
 					 QString const& sProductName ) const;
 
-private:
+protected:
 	//
 	//	Content
 	//
@@ -134,6 +134,25 @@ private:
 
 	//
 	CFarmInfo m_lstConfig;
+};
+////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// class CMovingItemSelector
+//
+class CMovingItemSelector : public CStoreExplorer
+{
+	Q_OBJECT
+		
+	typedef CStoreExplorer Base;
+	
+public:// Constructors
+	CMovingItemSelector( QStringList const& lstStores, QWidget* pwParent = nullptr );
+	~CMovingItemSelector() = default;
 };
 ////////////////////////////////////////////////////////////////////////////////
 

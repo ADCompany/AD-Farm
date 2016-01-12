@@ -140,8 +140,9 @@ public slots:
 	//
 	//	Public Slots
 	//
-    void OnNewSelection( QString const& sItemName, 
-						 int            nCount );
+void OnNewSelection( QString const& sStoreName, 
+					 QString const& sItemName,
+					 int            nCount );
 	
 	// 
 	void OnUpdateTotalPrice();
