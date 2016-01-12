@@ -63,7 +63,14 @@ void CMoveStoreItemDlg::OnNewSelection( QString const& sStoreName,
 	oInfo.sProductName = sItemName;
 	oInfo.sSourceStoreName = sStoreName;
 	oInfo.sTargetStoreName = sTargetStoreName;
-	emit sigMoveStoreItem( oInfo );
+
+	//  
+	QMessageBox::StandardButton reply;
+	reply = QMessageBox::question( this, "Confirm Moving", QString("You are going to move %1 %2 from %3 to %4 ")
+								   .arg(nCount).arg(sItemName, sStoreName, sTargetStoreName),
+								   QMessageBox::Yes | QMessageBox::No );
+	if (reply == QMessageBox::Yes) 
+		emit sigMoveStoreItem( oInfo );
 }
 
 
