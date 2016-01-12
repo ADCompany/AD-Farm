@@ -45,9 +45,25 @@ void CMoveStoreItemDlg::OnNewSelection( QString const& sStoreName,
 										QString const& sItemName,
 										int nCount )
 {
+	FM_ASSERT( !sStoreName.isEmpty() );
+	FM_ASSERT( !sItemName.isEmpty() );
 	QListWidgetItem* pTargetStore = ui.wdgTargetStores->currentItem();
-	bool b = pTargetStore->isSelected();
-	int i = 9;
+	FM_ASSERT( pTargetStore );
+	if (!pTargetStore->isSelected())
+	{
+		QMessageBox::critical( this, "Target Store Not Selected", "Target store is not selected!" );
+		return;
+	}
+	if (nCount <= 0)
+		return;
+	QString sTargetStoreName = pTargetStore->text();
+	FM_ASSERT( !sTargetStoreName.isEmpty() );
+	SItemMovingInfo oInfo;
+	oInfo.nProductCount = nCount;
+	oInfo.sProductName = sItemName;
+	oInfo.sSourceStoreName = sStoreName;
+	oInfo.sTargetStoreName = sTargetStoreName;
+	emit sigMoveStoreItem( oInfo );
 }
 
 

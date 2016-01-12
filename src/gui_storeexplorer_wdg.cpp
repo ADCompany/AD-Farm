@@ -128,36 +128,36 @@ void CStoreExplorer::OnAdd()
 	int nSelectedCount = m_hshCountSelection.value( makeKey( sStoreName, m_sCurrentProductName ) );
 	int nDiffCount = nCount - nSelectedCount;
 
-	if (nDiffCount == 0)
-		// Nothig to do
-		return;
-	// Register current selection
-	m_hshCountSelection.insert( makeKey( sStoreName, m_sCurrentProductName ), nCount );
-	// Ready
-	//// Register in Coinfiguration
-	int nIdx = m_lstConfig.indexOf( sStoreName );
-	if (nIdx < 0)
+	if (nDiffCount != 0)
 	{
-		SProductInfo oProductInfo( m_sCurrentProductName, nCount );
-		QList<SProductInfo> lstProducts;
-		lstProducts.append( oProductInfo );
-		m_lstConfig.append( SStoreageInfo( sStoreName, lstProducts ) );
-	}
-	else
-	{
-		SStoreageInfo cfg = m_lstConfig.at( nIdx );
-		int nProductIndex = cfg.lstProducts.indexOf( m_sCurrentProductName );
-		if (nProductIndex < 0)
+		// Register current selection
+		m_hshCountSelection.insert( makeKey( sStoreName, m_sCurrentProductName ), nCount );
+		// Ready
+		//// Register in Coinfiguration
+		int nIdx = m_lstConfig.indexOf( sStoreName );
+		if (nIdx < 0)
 		{
-			cfg.lstProducts.append( SProductInfo( m_sCurrentProductName, nCount ) );
+			SProductInfo oProductInfo( m_sCurrentProductName, nCount );
+			QList<SProductInfo> lstProducts;
+			lstProducts.append( oProductInfo );
+			m_lstConfig.append( SStoreageInfo( sStoreName, lstProducts ) );
 		}
 		else
 		{
-			cfg.lstProducts[nProductIndex].nCount = nCount;
+			SStoreageInfo cfg = m_lstConfig.at( nIdx );
+			int nProductIndex = cfg.lstProducts.indexOf( m_sCurrentProductName );
+			if (nProductIndex < 0)
+			{
+				cfg.lstProducts.append( SProductInfo( m_sCurrentProductName, nCount ) );
+			}
+			else
+			{
+				cfg.lstProducts[nProductIndex].nCount = nCount;
+			}
 		}
 	}
 	////
-	emit sigNewSelection( sStoreName, m_sCurrentProductName, nDiffCount );
+	emit sigNewSelection( sStoreName, m_sCurrentProductName, nCount );
 }
 
 void CStoreExplorer::OnCountCountChanged( int nCount )

@@ -48,9 +48,7 @@ void CAddStoreItem::OnCountChanged( int nNewCount )
 	if (sItem.isEmpty())
 		// Nothig to do
 		return;
-	int nActualCount = nNewCount - m_nOldCount;
-	m_pwTotalViewer->OnNewSelection( QString(), sItem, nActualCount );
-	m_nOldCount = nNewCount;
+	m_pwTotalViewer->OnNewSelection( QString(), sItem, nNewCount );
 	if (!m_pwTotalViewer->isEmpty())
 		ui.btnAdd->setEnabled( true );
 	else 

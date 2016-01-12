@@ -53,12 +53,12 @@ void CTotalViewer::OnNewSelection( QString const& sStoreName,
 	}
 	else
 	{
-		int nCurrentCount = oInfoWidgets.getCount();
-		nCurrentCount += nCount;
-		if (nCurrentCount <= 0)
+		//int nCurrentCount = oInfoWidgets.getCount();
+		//nCurrentCount += nCount;
+		if (nCount <= 0)
 			RemoveProduct( oInfoWidgets );
 		else
-			oInfoWidgets.getLcdCount()->display( nCurrentCount );
+			oInfoWidgets.getLcdCount()->display( nCount );
 		OnUpdateTotalPrice();
 	}
 }

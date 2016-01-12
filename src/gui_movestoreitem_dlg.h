@@ -29,6 +29,19 @@ namespace gui {
 
 ////////////////////////////////////////////////////////////////////////////////
 //
+//	struct SItemMovingInfo
+//
+struct SItemMovingInfo
+{
+	QString sSourceStoreName;
+	QString sTargetStoreName;
+	QString sProductName;
+	int     nProductCount;
+};
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
 //	class CMoveStoreItemDlg
 //
 class CMoveStoreItemDlg : public QDialog
@@ -53,6 +66,9 @@ protected slots:
     void OnNewSelection( QString const& sStoreName, 
 						 QString const& sItemName, 
 						 int nCount);
+
+signals:
+	void sigMoveStoreItem( SItemMovingInfo const& oInfo );
 
 private:
 	//
