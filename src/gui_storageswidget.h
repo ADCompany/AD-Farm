@@ -64,128 +64,34 @@ public:// Interface Methodes
 	void SetDBManager(std::shared_ptr<db::CDBManager> pDBManager);
 	inline std::shared_ptr<QSqlTableModel> GetTableModel();
 
-public slots:
+public slots:// Slots
 	void onShowMoveStoreItemDialog();
 
 protected:// Helper Methodes
-	inline void UpdateData(bool bFull = false);
-
+	void UpdateData(bool bFull = false);
 
 protected slots:// Slots
-	void onChangeData()
-	{
-		UpdateData(true);
-	}
-	void onActivatedStorage(QModelIndex const& modelIndex)
-	{
-		QString strSelectCustomerName = m_pStringListModel->data(modelIndex, 0).toString();
-		if (strSelectCustomerName == m_strCurrentStorageName)
-			return;
+	inline void onChangeData();
 
-		m_strCurrentStorageName = strSelectCustomerName;
+	void onSelectStorage(QModelIndex const& modelIndex);
+	void onSelectProduct(QModelIndex const& modelIndex);
 
-		m_uiStorages.btnAddItem->setEnabled(true);
-		m_uiStorages.btnAddStorageCosts->setEnabled(true);
-		m_uiStorages.btnSubItem->setDisabled(true);
-		m_uiStorages.btnDecline->setDisabled(true);
+	void onMoveStoreItem(SItemMovingInfo const& itemMovingInfo);
 
-		UpdateData();
-	}
-	void onAddItem()
-	{
-		t_lstProductPriceInfo productInfo = m_pAddItemDlg->GetProductInfo();
-		QList<QString> lstProductName;
-		QList<int> lstProductCount;
-		QList<double> lstProductCost;
-		for (int i = 0; i < productInfo.count(); ++i)
-		{
-			lstProductName.push_back(productInfo[i].sProductName);
-			lstProductCount.push_back(productInfo[i].nCount);
-			lstProductCost.push_back(productInfo[i].fPrice);
-		}
-
-		m_pStoragesData->AddProductInStorage(m_strCurrentStorageName, lstProductName, lstProductCount, lstProductCost);
-	}
-	void onSelectProduct(QModelIndex const& modelIndex)
-	{
-		m_currModelIndex = modelIndex;
-		m_uiStorages.btnSubItem->setEnabled(true);
-		m_uiStorages.btnDecline->setEnabled(true);
-	}
-	void onSubItem()
-	{
-		int nRow = m_currModelIndex.row();
-		int nCount = m_pSubtractItemDlg->GetSutractionCount();
-		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
-		QString strProductName = record.value(0).toString();
-
-		m_pStoragesData->SubstractProductInStorage(m_strCurrentStorageName, strProductName, nCount);
-		UpdateData();
-	}
-	void onDeclineItem()
-	{
-		int nRow = m_currModelIndex.row();
-		int nCount = m_pDeclineItemDlg->GetDeclineCount();
-		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
-		QString strProductName = record.value(0).toString();
-
-		m_pStoragesData->DeclineProductInStorage(m_strCurrentStorageName, strProductName, nCount);
-		UpdateData();
-	}
-	//
+	void onAddItem();
 	void onAddItemClicked();
-	void onSubItemClicked()
-	{
-		int nRow = m_currModelIndex.row();
 
-		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
-		int nCount = record.value(1).toInt();
+	void onSubItem();
+	void onSubItemClicked();
 
-		m_pSubtractItemDlg = std::shared_ptr<CSubtractStoreItem>(new CSubtractStoreItem(nCount, this));
-		FM_CONNECT(m_pSubtractItemDlg.get(), accepted(), this, onSubItem());
+	void onDeclineItem();
+	void onDeclineItemClicked();
 
-		m_pSubtractItemDlg->show();
-	}
-	void onDeclineItemClicked()
-	{
-		int nRow = m_currModelIndex.row();
+	void onAddStorageCosts();
+	void onAddStorageCostsClicked();
 
-		QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
-		int nCount = record.value(1).toInt();
-
-		m_pDeclineItemDlg = std::shared_ptr<CDeclineStoreItem>(new CDeclineStoreItem(nCount, this));
-		FM_CONNECT(m_pDeclineItemDlg.get(), accepted(), this, onDeclineItem());
-
-		m_pDeclineItemDlg->show();
-	}
-	void onAddStorageCostsClicked()
-	{
-		m_pAddStorageCostsDlg = std::shared_ptr<CAddStorageCostsDlg>(new CAddStorageCostsDlg(this));
-		FM_CONNECT(m_pAddStorageCostsDlg.get(), accepted(), this, onAddStorageCosts());
-
-		m_pAddStorageCostsDlg->show();
-	}
-	void onAddStorageCosts()
-	{
-		double dCosts = m_pAddStorageCostsDlg->GetCosts();
-		m_pStoragesData->AddStoragesCosts(m_strCurrentStorageName, dCosts);
-
-		UpdateData();
-	}
-	void onAddFarmCostsClicked()
-	{
-		m_pAddFarmCostsDlg = std::shared_ptr<CAddFarmCostsDlg>(new CAddFarmCostsDlg(this));
-		FM_CONNECT(m_pAddFarmCostsDlg.get(), accepted(), this, onAddFarmCosts());
-
-		m_pAddFarmCostsDlg->show();
-	}
-	void onAddFarmCosts()
-	{
-		double dCosts = m_pAddFarmCostsDlg->GetCosts();
-		m_pStoragesData->AddFarmCosts(dCosts);
-
-		UpdateData();
-	}
+	void onAddFarmCosts();
+	void onAddFarmCostsClicked();
 
 private:
 	Ui::storages m_uiStorages;
@@ -196,7 +102,8 @@ private:
 	std::shared_ptr<CSubtractStoreItem>		m_pSubtractItemDlg;
 	std::shared_ptr<CAddFarmCostsDlg>		m_pAddFarmCostsDlg;
 	std::shared_ptr<CAddStorageCostsDlg>	m_pAddStorageCostsDlg;
-	CMoveStoreItemDlg*                      m_pMoveStoreItemDlg;
+	std::shared_ptr<CMoveStoreItemDlg>		m_pMoveStoreItemDlg;
+
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 	std::shared_ptr<db::CDBManager> m_pDBManager;
 
@@ -221,22 +128,10 @@ inline std::shared_ptr<QSqlTableModel> CStoragesWidget::GetTableModel()
 	return nullptr;
 }
 
-// Helper Functions
-inline void CStoragesWidget::UpdateData(bool bFull)
+// Protected Slots
+inline void CStoragesWidget::onChangeData()
 {
-	if (bFull)
-	{
-		m_pStringListModel = std::shared_ptr<QStringListModel>(new QStringListModel(m_pStoragesData->GetStorageNames()));
-
-		m_uiStorages.listView->setModel(m_pStringListModel.get());
-		m_uiStorages.listView->update();
-	}
-
-	if (m_strCurrentStorageName == "")
-		return;
-
-	m_uiStorages.tableView->setModel(m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get());
-	m_uiStorages.tableView->update();
+	UpdateData(true);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

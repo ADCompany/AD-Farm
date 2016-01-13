@@ -92,6 +92,7 @@ public:
 	//	Main Interface
 	//
 	CFarmInfo GetFarmUpdateInfo() const { return m_lstConfig; };
+	void AddStorageNames(QStringList const& lstStoreNames);
 
 public slots:
 	//

@@ -47,13 +47,17 @@ CStoreExplorer::CStoreExplorer( QStringList const& lstStores, QWidget* pwParent 
 
 }
 
+void CStoreExplorer::AddStorageNames(QStringList const& lstStoreNames)
+{
+	ui.wdgStoreList->addItems(lstStoreNames);
+}
+
 // OnCurrentStoreChanged
 void CStoreExplorer::OnCurrentStoreChanged( 
 	QListWidgetItem* pCurrent, 
 	QListWidgetItem* pPrevious )
 {
 	FM_ASSERT( m_pContentModel );
-	FM_ASSERT( pCurrent );
 	if (!pCurrent || pCurrent == pPrevious)
 		return;
 

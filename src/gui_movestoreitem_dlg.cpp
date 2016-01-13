@@ -40,6 +40,14 @@ CMoveStoreItemDlg::CMoveStoreItemDlg( QStringList const& lstStorageNames,
 				this,               OnNewSelection(QString const&, QString const&, int) );	
 }
 
+// SetStoragesNameList
+void CMoveStoreItemDlg::AddStorageNames(QStringList const&  lstStorageNames)
+{
+	m_pwStoreExplorer->AddStorageNames(lstStorageNames);
+
+	ui.wdgTargetStores->addItems(lstStorageNames);
+}
+
 // OnNewSelection [SLOT]
 void CMoveStoreItemDlg::OnNewSelection( QString const& sStoreName,
 										QString const& sItemName,

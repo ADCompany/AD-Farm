@@ -84,16 +84,10 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_gui_querytablemodel.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_gui_storeexplorer_wdg.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_gui_newdealdlg.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_gui_querytablemodel.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gui_storeexplorer_wdg.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="gui_totalviewer_wdg.cpp">
@@ -246,6 +240,12 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gui_movestoreitem_dlg.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_storeexplorer_wdg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_storeexplorer_wdg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="farmmanager.ui">
@@ -353,9 +353,6 @@
     <CustomBuild Include="gui_querytablemodel.h">
       <Filter>Gui</Filter>
     </CustomBuild>
-    <CustomBuild Include="gui_storeexplorer_wdg.h">
-      <Filter>Gui</Filter>
-    </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_finances.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
@@ -428,22 +425,23 @@
     <CustomBuild Include="movestoreitem.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_addfarmcosts.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_addstoragecosts.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_declineproduct.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_movestoreitem.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_storeexplorer_wdg.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app_icon.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_addfarmcosts.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_addstoragecosts.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_declineproduct.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_movestoreitem.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>

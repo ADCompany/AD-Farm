@@ -286,7 +286,7 @@ void CStoragesData::MoveProductFromStorageInStorage(QString const& strInStorageN
 		sqlQuery.next();
 		QString strProductId = sqlQuery.value(0).toString();
 
-		sqlQuery.exec(QString("SELECT prime_cost FROM storage_info WHERE storage_id == %1 AND product_id == %2 ").arg(strOutStorage, strProductId));
+		sqlQuery.exec(QString("SELECT prime_cost FROM storage_info WHERE storage_id == %1 AND product_id == %2 ").arg(strOutStorageId, strProductId));
 		sqlQuery.next();
 		double dProductPrimeCostInOutStorage = sqlQuery.value(0).toDouble();
 
@@ -295,8 +295,8 @@ void CStoragesData::MoveProductFromStorageInStorage(QString const& strInStorageN
 		int nProductCountInOutStorage = sqlQuery.value(0).toInt();
 		nProductCountInOutStorage -= lstProductCount[i];
 
-		sqlQuery.exec(QString("UPDATE storage_info SET count = %1, WHERE storage_id == %2 AND product_id == %3").arg(
-			QString::number(nProductCountInOutStorage), strOutStorage, strProductId));
+		sqlQuery.exec(QString("UPDATE storage_info SET count = %1 WHERE storage_id == %2 AND product_id == %3").arg(
+			QString::number(nProductCountInOutStorage), strOutStorageId, strProductId));
 
 		sqlQuery.exec(QString("SELECT * FROM storage_info WHERE storage_id == %1 AND product_id == %2 ").arg(strInStorageId, strProductId));
 		sqlQuery.next();
@@ -319,7 +319,7 @@ void CStoragesData::MoveProductFromStorageInStorage(QString const& strInStorageN
 		dProductPrimeCostInInStorage = (dProductPrimeCostInInStorage * nProductCountInInStorage + dProductPrimeCostInOutStorage * lstProductCount[i]) / (lstProductCount[i] + nProductCountInInStorage);
 		nProductCountInInStorage += lstProductCount[i];
 
-		sqlQuery.exec(QString("UPDATE storage_info SET count = %1, prime_cost = %2 WHERE storage_id == %2 AND product_id == %3").arg(
+		sqlQuery.exec(QString("UPDATE storage_info SET count = %1, prime_cost = %2 WHERE storage_id == %3 AND product_id == %4").arg(
 			QString::number(nProductCountInInStorage), QString::number(dProductPrimeCostInInStorage), strInStorageId, strProductId));
 	}
 }
@@ -417,9 +417,9 @@ void CStoragesData::SubstractProductInStorage(QString const& strStorageName, QSt
 	int nProductsCountInStorage = sqlQuery.value(0).toInt();
 	nProductsCountInStorage -= nCount;
 
-	sqlQuery.exec(QString("UPDATE producte SET count = %1 WHERE id == %3").arg(
+	sqlQuery.exec(QString("UPDATE producte SET count = %1 WHERE id == %2").arg(
 		QString::number(nProductCountInProduct), strProductId));
-	sqlQuery.exec(QString("UPDATE storage_info SET count = %1 WHERE storage_id == %3 AND product_id == %4").arg(
+	sqlQuery.exec(QString("UPDATE storage_info SET count = %1 WHERE storage_id == %2 AND product_id == %3").arg(
 		QString::number(nProductsCountInStorage), strStorageId, strProductId));
 
 	UpdateAllSqlTableModel();

@@ -58,6 +58,7 @@ public:
 	//
 	// Clear Dialog
 	inline void Clear();
+	void AddStorageNames(QStringList const&  lstStorageNames);
 
 protected slots:
 	//
@@ -89,8 +90,9 @@ private:
 inline void CMoveStoreItemDlg::Clear()
 {
 	// TODO
-	//m_pwStoreExplorer->OnClear();
+	m_pwStoreExplorer->OnClear();
 
+	ui.wdgTargetStores->clear();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
