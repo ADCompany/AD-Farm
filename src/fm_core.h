@@ -89,10 +89,11 @@ namespace keys {
 //
 // QTR function declaration for internationalization
 //
-inline QString qtr(char const* cszText)
-{
-	return QCoreApplication::translate("fm_core", cszText);
-}
+//inline QString qtr(char const* cszText)
+//{
+//	return QCoreApplication::translate("FM_Global", cszText);
+//}
+#define qtr(_text_) QCoreApplication::translate("FM_Global", _text_)
 ////////////////////////////////////////////////////////////////////////////////
 
 ////////////////////////////////////////////////////////////////////////////////

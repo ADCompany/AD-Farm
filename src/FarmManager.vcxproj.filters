@@ -34,6 +34,11 @@
     <Filter Include="Gui">
       <UniqueIdentifier>{9009f2ac-a97a-42e4-8fa4-b8b9daffb9d7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Translation Files">
+      <UniqueIdentifier>{639EADAA-A684-42e4-A9AD-28FC9BCB8F7C}</UniqueIdentifier>
+      <Extensions>ts</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GeneratedFiles\qrc_farmmanager.cpp">
@@ -443,5 +448,10 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app_icon.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="farmmanager_hy.ts">
+      <Filter>Translation Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

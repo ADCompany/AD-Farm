@@ -140,7 +140,7 @@
      <normaloff>:/FarmManager/Resources/transactions3.png</normaloff>:/FarmManager/Resources/transactions3.png</iconset>
    </property>
    <property name="text">
-    <string>Նոր Գործարք</string>
+    <string>Նոր Գործարք...</string>
    </property>
    <property name="toolTip">
     <string>Ստեղծել նոր գործարք</string>
@@ -152,7 +152,7 @@
      <normaloff>:/FarmManager/Resources/add_customer2.png</normaloff>:/FarmManager/Resources/add_customer2.png</iconset>
    </property>
    <property name="text">
-    <string>Ավելացնել Գնորդ</string>
+    <string>Ավելացնել Գնորդ...</string>
    </property>
    <property name="toolTip">
     <string>Ավելացնել նոր գնորդ</string>
@@ -233,10 +233,10 @@
   <action name="actMoveStoreItem">
    <property name="icon">
     <iconset resource="farmmanager.qrc">
-     <normaloff>:/FarmManager/Resources/moving.png</normaloff>:/FarmManager/Resources/moving.png</iconset>
+     <normaloff>:/FarmManager/Resources/move_right2.png</normaloff>:/FarmManager/Resources/move_right2.png</iconset>
    </property>
    <property name="text">
-    <string>Ապրանքի տեղափոխություն</string>
+    <string>Ապրանքի տեղափոխություն...</string>
    </property>
    <property name="toolTip">
     <string>Պահոցից-պահոց ապրանքի տեղափոխություն</string>

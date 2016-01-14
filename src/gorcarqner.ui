@@ -116,7 +116,11 @@
               </font>
              </property>
              <property name="text">
-              <string>Նոր Գործարք</string>
+              <string>Նոր Գործարք...</string>
+             </property>
+             <property name="icon">
+              <iconset resource="farmmanager.qrc">
+               <normaloff>:/FarmManager/Resources/transactions3.png</normaloff>:/FarmManager/Resources/transactions3.png</iconset>
              </property>
             </widget>
            </item>
@@ -143,6 +147,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="farmmanager.qrc"/>
+ </resources>
  <connections/>
 </ui>

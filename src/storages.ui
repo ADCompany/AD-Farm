@@ -34,7 +34,7 @@
          <property name="orientation">
           <enum>Qt::Horizontal</enum>
          </property>
-         <widget class="QWidget" name="">
+         <widget class="QWidget" name="layoutWidget">
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <widget class="QListView" name="listView">
@@ -54,11 +54,11 @@
               </sizepolicy>
              </property>
              <property name="text">
-              <string>Տեղափոխել ապրանք</string>
+              <string>Տեղափոխել ապրանք...</string>
              </property>
              <property name="icon">
               <iconset resource="farmmanager.qrc">
-               <normaloff>:/FarmManager/Resources/moving.png</normaloff>:/FarmManager/Resources/moving.png</iconset>
+               <normaloff>:/FarmManager/Resources/move_right2.png</normaloff>:/FarmManager/Resources/move_right2.png</iconset>
              </property>
             </widget>
            </item>
@@ -86,7 +86,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Ֆերմաի Ծախս</string>
+                <string>Ֆերմաի Ծախս...</string>
                </property>
                <property name="icon">
                 <iconset resource="farmmanager.qrc">
@@ -102,7 +102,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Պահոցի Ծախս</string>
+                <string>Պահոցի Ծախս...</string>
                </property>
                <property name="icon">
                 <iconset resource="farmmanager.qrc">
@@ -118,7 +118,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Ավելացնել</string>
+                <string>Ավելացնել...</string>
                </property>
                <property name="icon">
                 <iconset resource="farmmanager.qrc">
@@ -134,7 +134,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Պակասացնել</string>
+                <string>Պակասացնել...</string>
                </property>
                <property name="icon">
                 <iconset resource="farmmanager.qrc">
@@ -145,7 +145,7 @@
              <item>
               <widget class="QPushButton" name="btnDecline">
                <property name="text">
-                <string>Անկում</string>
+                <string>Անկում...</string>
                </property>
                <property name="icon">
                 <iconset resource="farmmanager.qrc">

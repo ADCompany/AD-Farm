@@ -92,6 +92,7 @@ void CStoragesWidget::UpdateData(bool bFull)
 
 	m_uiStorages.tableView->setModel(m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get());
 	m_uiStorages.tableView->update();
+	m_pMoveStoreItemDlg->Update();
 }
 
 // Protected Slots

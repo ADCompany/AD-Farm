@@ -1,6 +1,7 @@
 #include "gui_farmmanagerwidget.h"
 #include <QApplication>
 #include <QMessageBox>
+#include <QTranslator>
 ////////////////////////////////////////////////////////////////////////////////
 //
 //	MAIN
@@ -14,6 +15,13 @@ int main(int argc, char *argv[])
 		oFarmManager.setOrganizationName( "ADCompany" );
 		oFarmManager.setApplicationName( "Farm Manager" );
 		oFarmManager.setApplicationVersion( "1.0.0" );
+
+		// Internationalization
+		QTranslator oTranslator;
+		oTranslator.load( "farmmanager_hy.qm" /*+ QLocale::system().name()*/ );
+		oFarmManager.installTranslator( &oTranslator );
+
+
 		fm::gui::CFarmManagerWidget w;
 		w.show();
 		return oFarmManager.exec();

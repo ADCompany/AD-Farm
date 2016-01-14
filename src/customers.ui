@@ -44,7 +44,7 @@
               </font>
              </property>
              <property name="text">
-              <string>Ավելացնել</string>
+              <string>Ավելացնել...</string>
              </property>
              <property name="icon">
               <iconset resource="farmmanager.qrc">

@@ -77,7 +77,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Նոր Տեսակ</string>
+                <string>Նոր Տեսակ...</string>
                </property>
               </widget>
              </item>
@@ -141,7 +141,7 @@
                 </font>
                </property>
                <property name="text">
-                <string>Ստեղծել Պահոց</string>
+                <string>Ստեղծել Պահոց...</string>
                </property>
               </widget>
              </item>

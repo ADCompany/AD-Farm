@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>661</width>
-    <height>214</height>
+    <width>653</width>
+    <height>212</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -19,16 +19,17 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <layout class="QHBoxLayout" name="horizontalLayout_2">
+  <layout class="QHBoxLayout" name="horizontalLayout">
    <property name="margin">
     <number>0</number>
    </property>
    <item>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QListWidget" name="wdgStoreList"/>
-     </item>
-     <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QListWidget" name="wdgStoreList"/>
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="vlayItems">
        <item>
         <widget class="QTableView" name="viewContentTable">
@@ -38,8 +39,8 @@
         </widget>
        </item>
       </layout>
-     </item>
-    </layout>
+     </widget>
+    </widget>
    </item>
    <item>
     <widget class="QWidget" name="wdgCount" native="true">

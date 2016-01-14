@@ -104,6 +104,7 @@ public slots:
 	void OnAdd();
 	void OnCountCountChanged( int nCount );
 	// 
+	void Update();
 	void OnClear();
 
 signals:

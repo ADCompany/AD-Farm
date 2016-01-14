@@ -58,7 +58,9 @@ public:
 	//
 	// Clear Dialog
 	inline void Clear();
+	inline void Update();
 	void AddStorageNames(QStringList const&  lstStorageNames);
+	
 
 protected slots:
 	//
@@ -93,6 +95,12 @@ inline void CMoveStoreItemDlg::Clear()
 	m_pwStoreExplorer->OnClear();
 
 	ui.wdgTargetStores->clear();
+}
+// Update
+inline void CMoveStoreItemDlg::Update()
+{
+	FM_ASSERT( m_pwStoreExplorer );
+	m_pwStoreExplorer->Update();
 }
 
 ////////////////////////////////////////////////////////////////////////////////

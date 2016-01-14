@@ -59,7 +59,7 @@ void CMoveStoreItemDlg::OnNewSelection( QString const& sStoreName,
 	FM_ASSERT( pTargetStore );
 	if (!pTargetStore->isSelected())
 	{
-		QMessageBox::critical( this, "Target Store Not Selected", "Target store is not selected!" );
+		QMessageBox::critical( this, qtr( "Target Store Not Selected" ), qtr( "Target store is not selected!" ) );
 		return;
 	}
 	if (nCount <= 0)
@@ -73,11 +73,11 @@ void CMoveStoreItemDlg::OnNewSelection( QString const& sStoreName,
 	oInfo.sTargetStoreName = sTargetStoreName;
 
 	//  
-	QMessageBox::StandardButton reply;
-	reply = QMessageBox::question( this, "Confirm Moving", QString("You are going to move %1 %2 from %3 to %4 ")
+	QMessageBox::StandardButton eReply;
+	eReply = QMessageBox::question( this, qtr( "Confirm Moving" ), qtr( "You are going to move %1 %2 from %3 to %4 " )
 								   .arg(nCount).arg(sItemName, sStoreName, sTargetStoreName),
 								   QMessageBox::Yes | QMessageBox::No );
-	if (reply == QMessageBox::Yes) 
+	if (eReply == QMessageBox::Yes)
 		emit sigMoveStoreItem( oInfo );
 }
 

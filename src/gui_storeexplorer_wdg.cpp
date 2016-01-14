@@ -29,6 +29,7 @@ CStoreExplorer::CStoreExplorer( QStringList const& lstStores, QWidget* pwParent 
 	m_pContentModel = new CStoreContentModel( this );
 	ui.viewContentTable->setSelectionMode( QAbstractItemView::SingleSelection );
 	ui.viewContentTable->setModel( m_pContentModel );
+	ui.viewContentTable->verticalHeader()->hide();
 	// Storage List Should Be Initiazlized :TODO
 	//
 	// Count Spin Box Setup
@@ -57,12 +58,26 @@ void CStoreExplorer::OnCurrentStoreChanged(
 	QListWidgetItem* pCurrent, 
 	QListWidgetItem* pPrevious )
 {
-	FM_ASSERT( m_pContentModel );
-	if (!pCurrent || pCurrent == pPrevious)
+	if (pCurrent && pCurrent == pPrevious)
 		return;
+	Update();
+}
 
-	QString sCurrentStoreName = pCurrent->text();
-	m_pContentModel->setActiveStore( sCurrentStoreName );
+// Update
+void CStoreExplorer::Update()
+{
+	FM_ASSERT( m_pContentModel );
+	QListWidgetItem* pCurrent = ui.wdgStoreList->currentItem();
+	if (pCurrent)
+	{
+		pCurrent->setSelected( true );
+		QString sCurrentStoreName = pCurrent->text();
+		m_pContentModel->setActiveStore( sCurrentStoreName );
+		ui.viewContentTable->resizeRowsToContents();
+	}
+	else
+		m_pContentModel->setActiveStore( QString(" ") );
+
 }
 
 // OnCurrentProductChanged
@@ -175,6 +190,7 @@ void CStoreExplorer::OnCountCountChanged( int nCount )
 void CStoreExplorer::OnClear()
 {
 	ui.wdgStoreList->clear();
+	m_pContentModel->setActiveStore(QString());
 	ui.sbxCount->setValue( 0 );
 	ui.wdgCount->setDisabled( true );
 	m_hshCountSelection.clear();
