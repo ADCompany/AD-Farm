@@ -53,12 +53,17 @@
                <verstretch>0</verstretch>
               </sizepolicy>
              </property>
+             <property name="font">
+              <font>
+               <pointsize>10</pointsize>
+              </font>
+             </property>
              <property name="text">
               <string>Տեղափոխել ապրանք...</string>
              </property>
              <property name="icon">
               <iconset resource="farmmanager.qrc">
-               <normaloff>:/FarmManager/Resources/move_right2.png</normaloff>:/FarmManager/Resources/move_right2.png</iconset>
+               <normaloff>:/FarmManager/Resources/moving_down_up.png</normaloff>:/FarmManager/Resources/moving_down_up.png</iconset>
              </property>
             </widget>
            </item>

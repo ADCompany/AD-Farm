@@ -144,8 +144,6 @@ void CStoragesWidget::onMoveStoreItem(SItemMovingInfo const& itemMovingInfo)
 	lstProducteCount.push_back(itemMovingInfo.nProductCount);
 
 	m_pStoragesData->MoveProductFromStorageInStorage(itemMovingInfo.sTargetStoreName, itemMovingInfo.sSourceStoreName, lstProducteName, lstProducteCount);
-
-	UpdateData(true);
 }
 
 void CStoragesWidget::onSubItem()

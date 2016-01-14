@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="FarmManager">
+    <file>Resources/moving_down_up.png</file>
     <file>Resources/move_right.png</file>
     <file>Resources/move_right2.png</file>
     <file>Resources/moving.png</file>

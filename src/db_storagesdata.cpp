@@ -322,6 +322,8 @@ void CStoragesData::MoveProductFromStorageInStorage(QString const& strInStorageN
 		sqlQuery.exec(QString("UPDATE storage_info SET count = %1, prime_cost = %2 WHERE storage_id == %3 AND product_id == %4").arg(
 			QString::number(nProductCountInInStorage), QString::number(dProductPrimeCostInInStorage), strInStorageId, strProductId));
 	}
+
+	UpdateAllSqlTableModel();
 }
 
 void CStoragesData::AddProductInStorage(QString const& strStorageName, QList<QString> const& lstProductName, QList<int> const& lstProductCount, QList<double> const& lstProductCost)

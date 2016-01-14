@@ -108,7 +108,7 @@ void CTransactionsData::AddTransactionData(QString const& strCustomerName, QList
 	sqlQuery.exec(QString("INSERT INTO deal ( cost, customer_id, customer_cost, date_time ) VALUES ( %1, %2, %3, \"%4\" );").arg(
 		QString::number(dDealCost), strCustomerId, QString::number(dCustomerCost), strDate));
 
-	sqlQuery.exec(QString("SELECT id FROM deal WHERE customer_id == %1 AND date_time == \"%2\" ").arg(strCustomerId, strDate));
+	sqlQuery.exec("SELECT LAST_INSERT_ROWID() FROM deal");
 	sqlQuery.next();
 	QString strTransactionId = sqlQuery.value(0).toString();
 
