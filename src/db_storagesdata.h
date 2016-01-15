@@ -5,7 +5,7 @@
 //
 // Includes
 //
-#ifndef DB_COMPONENT_H
+#ifndef DB_MANAGER_H
 #   include "db_manager.h"
 #endif
 
