@@ -36,7 +36,7 @@ CMoveStoreItemDlg::CMoveStoreItemDlg( QStringList const& lstStorageNames,
 	ui.wdgTargetStores->addItems( lstStorageNames );
 
 	// Connections
-	FM_CONNECT( m_pwStoreExplorer, sigNewSelection(QString const&, QString const&, int),
+	FM_CONNECT( m_pwStoreExplorer, sigNewSelection(QString const&, QString const&, int, int),
 				this,               OnNewSelection(QString const&, QString const&, int) );	
 }
 

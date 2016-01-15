@@ -127,7 +127,7 @@ class CTotalViewer : public QWidget
 	////////////////////////////////////////////////////////////////////////////////
 
 public:// Constructors
-	CTotalViewer( QWidget* pwParent = nullptr );
+	CTotalViewer( bool bIncrementalView = false, QWidget* pwParent = nullptr );
 	~CTotalViewer() = default;
 
 public:
@@ -142,7 +142,7 @@ public slots:
 	//
 void OnNewSelection( QString const& sStoreName, 
 					 QString const& sItemName,
-					 int            nCount );
+					 int            nNewCount );
 	
 	// 
 	void OnUpdateTotalPrice();
@@ -174,6 +174,7 @@ private:
 
 	QHash<QString, CProductInfoWidgets> m_hshProductInfo;
 	t_lstProductPriceInfo  m_lstSelectedProducts;
+	bool m_bIncrementalView;
 };
 ////////////////////////////////////////////////////////////////////////////////
 

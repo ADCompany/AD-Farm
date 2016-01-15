@@ -21,8 +21,9 @@ namespace gui {
 //
 
 // Constructors
-CTotalViewer::CTotalViewer( QWidget *pwParent )
-	: QWidget( pwParent )
+CTotalViewer::CTotalViewer( bool bIncrementalView, QWidget *pwParent )
+	: QWidget( pwParent ),
+	  m_bIncrementalView( bIncrementalView )
 {
 	ui.setupUi( this );
 	//ui.framePriceSelector->
@@ -53,12 +54,16 @@ void CTotalViewer::OnNewSelection( QString const& sStoreName,
 	}
 	else
 	{
-		//int nCurrentCount = oInfoWidgets.getCount();
-		//nCurrentCount += nCount;
-		if (nCount <= 0)
+		int nCurrentCount = nCurrentCount = oInfoWidgets.getCount();;
+		if (m_bIncrementalView)
+			nCurrentCount += nCount;
+		else
+			nCurrentCount = nCount;
+		// 
+		if (nCurrentCount <= 0)
 			RemoveProduct( oInfoWidgets );
 		else
-			oInfoWidgets.getLcdCount()->display( nCount );
+			oInfoWidgets.getLcdCount()->display( nCurrentCount );
 		OnUpdateTotalPrice();
 	}
 }

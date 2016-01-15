@@ -39,15 +39,15 @@ CNewDealDlg::CNewDealDlg( QStringList const& lstCustomerNames,
 	ui.gbxItemSelection->setLayout( pVExpLayout );
 
 	// Setup Total Viewer widget
-	m_pwTotalViewer = new CTotalViewer();
+	m_pwTotalViewer = new CTotalViewer( true );
 	QVBoxLayout* pVTotalLayout = dynamic_cast<QVBoxLayout*>(layout());
 	FM_ASSERT( pVTotalLayout );
 	pVTotalLayout->insertWidget( 2, m_pwTotalViewer );
 	//adjustSize();
 	// Connections
 	FM_CONNECT( ui.cbxCustomer, currentIndexChanged( int ), this, OnCustomerChanged( int ) );
-	FM_CONNECT( m_pwStoreExplorer, sigNewSelection(QString const&, QString const&, int), 
-				m_pwTotalViewer,    OnNewSelection(QString const&, QString const&, int) );
+	FM_CONNECT( m_pwStoreExplorer, sigNewSelectionDif(QString const&, QString const&, int), 
+				m_pwTotalViewer,       OnNewSelection(QString const&, QString const&, int) );
 	FM_CONNECT( m_pwTotalViewer, sigTotalPriceChanged(double),
 				this,             OnUpedateDebt() );
 	FM_CONNECT( ui.sbxPay, valueChanged(double),

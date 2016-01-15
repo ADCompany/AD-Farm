@@ -111,7 +111,8 @@ signals:
 	//
 	//	Signals
 	//
-	void sigNewSelection( QString const& sStoreName, QString const& sItemName, int nCount );
+	void sigNewSelection( QString const& sStoreName, QString const& sItemName, int nNewCount, int nOldCount );
+	void sigNewSelectionDif( QString const& sStoreName, QString const& sItemName, int nDifferance );
 
 private:
 	//

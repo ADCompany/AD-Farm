@@ -176,7 +176,8 @@ void CStoreExplorer::OnAdd()
 		}
 	}
 	////
-	emit sigNewSelection( sStoreName, m_sCurrentProductName, nCount );
+	emit sigNewSelection( sStoreName, m_sCurrentProductName, nCount, nSelectedCount );
+	emit sigNewSelectionDif( sStoreName, m_sCurrentProductName, nDiffCount );
 }
 
 void CStoreExplorer::OnCountCountChanged( int nCount )
