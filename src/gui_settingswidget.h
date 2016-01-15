@@ -14,6 +14,7 @@
 #include "ui_settings.h"
 
 // Qt Includes
+#include <QMenu>
 
 // STD Includes
 
@@ -43,6 +44,9 @@ public:// Interface Methodes
 
 protected:// Helper Methodes
 	inline void UpdateData();
+
+	void RemoveProduct(int nRow);
+	void RemoveStorage(int nRow);
 
 protected slots:
 	void onChangeData()
@@ -78,11 +82,38 @@ protected slots:
 		m_pAddStoreDlg->Clear();
 		m_pAddStoreDlg->show();
 	}
+	void onProductMenuShow(QPoint const& pos)
+	{
+		QModelIndex idxCurrent = m_uiSettingsWidget.tableView->indexAt(pos);
+		m_iCurrModelIndex = idxCurrent;
+		if (idxCurrent.row() >= 0)
+			m_pProductMenu->popup(m_uiSettingsWidget.tableView->viewport()->mapToGlobal(pos));
+	}
+	void onStorageMenuShow(QPoint const& pos)
+	{
+		QModelIndex idxCurrent = m_uiSettingsWidget.tableView->indexAt(pos);
+		m_iCurrModelIndex = idxCurrent;
+		if (idxCurrent.row() >= 0)
+			m_pStorageMenu->popup(m_uiSettingsWidget.tableView_2->viewport()->mapToGlobal(pos));
+	}
+	void onRemoveProduct()
+	{
+		RemoveProduct(m_iCurrModelIndex.row());
+	}
+	void onRemoveStorage()
+	{
+		RemoveStorage(m_iCurrModelIndex.row());
+	}
 private:// Members
 	Ui::settingsWidget m_uiSettingsWidget;
 	
 	std::shared_ptr<CAddProductDlg> m_pAddProductDlg;
 	std::shared_ptr<CAddStoreDlg> m_pAddStoreDlg;
+
+	std::shared_ptr<QMenu> m_pProductMenu;
+	std::shared_ptr<QMenu> m_pStorageMenu;
+
+	QModelIndex m_iCurrModelIndex;
 
 	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 };

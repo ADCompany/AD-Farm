@@ -80,6 +80,9 @@ public:// Interface Methodes
 	bool SetParent(QObject* pParent);
 	void SetDBManager(std::shared_ptr<CDBManager> pDBManager);
 
+	void RemoveProduct(int nRow);
+	void RemoveStorage(int nRow);
+
 	void UpdateAllSqlTableModel()
 	{
 		m_mapStringToModel.clear();
@@ -94,6 +97,7 @@ public:// Interface Methodes
 
 	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByStorageName(QString const& strStorageName);
 	std::shared_ptr<QSqlQueryModel> GetHistorySqlTableModelByStorageName(QString const& strStorageName);
+	std::shared_ptr<QSqlQueryModel> GetFarmHistorySqlTableModel();
 
 	void SubstractProducts(QList<QString> lstProductName, QList<int> lstProductCount);
 
@@ -129,6 +133,9 @@ signals:
 private:// Members
 	std::map< QString, std::shared_ptr<QSqlQueryModel> > m_mapStringToModel;
 	std::map< QString, std::shared_ptr<QSqlQueryModel> > m_mapStorageNameToStorageHistoryModel;
+
+	std::shared_ptr<QSqlQueryModel> m_pFarmHistorySqlTableModel;
+
 	QObject* m_pParentObject;
 };
 ////////////////////////////////////////////////////////////////////////////////
@@ -143,7 +150,8 @@ private:// Members
 // Constructors
 inline CStoragesData::CStoragesData(QObject* pParent, std::shared_ptr<CDBManager> pDBManager)
 	: CDBComponent(pDBManager),
-	m_pParentObject(pParent)
+	m_pParentObject(pParent),
+	m_pFarmHistorySqlTableModel(nullptr)
 {}
 
 // Interface Methodes

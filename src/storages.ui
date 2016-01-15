@@ -63,7 +63,7 @@
              </property>
              <property name="icon">
               <iconset resource="farmmanager.qrc">
-               <normaloff>:/FarmManager/Resources/moving_down_up.png</normaloff>:/FarmManager/Resources/moving_down_up.png</iconset>
+               <normaloff>:/FarmManager/Resources/move_right2.png</normaloff>:/FarmManager/Resources/move_right2.png</iconset>
              </property>
             </widget>
            </item>

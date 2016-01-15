@@ -23,13 +23,15 @@ namespace gui {
 // Constructors
 CFinancesWidget::CFinancesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManager> pDBManager)
 	: QWidget(pwParent),
-	m_pCustomersData(nullptr)
+	m_pCustomersData(nullptr),
+	m_pStoragesData(nullptr)
 {
 	m_uiFinancesWidget.setupUi(this);
 
 	SetDBManager(pDBManager);
 
-	m_uiFinancesWidget.tableView->setContextMenuPolicy(Qt::CustomContextMenu);
+	m_uiFinancesWidget.tableViewCustomers->setContextMenuPolicy(Qt::CustomContextMenu);
+	m_uiFinancesWidget.tableViewFerma->setContextMenuPolicy(Qt::CustomContextMenu);
 }
 
 void CFinancesWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
@@ -38,8 +40,9 @@ void CFinancesWidget::SetDBManager(std::shared_ptr<db::CDBManager> pDBManager)
 		return;
 
 	m_pCustomersData = std::static_pointer_cast<db::CCustomersData>(pDBManager->GetDBComponent(db::CDBManager::component::customers));
-
+	m_pStoragesData = std::static_pointer_cast<db::CStoragesData>(pDBManager->GetDBComponent(db::CDBManager::component::storages));
 	FM_CONNECT(m_pCustomersData.get(), sigChangeData(), this, onChangeData());
+	FM_CONNECT(m_pStoragesData.get(), sigChangeData(), this, onChangeData());
 
 	UpdateData();
 }

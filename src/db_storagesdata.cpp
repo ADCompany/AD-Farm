@@ -90,6 +90,33 @@ void CStoragesData::SetDBManager(std::shared_ptr<CDBManager> pDBManager)
 	CDBComponent::SetDBManager(pDBManager);
 }
 
+void CStoragesData::RemoveProduct(int nRow)
+{
+
+	std::shared_ptr<QSqlQueryModel> pSqlTableModel(new QSqlQueryModel());
+	if (pSqlTableModel == nullptr)
+		return;
+
+	pSqlTableModel->setQuery("SELECT * FROM producte");
+
+	pSqlTableModel->removeRows(nRow, 1);
+
+	UpdateAllSqlTableModel();
+}
+
+void CStoragesData::RemoveStorage(int nRow)
+{
+	std::shared_ptr<QSqlTableModel> pSqlTableModel(new QSqlTableModel(this, GetDBManager()->GetDataBase()));
+	pSqlTableModel->setTable("storage");
+	if (pSqlTableModel == nullptr)
+		return;
+
+	pSqlTableModel->removeRow(nRow);
+	pSqlTableModel->submitAll();
+
+	UpdateAllSqlTableModel();
+}
+
 std::shared_ptr<QSqlQueryModel> CStoragesData::GetProductSqlQueryModel(QString const& strTableName)
 {
 	auto itMap = m_mapStringToModel.find(strTableName);
@@ -175,6 +202,19 @@ std::shared_ptr<QSqlQueryModel> CStoragesData::GetHistorySqlTableModelByStorageN
 	m_mapStorageNameToStorageHistoryModel.emplace(strStorageName, pStorageSqlTableModel);
 
 	return pStorageSqlTableModel;
+}
+
+std::shared_ptr<QSqlQueryModel> CStoragesData::GetFarmHistorySqlTableModel()
+{
+	m_pFarmHistorySqlTableModel = std::shared_ptr<QSqlQueryModel>(new QSqlQueryModel);
+	m_pFarmHistorySqlTableModel->setQuery("SELECT farm_history.date_time, farm_history.info_text FROM farm_history");
+
+	m_pFarmHistorySqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant(
+		QString::fromUtf8("\324\261\325\264\325\275\325\241\325\251\325\253\325\276")));
+	m_pFarmHistorySqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant(
+		QString::fromUtf8("\324\263\325\270\326\200\325\256\325\270\325\262\325\270\326\202\325\251\325\265\325\241\325\266 \325\253\325\266\326\206\325\270\326\200\325\264\325\241\326\201\325\253\325\241\325\266")));
+
+	return m_pFarmHistorySqlTableModel;
 }
 
 QList<QString> CStoragesData::GetStorageNames()
@@ -340,6 +380,12 @@ void CStoragesData::MoveProductFromStorageInStorage(QString const& strInStorageN
 		int nProductCountInOutStorage = sqlQuery.value(0).toInt();
 		nProductCountInOutStorage -= lstProductCount[i];
 
+		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
+			strInStorageHistoryId, strProductId, QString::number(lstProductCount[i]), QString::number(dProductPrimeCostInOutStorage)));
+
+		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
+			strOutStorageHistoryId, strProductId, QString::number(lstProductCount[i]), QString::number(dProductPrimeCostInOutStorage)));
+
 		sqlQuery.exec(QString("UPDATE storage_info SET count = %1 WHERE storage_id == %2 AND product_id == %3").arg(
 			QString::number(nProductCountInOutStorage), strOutStorageId, strProductId));
 
@@ -362,17 +408,11 @@ void CStoragesData::MoveProductFromStorageInStorage(QString const& strInStorageN
 		sqlQuery.next();
 		double dProductPrimeCostInInStorage = sqlQuery.value(0).toDouble();
 
-		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
-			strOutStorageHistoryId, strProductId, QString::number(lstProductCount[i]), QString::number(dProductPrimeCostInInStorage)));
-
 		dProductPrimeCostInInStorage = (dProductPrimeCostInInStorage * nProductCountInInStorage + dProductPrimeCostInOutStorage * lstProductCount[i]) / (lstProductCount[i] + nProductCountInInStorage);
 		nProductCountInInStorage += lstProductCount[i];
 
 		sqlQuery.exec(QString("UPDATE storage_info SET count = %1, prime_cost = %2 WHERE storage_id == %3 AND product_id == %4").arg(
 			QString::number(nProductCountInInStorage), QString::number(dProductPrimeCostInInStorage), strInStorageId, strProductId));
-
-		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
-			strInStorageHistoryId, strProductId, QString::number(lstProductCount[i]), QString::number(dProductPrimeCostInOutStorage)));
 	}
 
 	UpdateAllSqlTableModel();
@@ -507,9 +547,6 @@ void CStoragesData::DeclineProductInStorage(QString const& strStorageName, QStri
 	sqlQuery.next();
 	double dProductPrimeCost = sqlQuery.value(0).toDouble();
 
-	sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
-		strStorageHistoryId, strProductId, QString::number(nProductCountInProduct), QString::number(dProductPrimeCost)));
-
 	if (nProductCountInProduct - nCount == 0)
 		dProductPrimeCost = 0;
 	else
@@ -523,6 +560,10 @@ void CStoragesData::DeclineProductInStorage(QString const& strStorageName, QStri
 	sqlQuery.exec(QString("SELECT prime_cost FROM storage_info WHERE storage_id == %1 AND product_id == %2 ").arg(strStorageId, strProductId));
 	sqlQuery.next();
 	double dProductPrimeCostInStorage = sqlQuery.value(0).toDouble();
+
+	sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
+		strStorageHistoryId, strProductId, QString::number(nProductCountInProduct), QString::number(dProductPrimeCostInStorage)));
+
 	if (nProductsCountInStorage - nCount == 0)
 		dProductPrimeCostInStorage = 0;
 	else

@@ -8,6 +8,9 @@
 #ifndef DB_CUSTOMERS_DATA_H
 #	include "db_customersdata.h"
 #endif
+#ifndef DB_STORAGES_DATA_H
+#	include "db_storagesdata.h"
+#endif
 
 // Ui
 #include "ui_finances.h"
@@ -52,6 +55,7 @@ private:// Members
 	Ui::financesWidget m_uiFinancesWidget;
 
 	std::shared_ptr<db::CCustomersData> m_pCustomersData;
+	std::shared_ptr<db::CStoragesData> m_pStoragesData;
 };
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -67,9 +71,12 @@ private:// Members
 // Helper Functions
 inline void CFinancesWidget::UpdateData()
 {
-	m_uiFinancesWidget.tableView->setModel(m_pCustomersData->GetSqlTableModel().get());
-	m_uiFinancesWidget.tableView->hideColumn(0);
-	m_uiFinancesWidget.tableView->update();
+	m_uiFinancesWidget.tableViewCustomers->setModel(m_pCustomersData->GetSqlTableModel().get());
+	m_uiFinancesWidget.tableViewCustomers->hideColumn(0);
+	m_uiFinancesWidget.tableViewCustomers->update();
+
+	m_uiFinancesWidget.tableViewFerma->setModel(m_pStoragesData->GetFarmHistorySqlTableModel().get());
+	m_uiFinancesWidget.tableViewFerma->update();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
