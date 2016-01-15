@@ -125,7 +125,8 @@ void CStoragesWidget::onAddItem()
 		lstProductCost.push_back(productInfo[i].fPrice);
 	}
 
-	m_pStoragesData->AddProductInStorage(m_strCurrentStorageName, lstProductName, lstProductCount, lstProductCost);
+	m_pStoragesData->AddProductInStorage(m_strCurrentStorageName, lstProductName, lstProductCount, lstProductCost,
+		QString::fromUtf8("\324\261\325\276\325\245\325\254\325\241\326\201\325\245\325\254 \325\247"));
 }
 
 void CStoragesWidget::onSelectProduct(QModelIndex const& modelIndex)
@@ -143,7 +144,9 @@ void CStoragesWidget::onMoveStoreItem(SItemMovingInfo const& itemMovingInfo)
 	QList<int> lstProducteCount;
 	lstProducteCount.push_back(itemMovingInfo.nProductCount);
 
-	m_pStoragesData->MoveProductFromStorageInStorage(itemMovingInfo.sTargetStoreName, itemMovingInfo.sSourceStoreName, lstProducteName, lstProducteCount);
+	m_pStoragesData->MoveProductFromStorageInStorage(itemMovingInfo.sTargetStoreName, itemMovingInfo.sSourceStoreName, lstProducteName, lstProducteCount,
+		QString::fromUtf8("\324\262\325\245\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sSourceStoreName + QString::fromUtf8("-\325\253\326\201"),
+		QString::fromUtf8("\325\217\325\245\325\262\325\241\326\203\325\270\325\255\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sTargetStoreName);
 }
 
 void CStoragesWidget::onSubItem()
@@ -164,7 +167,7 @@ void CStoragesWidget::onDeclineItem()
 	QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
 	QString strProductName = record.value(0).toString();
 
-	m_pStoragesData->DeclineProductInStorage(m_strCurrentStorageName, strProductName, nCount);
+	m_pStoragesData->DeclineProductInStorage(m_strCurrentStorageName, strProductName, nCount, QString::fromUtf8("\324\261\325\266\325\257\325\270\326\202\325\264"));
 	UpdateData();
 }
 
@@ -213,7 +216,8 @@ void CStoragesWidget::onAddStorageCostsClicked()
 void CStoragesWidget::onAddStorageCosts()
 {
 	double dCosts = m_pAddStorageCostsDlg->GetCosts();
-	m_pStoragesData->AddStoragesCosts(m_strCurrentStorageName, dCosts);
+	m_pStoragesData->AddStoragesCosts(m_strCurrentStorageName, dCosts,
+		QString(QString::fromUtf8("\324\276\325\241\325\255\325\275")) + m_strCurrentStorageName + QString::fromUtf8(" \325\272\325\241\325\260\325\270\326\201\325\253 \325\276\326\200\325\241"));
 
 	UpdateData();
 }
@@ -229,7 +233,7 @@ void CStoragesWidget::onAddFarmCostsClicked()
 void CStoragesWidget::onAddFarmCosts()
 {
 	double dCosts = m_pAddFarmCostsDlg->GetCosts();
-	m_pStoragesData->AddFarmCosts(dCosts);
+	m_pStoragesData->AddFarmCosts(dCosts, QString::fromUtf8("\325\226\325\245\326\200\325\264\325\241\325\253 \325\256\325\241\325\255\325\275"));
 
 	UpdateData();
 }

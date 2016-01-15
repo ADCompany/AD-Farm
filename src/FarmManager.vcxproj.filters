@@ -251,6 +251,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gui_storeexplorer_wdg.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="gui_storagehistory_wdg.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_storagehistory_wdg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_storagehistory_wdg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="farmmanager.ui">
@@ -445,13 +454,20 @@
     <CustomBuild Include="gui_storeexplorer_wdg.h">
       <Filter>Gui</Filter>
     </CustomBuild>
+    <CustomBuild Include="storagehistory.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_storagehistory_wdg.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="farmmanager_hy.ts">
+      <Filter>Translation Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_storagehistory.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="app_icon.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="farmmanager_hy.ts">
-      <Filter>Translation Files</Filter>
-    </None>
   </ItemGroup>
 </Project>

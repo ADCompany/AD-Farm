@@ -88,12 +88,21 @@ protected slots:// Slots
 			QString strStorageName = farmInfo[i].sStoreageName;
 			QList<int> lstPrCount;
 			QList<QString> lstProducts;
+			QList<double> lstProductCost;
 			for (int j = 0; j < farmInfo[i].lstProducts.count(); ++j)
 			{
 				lstProducts.push_back(farmInfo[i].lstProducts[j].sName);
 				lstPrCount.push_back(farmInfo[i].lstProducts[j].nCount);
+				for (int k = 0; k < lstProductName.size(); ++k)
+				{
+					if (lstProducts[j] != lstProductName[k])
+						continue;
+
+					lstProductCost.push_back(lstCost[k]);
+					break;
+				}
 			}
-			m_pStoragesData->BuyStorageData(strStorageName, lstProducts, lstPrCount);
+			m_pStoragesData->BuyStorageData(strStorageName, lstProducts, lstPrCount, lstProductCost, QString::fromUtf8("\325\216\325\241\325\263\325\241\325\274\326\204"));
 		}
 
 		QString strFirstName = "";

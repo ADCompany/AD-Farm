@@ -63,11 +63,19 @@ CFarmManagerWidget::CFarmManagerWidget(QWidget *parent)
 	ui.tabWidget->insertTab(3, m_pwFinances.get(), icon4,
 		QString::fromUtf8("\325\226\325\253\325\266\325\241\325\266\325\275\325\266\325\245\326\200"));
 
+	// Storage History
 	QIcon icon5;
-	icon5.addFile(QString::fromUtf8(":/FarmManager/Resources/settings.png"), QSize(), QIcon::Normal, QIcon::Off);
+	icon5.addFile(QString::fromUtf8(":/FarmManager/Resources/History_clock.png"), QSize(), QIcon::Normal, QIcon::Off);
+
+	m_pwStorageHistory = std::shared_ptr<CStorageHistoryWidget>(new CStorageHistoryWidget(this, m_pDBManager));
+	ui.tabWidget->insertTab(4, m_pwStorageHistory.get(), icon5,
+		QString::fromUtf8("\325\212\325\241\325\260\325\270\326\201\325\253 \325\272\325\241\325\277\325\264\325\270\326\202\325\251\325\265\325\270\326\202\325\266"));
+
+	QIcon icon6;
+	icon6.addFile(QString::fromUtf8(":/FarmManager/Resources/settings.png"), QSize(), QIcon::Normal, QIcon::Off);
 
 	m_pwSettings = std::shared_ptr<CSettingsWidget>(new CSettingsWidget(this, m_pDBManager));
-	ui.tabWidget->insertTab(4, m_pwSettings.get(), icon5,
+	ui.tabWidget->insertTab(5, m_pwSettings.get(), icon6,
 		QString::fromUtf8("\324\277\325\241\326\200\325\243\325\241\325\276\325\270\326\200\325\270\326\202\325\264\325\266\325\245\326\200"));
 
 	//

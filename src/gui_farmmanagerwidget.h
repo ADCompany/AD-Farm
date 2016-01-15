@@ -12,6 +12,7 @@
 #include "gui_settingswidget.h"
 #include "gui_customerswidget.h"
 #include "gui_transactionswidget.h"
+#include "gui_storagehistory_wdg.h"
 
 #include "db_manager.h"
 
@@ -62,6 +63,7 @@ private:
 	std::shared_ptr<CSettingsWidget>		m_pwSettings;
 	std::shared_ptr<CCustomersWidget>		m_pwCustomers;
 	std::shared_ptr<CTransactionsWidget>	m_pwTrnsactions;
+	std::shared_ptr<CStorageHistoryWidget>	m_pwStorageHistory;
 
 	std::shared_ptr<QDialog> m_CreateTrnDlg;
 

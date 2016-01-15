@@ -83,6 +83,7 @@ public:// Interface Methodes
 	void UpdateAllSqlTableModel()
 	{
 		m_mapStringToModel.clear();
+		m_mapStorageNameToStorageHistoryModel.clear();
 		emit sigChangeData();
 	}
 
@@ -91,26 +92,27 @@ public:// Interface Methodes
 	std::shared_ptr<QSqlQueryModel> GetProductSqlQueryModel(QString const& strTableName);
 	std::shared_ptr<QSqlQueryModel> GetStorageSqlQueryModel(QString const& strTableName);
 
-	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByStorageName(QString const& strCustomerName);
+	std::shared_ptr<QSqlQueryModel> GetSqlTableModelByStorageName(QString const& strStorageName);
+	std::shared_ptr<QSqlQueryModel> GetHistorySqlTableModelByStorageName(QString const& strStorageName);
 
 	void SubstractProducts(QList<QString> lstProductName, QList<int> lstProductCount);
 
-	void BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount);
+	void BuyStorageData(QString const& strStorageName, QList<QString> lstProducteNames, QList<int> lstProductesCount, QList<double> lstProductCost, QString const& strInfoText);
 
 	void AddNewProduct(QString const& strNewProductName, int nCount, double dPrimeCost);
 	void AddNewStore(QString const& strStoreName);
 
-	void MoveProductFromStorageInStorage(QString const& strInStorageName,
-		QString strOutStorage, QList<QString> const& lstProductName, QList<int> const& lstProductCount);
+	void MoveProductFromStorageInStorage(QString const& strInStorageName, QString strOutStorage,
+		QList<QString> const& lstProductName, QList<int> const& lstProductCount, QString const& strInStorageInfoText, QString const& strOutStorageInfoText);
 
 	void AddProductInStorage(QString const& strStorageName, QList<QString> const& lstProductName,
-		QList<int> const& lstProductCount, QList<double> const& lstProductCost);
+		QList<int> const& lstProductCount, QList<double> const& lstProductCost, QString const& strInfoText);
 
 	void SubstractProductInStorage(QString const& strStorageName, QString const& strProductName, int nCount);
-	void DeclineProductInStorage(QString const& strStorageName, QString const& strProductName, int nCount);
+	void DeclineProductInStorage(QString const& strStorageName, QString const& strProductName, int nCount, QString const& strInfoText);
 
-	void AddFarmCosts(double dCosts);
-	void AddStoragesCosts(QString const& strStorageName, double dCosts);
+	void AddFarmCosts(double dCosts, QString const& strInfoText);
+	void AddStoragesCosts(QString const& strStorageName, double dCosts, QString const& strInfoText);
 
 	QList<QString> GetStorageNames();
 
@@ -126,6 +128,7 @@ signals:
 
 private:// Members
 	std::map< QString, std::shared_ptr<QSqlQueryModel> > m_mapStringToModel;
+	std::map< QString, std::shared_ptr<QSqlQueryModel> > m_mapStorageNameToStorageHistoryModel;
 	QObject* m_pParentObject;
 };
 ////////////////////////////////////////////////////////////////////////////////
