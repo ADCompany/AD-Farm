@@ -163,7 +163,7 @@ void CStoreExplorer::OnAdd()
 		}
 		else
 		{
-			SStoreageInfo cfg = m_lstConfig.at( nIdx );
+			SStoreageInfo& cfg = m_lstConfig[ nIdx ];
 			int nProductIndex = cfg.lstProducts.indexOf( m_sCurrentProductName );
 			if (nProductIndex < 0)
 			{
