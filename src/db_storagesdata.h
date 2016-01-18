@@ -106,6 +106,8 @@ public:// Interface Methodes
 	void AddNewProduct(QString const& strNewProductName, int nCount, double dPrimeCost);
 	void AddNewStore(QString const& strStoreName);
 
+	void NourishProductFromStorageToStorage(QString const& strInStorageName, QString strOutStorage,
+		QList<QString> const& lstProductName, QList<int> const& lstProductCount, QString const& strInStorageInfoText, QString const& strOutStorageInfoText);
 	void MoveProductFromStorageInStorage(QString const& strInStorageName, QString strOutStorage,
 		QList<QString> const& lstProductName, QList<int> const& lstProductCount, QString const& strInStorageInfoText, QString const& strOutStorageInfoText);
 

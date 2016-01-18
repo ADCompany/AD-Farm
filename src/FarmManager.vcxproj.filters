@@ -260,6 +260,15 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gui_storagehistory_wdg.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="gui_nourish_dlg.cpp">
+      <Filter>Gui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_gui_nourish_dlg.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_gui_nourish_dlg.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="farmmanager.ui">
@@ -345,9 +354,6 @@
     </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_totalviewer.h">
       <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="gui_storageswidget.h">
-      <Filter>Gui</Filter>
     </CustomBuild>
     <CustomBuild Include="gui_transactionswidget.h">
       <Filter>Gui</Filter>
@@ -465,6 +471,18 @@
     </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_storagehistory.h">
       <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="nourishstoreitem.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_nourishstoreitem.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_storageswidget.h">
+      <Filter>Gui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="gui_nourish_dlg.h">
+      <Filter>Gui</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>

@@ -156,6 +156,10 @@ class CMovingItemSelector : public CStoreExplorer
 public:// Constructors
 	CMovingItemSelector( QStringList const& lstStores, QWidget* pwParent = nullptr );
 	~CMovingItemSelector() = default;
+
+public:// Interface Methodes
+	void SetAddBtnName(QString const& strBtnName);
+	void SetAddBtnIcon(QIcon const& iconAddBtn);
 };
 ////////////////////////////////////////////////////////////////////////////////
 

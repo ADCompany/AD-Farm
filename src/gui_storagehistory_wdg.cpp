@@ -64,6 +64,7 @@ void CStorageHistoryWidget::UpdateData(bool bFull)
 		return;
 
 	ui.tableView->setModel(m_pStoragesData->GetHistorySqlTableModelByStorageName(m_strCurrentStorageName).get());
+	ui.tableView->resizeColumnsToContents();
 	ui.tableView->update();
 }
 

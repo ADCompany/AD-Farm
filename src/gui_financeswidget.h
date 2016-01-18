@@ -73,9 +73,11 @@ inline void CFinancesWidget::UpdateData()
 {
 	m_uiFinancesWidget.tableViewCustomers->setModel(m_pCustomersData->GetSqlTableModel().get());
 	m_uiFinancesWidget.tableViewCustomers->hideColumn(0);
+	m_uiFinancesWidget.tableViewCustomers->resizeColumnsToContents();
 	m_uiFinancesWidget.tableViewCustomers->update();
 
 	m_uiFinancesWidget.tableViewFerma->setModel(m_pStoragesData->GetFarmHistorySqlTableModel().get());
+	m_uiFinancesWidget.tableViewFerma->resizeColumnsToContents();
 	m_uiFinancesWidget.tableViewFerma->update();
 }
 

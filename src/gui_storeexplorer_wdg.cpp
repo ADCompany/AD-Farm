@@ -53,6 +53,11 @@ void CStoreExplorer::AddStorageNames(QStringList const& lstStoreNames)
 	ui.wdgStoreList->addItems(lstStoreNames);
 }
 
+void SetAddBtnName(QString const& strAddBtnName)
+{
+
+}
+
 // OnCurrentStoreChanged
 void CStoreExplorer::OnCurrentStoreChanged( 
 	QListWidgetItem* pCurrent, 
@@ -235,6 +240,17 @@ CMovingItemSelector::CMovingItemSelector( QStringList const& lstStores, QWidget*
 	ui.btnAdd->setIcon( oIcon );
 
 	ui.wdgCount->layout()->removeItem( ui.verticalSpacer );
+}
+
+// Interface Methodes
+void CMovingItemSelector::SetAddBtnName(QString const& strBtnName)
+{
+	ui.btnAdd->setText(strBtnName);
+}
+
+void CMovingItemSelector::SetAddBtnIcon(QIcon const& iconAddBtn)
+{
+	ui.btnAdd->setIcon(iconAddBtn);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

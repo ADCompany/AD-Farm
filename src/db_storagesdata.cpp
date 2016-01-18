@@ -340,6 +340,72 @@ void CStoragesData::AddNewStore(QString const& strStoreName)
 	UpdateAllSqlTableModel();
 }
 
+void CStoragesData::NourishProductFromStorageToStorage(QString const& strInStorageName, QString strOutStorage,
+	QList<QString> const& lstProductName, QList<int> const& lstProductCount, QString const& strInStorageInfoText, QString const& strOutStorageInfoText)
+{
+	QString strDateTime = QDate::currentDate().toString("dd") + ' ' +
+		GetDBManager()->GetMonthLongNameByMonthNumber(QDate::currentDate().month()) + ' ' + QDate::currentDate().toString("yyyy");
+
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("SELECT id FROM storage_name WHERE name == \"%1\"").arg(strInStorageName));
+	sqlQuery.next();
+	QString strInStorageId = sqlQuery.value(0).toString();
+
+	sqlQuery.exec(QString("SELECT id FROM storage_name WHERE name == \"%1\"").arg(strOutStorage));
+	sqlQuery.next();
+	QString strOutStorageId = sqlQuery.value(0).toString();
+
+	sqlQuery.exec(QString("INSERT INTO storage_history ( storage_id, info_text, date_time ) VALUES ( %1, \"%2\", \"%3\" );").arg(strInStorageId, strInStorageInfoText, strDateTime));
+	sqlQuery.exec("SELECT LAST_INSERT_ROWID() FROM storage_history");
+	sqlQuery.next();
+	QString strInStorageHistoryId = sqlQuery.value(0).toString();
+
+	sqlQuery.exec(QString("INSERT INTO storage_history ( storage_id, info_text, date_time ) VALUES ( %1, \"%2\", \"%3\" );").arg(strOutStorageId, strOutStorageInfoText, strDateTime));
+	sqlQuery.exec("SELECT LAST_INSERT_ROWID() FROM storage_history");
+	sqlQuery.next();
+	QString strOutStorageHistoryId = sqlQuery.value(0).toString();
+
+	double dCostsCount = 0;
+	for (int i = 0; i < lstProductName.count(); ++i)
+	{
+		sqlQuery.exec(QString("SELECT id FROM producte WHERE name == \"%1\"").arg(lstProductName[i]));
+		sqlQuery.next();
+		QString strProductId = sqlQuery.value(0).toString();
+
+		sqlQuery.exec(QString("SELECT count FROM producte WHERE id == %1").arg(strProductId));
+		sqlQuery.next();
+		int nProductCount = sqlQuery.value(0).toInt();
+		nProductCount -= lstProductCount[i];
+
+		sqlQuery.exec(QString("UPDATE producte SET count = %1 WHERE id == %2").arg(
+			QString::number(nProductCount), strProductId));
+
+		sqlQuery.exec(QString("SELECT prime_cost FROM storage_info WHERE storage_id == %1 AND product_id == %2 ").arg(strOutStorageId, strProductId));
+		sqlQuery.next();
+		double dProductPrimeCostInOutStorage = sqlQuery.value(0).toDouble();
+
+		sqlQuery.exec(QString("SELECT count FROM storage_info WHERE storage_id == %1 AND product_id == %2").arg(strOutStorageId, strProductId));
+		sqlQuery.next();
+		int nProductCountInOutStorage = sqlQuery.value(0).toInt();
+		nProductCountInOutStorage -= lstProductCount[i];
+
+		dCostsCount += lstProductCount[i] * dProductPrimeCostInOutStorage;
+
+		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
+			strInStorageHistoryId, strProductId, QString::number(lstProductCount[i]), QString::number(dProductPrimeCostInOutStorage)));
+
+		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
+			strOutStorageHistoryId, strProductId, QString::number(lstProductCount[i]), QString::number(dProductPrimeCostInOutStorage)));
+
+		sqlQuery.exec(QString("UPDATE storage_info SET count = %1 WHERE storage_id == %2 AND product_id == %3").arg(
+			QString::number(nProductCountInOutStorage), strOutStorageId, strProductId));
+	}
+
+	AddStoragesCosts(strInStorageName, dCostsCount, strInStorageName +
+		QString::fromUtf8(" \325\257\325\245\326\200\325\253 \325\256\325\241\325\255\325\275 ") + QString::number(dCostsCount));
+
+	UpdateAllSqlTableModel();
+}
 void CStoragesData::MoveProductFromStorageInStorage(QString const& strInStorageName, QString strOutStorage,
 	QList<QString> const& lstProductName, QList<int> const& lstProductCount, QString const& strInStorageInfoText, QString const& strOutStorageInfoText)
 {

@@ -37,6 +37,8 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 
 	m_pMoveStoreItemDlg = std::shared_ptr<CMoveStoreItemDlg>(new CMoveStoreItemDlg (QStringList(), this));
 	FM_CONNECT(m_pMoveStoreItemDlg.get(), sigMoveStoreItem(SItemMovingInfo const&), this, onMoveStoreItem(SItemMovingInfo const&));
+	m_pNourishStoreItemDlg = std::shared_ptr<CNourishStoreItemDlg>(new CNourishStoreItemDlg(QStringList(), this));
+	FM_CONNECT(m_pNourishStoreItemDlg.get(), sigMoveStoreItem(SItemNourishInfo const&), this, onNourishStoreItem(SItemNourishInfo const&));
 
 	m_uiStorages.btnAddItem->setDisabled(true);
 	m_uiStorages.btnSubItem->setDisabled(true);
@@ -50,6 +52,7 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	FM_CONNECT(m_uiStorages.btnAddFarmCosts, clicked(), this, onAddFarmCostsClicked());
 	FM_CONNECT(m_uiStorages.btnAddStorageCosts, clicked(), this, onAddStorageCostsClicked());
 	FM_CONNECT(m_uiStorages.btnMoveStoreItem, clicked(), this, onShowMoveStoreItemDialog());
+	FM_CONNECT(m_uiStorages.btnNourishStoreItem, clicked(), this, onShowNourishStoreItemDialog());
 	
 	SetDBManager(pDBManager);
 
@@ -76,6 +79,13 @@ void CStoragesWidget::onShowMoveStoreItemDialog()
 	m_pMoveStoreItemDlg->show();
 }
 
+void CStoragesWidget::onShowNourishStoreItemDialog()
+{
+	m_pNourishStoreItemDlg->Clear();
+	m_pNourishStoreItemDlg->AddStorageNames(m_pStoragesData->GetStorageNames());
+	m_pNourishStoreItemDlg->show();
+}
+
 // Helper Functions
 void CStoragesWidget::UpdateData(bool bFull)
 {
@@ -91,8 +101,10 @@ void CStoragesWidget::UpdateData(bool bFull)
 		return;
 
 	m_uiStorages.tableView->setModel(m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get());
+	m_uiStorages.tableView->resizeColumnsToContents();
 	m_uiStorages.tableView->update();
 	m_pMoveStoreItemDlg->Update();
+	m_pNourishStoreItemDlg->Update();
 }
 
 // Protected Slots
@@ -147,6 +159,19 @@ void CStoragesWidget::onMoveStoreItem(SItemMovingInfo const& itemMovingInfo)
 	m_pStoragesData->MoveProductFromStorageInStorage(itemMovingInfo.sTargetStoreName, itemMovingInfo.sSourceStoreName, lstProducteName, lstProducteCount,
 		QString::fromUtf8("\324\262\325\245\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sSourceStoreName + QString::fromUtf8("-\325\253\326\201"),
 		QString::fromUtf8("\325\217\325\245\325\262\325\241\326\203\325\270\325\255\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sTargetStoreName);
+}
+
+void CStoragesWidget::onNourishStoreItem(SItemNourishInfo const& itemMovingInfo)
+{
+	QList<QString> lstProducteName;
+	lstProducteName.push_back(itemMovingInfo.sProductName);
+
+	QList<int> lstProducteCount;
+	lstProducteCount.push_back(itemMovingInfo.nProductCount);
+
+	m_pStoragesData->NourishProductFromStorageToStorage(itemMovingInfo.sTargetStoreName, itemMovingInfo.sSourceStoreName, lstProducteName, lstProducteCount,
+		QString::fromUtf8("\324\277\325\245\326\200\325\241\325\257\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sSourceStoreName + QString::fromUtf8("-\325\253\326\201"),
+		QString::fromUtf8("\324\277\325\245\326\200\325\241\325\257\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sTargetStoreName + QString::fromUtf8("-\325\250 "));
 }
 
 void CStoragesWidget::onSubItem()

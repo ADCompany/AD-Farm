@@ -178,6 +178,7 @@ inline void CTransactionsWidget::UpdateData(bool bFull)
 		return;
 
 	ui.tableView->setModel(m_pTransactionsData->GetSqlTableModelByCustomerName(m_strCurrentCustomerName).get());
+	ui.tableView->resizeColumnsToContents();
 	ui.tableView->update();
 }
 

@@ -114,6 +114,7 @@ inline void CCustomersWidget::UpdateData()
 	m_uiCustomersWidget.tableView->setModel(m_pCustomersData->GetSqlTableModel().get());
 	m_uiCustomersWidget.tableView->hideColumn(0);
 	m_uiCustomersWidget.tableView->hideColumn(3);
+	m_uiCustomersWidget.tableView->resizeColumnsToContents();
 	m_uiCustomersWidget.tableView->update();
 }
 

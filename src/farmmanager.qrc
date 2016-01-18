@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="FarmManager">
+    <file>Resources/nourish.png</file>
     <file>Resources/History_clock.png</file>
     <file>Resources/moving_down_up.png</file>
     <file>Resources/move_right.png</file>

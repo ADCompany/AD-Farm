@@ -133,8 +133,11 @@ inline void CSettingsWidget::UpdateData()
 {
 	m_uiSettingsWidget.tableView->setModel(m_pStoragesData->GetProductSqlQueryModel(db::CStoragesData::table::producte).get());
 	m_uiSettingsWidget.tableView->hideColumn(0);
+	m_uiSettingsWidget.tableView->resizeColumnsToContents();
 	m_uiSettingsWidget.tableView->update();
+
 	m_uiSettingsWidget.tableView_2->setModel(m_pStoragesData->GetStorageSqlQueryModel(db::CStoragesData::table::storage).get());
+	m_uiSettingsWidget.tableView_2->resizeColumnsToContents();
 	m_uiSettingsWidget.tableView_2->update();
 }
 
