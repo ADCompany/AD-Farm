@@ -2,12 +2,26 @@
 #include <QApplication>
 #include <QMessageBox>
 #include <QTranslator>
+#include <QFile>
+#include <QByteArray>
+#include <QNetworkInterface>
 ////////////////////////////////////////////////////////////////////////////////
 //
 //	MAIN
 //
 int main(int argc, char *argv[])
 {
+	//QNetworkInterface netInterface;
+	//QString strMacAddress = netInterface.name();
+	//strMacAddress = netInterface.humanReadableName();
+	//QList<QNetworkAddressEntry> lstNetAddress = netInterface.addressEntries();
+	//while(strMacAddress.isEmpty())
+	//{
+	//	strMacAddress = netInterface.hardwareAddress();
+	//}
+
+	//QFile fileLicense("ADCompany.lcs");
+	//QByteArray byteArray = fileLicense.readAll();
 	try
 	{
 		QApplication oFarmManager( argc, argv );

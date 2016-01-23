@@ -25,7 +25,6 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	: QWidget(pwParent),
 	m_pStringListModel(nullptr),
 	m_strCurrentStorageName(""),
-	m_pSubtractItemDlg(nullptr),
 	m_pDeclineItemDlg(nullptr),
 	m_pAddFarmCostsDlg(nullptr),
 	m_pAddStorageCostsDlg(nullptr),
@@ -41,13 +40,11 @@ CStoragesWidget::CStoragesWidget(QWidget* pwParent, std::shared_ptr<db::CDBManag
 	FM_CONNECT(m_pNourishStoreItemDlg.get(), sigMoveStoreItem(SItemNourishInfo const&), this, onNourishStoreItem(SItemNourishInfo const&));
 
 	m_uiStorages.btnAddItem->setDisabled(true);
-	m_uiStorages.btnSubItem->setDisabled(true);
 	m_uiStorages.btnDecline->setDisabled(true);
 	m_uiStorages.btnAddStorageCosts->setDisabled(true);
 	FM_CONNECT(m_uiStorages.listView, clicked(QModelIndex const&), this, onSelectStorage(QModelIndex const&));
 	FM_CONNECT(m_uiStorages.tableView, clicked(QModelIndex const&), this, onSelectProduct(QModelIndex const&));
 	FM_CONNECT(m_uiStorages.btnAddItem, clicked(), this, onAddItemClicked());
-	FM_CONNECT(m_uiStorages.btnSubItem, clicked(), this, onSubItemClicked());
 	FM_CONNECT(m_uiStorages.btnDecline, clicked(), this, onDeclineItemClicked());
 	FM_CONNECT(m_uiStorages.btnAddFarmCosts, clicked(), this, onAddFarmCostsClicked());
 	FM_CONNECT(m_uiStorages.btnAddStorageCosts, clicked(), this, onAddStorageCostsClicked());
@@ -118,7 +115,6 @@ void CStoragesWidget::onSelectStorage(QModelIndex const& modelIndex)
 
 	m_uiStorages.btnAddItem->setEnabled(true);
 	m_uiStorages.btnAddStorageCosts->setEnabled(true);
-	m_uiStorages.btnSubItem->setDisabled(true);
 	m_uiStorages.btnDecline->setDisabled(true);
 
 	UpdateData();
@@ -144,7 +140,6 @@ void CStoragesWidget::onAddItem()
 void CStoragesWidget::onSelectProduct(QModelIndex const& modelIndex)
 {
 	m_currModelIndex = modelIndex;
-	m_uiStorages.btnSubItem->setEnabled(true);
 	m_uiStorages.btnDecline->setEnabled(true);
 }
 
@@ -174,17 +169,6 @@ void CStoragesWidget::onNourishStoreItem(SItemNourishInfo const& itemMovingInfo)
 		QString::fromUtf8("\324\277\325\245\326\200\325\241\325\257\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sTargetStoreName + QString::fromUtf8("-\325\250 "));
 }
 
-void CStoragesWidget::onSubItem()
-{
-	int nRow = m_currModelIndex.row();
-	int nCount = m_pSubtractItemDlg->GetSutractionCount();
-	QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
-	QString strProductName = record.value(0).toString();
-
-	m_pStoragesData->SubstractProductInStorage(m_strCurrentStorageName, strProductName, nCount);
-	UpdateData();
-}
-
 void CStoragesWidget::onDeclineItem()
 {
 	int nRow = m_currModelIndex.row();
@@ -202,19 +186,6 @@ void CStoragesWidget::onAddItemClicked() // BAD Solustion
 	FM_CONNECT(m_pAddItemDlg.get(), accepted(), this, onAddItem());
 
 	m_pAddItemDlg->show();
-}
-
-void CStoragesWidget::onSubItemClicked()
-{
-	int nRow = m_currModelIndex.row();
-
-	QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
-	int nCount = record.value(1).toInt();
-
-	m_pSubtractItemDlg = std::shared_ptr<CSubtractStoreItem>(new CSubtractStoreItem(nCount, this));
-	FM_CONNECT(m_pSubtractItemDlg.get(), accepted(), this, onSubItem());
-
-	m_pSubtractItemDlg->show();
 }
 
 void CStoragesWidget::onDeclineItemClicked()

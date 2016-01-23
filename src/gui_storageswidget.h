@@ -17,9 +17,6 @@
 #ifndef GUI_ADD_STORE_ITEM_DLG_H
 #	include "gui_addstoreitem_dlg.h"
 #endif
-#ifndef GUI_SUBTRACT_STORE_ITEM_DLG_H
-#	include "gui_subtractstoreitem_dlg.h"
-#endif
 #ifndef GUI_DECLINE_STORE_ITEM_DLG_H
 #	include "gui_declinestoreitemdlg.h"
 #endif
@@ -38,7 +35,6 @@
 // Ui
 #include "ui_storages.h"
 #include "ui_addstoreitem.h"
-#include "ui_subtractproduct.h"
 
 // Qt includes
 #include <QWidget>
@@ -86,9 +82,6 @@ protected slots:// Slots
 	void onAddItem();
 	void onAddItemClicked();
 
-	void onSubItem();
-	void onSubItemClicked();
-
 	void onDeclineItem();
 	void onDeclineItemClicked();
 
@@ -104,7 +97,6 @@ private:
 	//QDialog* m_pCreateSplDlg;
 	std::shared_ptr<CAddStoreItem>			m_pAddItemDlg;
 	std::shared_ptr<CDeclineStoreItem>		m_pDeclineItemDlg;
-	std::shared_ptr<CSubtractStoreItem>		m_pSubtractItemDlg;
 	std::shared_ptr<CAddFarmCostsDlg>		m_pAddFarmCostsDlg;
 	std::shared_ptr<CAddStorageCostsDlg>	m_pAddStorageCostsDlg;
 	std::shared_ptr<CMoveStoreItemDlg>		m_pMoveStoreItemDlg;

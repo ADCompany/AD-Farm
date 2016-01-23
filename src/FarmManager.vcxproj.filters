@@ -191,15 +191,6 @@
     <ClCompile Include="GeneratedFiles\Release\moc_gui_addstoreitem_dlg.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_gui_subtractstoreitem_dlg.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_gui_subtractstoreitem_dlg.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="gui_subtractstoreitem_dlg.cpp">
-      <Filter>Gui</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\Debug\moc_gui_addstore_dlg.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
@@ -385,9 +376,6 @@
     <CustomBuild Include="addstoreitem.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="subtractproduct.ui">
-      <Filter>Form Files</Filter>
-    </CustomBuild>
     <CustomBuild Include="addproduct.ui">
       <Filter>Form Files</Filter>
     </CustomBuild>
@@ -395,9 +383,6 @@
       <Filter>Gui</Filter>
     </CustomBuild>
     <CustomBuild Include="gui_addstoreitem_dlg.h">
-      <Filter>Gui</Filter>
-    </CustomBuild>
-    <CustomBuild Include="gui_subtractstoreitem_dlg.h">
       <Filter>Gui</Filter>
     </CustomBuild>
     <CustomBuild Include="gui_addstore_dlg.h">
@@ -416,9 +401,6 @@
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="GeneratedFiles\ui_settings.h">
-      <Filter>Generated Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="GeneratedFiles\ui_subtractproduct.h">
       <Filter>Generated Files</Filter>
     </CustomBuild>
     <CustomBuild Include="addfarmcosts.ui">

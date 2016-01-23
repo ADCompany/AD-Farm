@@ -165,22 +165,6 @@
               </widget>
              </item>
              <item>
-              <widget class="QPushButton" name="btnSubItem">
-               <property name="font">
-                <font>
-                 <pointsize>10</pointsize>
-                </font>
-               </property>
-               <property name="text">
-                <string>Պակասացնել...</string>
-               </property>
-               <property name="icon">
-                <iconset resource="farmmanager.qrc">
-                 <normaloff>:/FarmManager/Resources/subtract.png</normaloff>:/FarmManager/Resources/subtract.png</iconset>
-               </property>
-              </widget>
-             </item>
-             <item>
               <widget class="QPushButton" name="btnDecline">
                <property name="text">
                 <string>Անկում...</string>
