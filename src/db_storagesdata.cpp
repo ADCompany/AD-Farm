@@ -47,7 +47,9 @@ void CStoragesData::Initialize()
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS farm_history ("
 		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"storage_id		INTEGER NULL, "
 		"info_text		TEXT    NOT NULL, "
+		"cost			REAL	NOT NULL, "
 		"date_time		TEXT    NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_info ("
@@ -207,12 +209,14 @@ std::shared_ptr<QSqlQueryModel> CStoragesData::GetHistorySqlTableModelByStorageN
 std::shared_ptr<QSqlQueryModel> CStoragesData::GetFarmHistorySqlTableModel()
 {
 	m_pFarmHistorySqlTableModel = std::shared_ptr<QSqlQueryModel>(new QSqlQueryModel);
-	m_pFarmHistorySqlTableModel->setQuery("SELECT farm_history.date_time, farm_history.info_text FROM farm_history");
+	m_pFarmHistorySqlTableModel->setQuery("SELECT farm_history.date_time, farm_history.info_text, farm_history.cost FROM farm_history");
 
 	m_pFarmHistorySqlTableModel->setHeaderData(0, Qt::Horizontal, QVariant(
 		QString::fromUtf8("\324\261\325\264\325\275\325\241\325\251\325\253\325\276")));
 	m_pFarmHistorySqlTableModel->setHeaderData(1, Qt::Horizontal, QVariant(
 		QString::fromUtf8("\324\263\325\270\326\200\325\256\325\270\325\262\325\270\326\202\325\251\325\265\325\241\325\266 \325\253\325\266\326\206\325\270\326\200\325\264\325\241\326\201\325\253\325\241\325\266")));
+	m_pFarmHistorySqlTableModel->setHeaderData(2, Qt::Horizontal, QVariant(
+		QString::fromUtf8("\324\263\325\270\326\202\325\264\325\241\326\200")));
 
 	return m_pFarmHistorySqlTableModel;
 }
@@ -402,7 +406,7 @@ void CStoragesData::NourishProductFromStorageToStorage(QString const& strInStora
 	}
 
 	AddStoragesCosts(strInStorageName, dCostsCount, strInStorageName +
-		QString::fromUtf8(" \325\257\325\245\326\200\325\253 \325\256\325\241\325\255\325\275 ") + QString::number(dCostsCount));
+		QString::fromUtf8(" \325\272\325\241\325\260\325\270\326\201\325\253 \325\256\325\241\325\255\325\275"));
 
 	UpdateAllSqlTableModel();
 }
@@ -500,6 +504,7 @@ void CStoragesData::AddProductInStorage(QString const& strStorageName, QList<QSt
 	sqlQuery.next();
 	QString strStorageHistoryId = sqlQuery.value(0).toString();
 
+	double dCosts = 0;
 	for (int i = 0; i < lstProductName.count(); ++i)
 	{
 		sqlQuery.exec(QString("SELECT id FROM producte WHERE name == \"%1\" ").arg(lstProductName[i]));
@@ -511,7 +516,25 @@ void CStoragesData::AddProductInStorage(QString const& strStorageName, QList<QSt
 
 		sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
 			strStorageHistoryId, strProductId, QString::number(lstProductCount[i]), QString::number(lstProductCost[i])));
+
+		dCosts += lstProductCount[i] * lstProductCost[i];
 	}
+
+	// Farm history Begin
+	sqlQuery.exec(QString("SELECT cost FROM farm_history WHERE storage_id == %1 AND date_time == \"%2\"").arg(strStorageId, strDateTime));
+	sqlQuery.next();
+
+	if (sqlQuery.isValid())
+	{
+		double dSum = sqlQuery.value(0).toDouble() + dCosts;
+		sqlQuery.exec(QString("UPDATE farm_history SET cost = %1 WHERE storage_id == %2 AND date_time == \"%3\"").arg(
+			QString::number(dSum), strStorageId, strDateTime));
+	}
+	else
+		sqlQuery.exec(QString("INSERT INTO farm_history ( storage_id, info_text, cost, date_time ) VALUES ( %1, \"%2\", %3, \"%4\" );").arg(
+		strStorageId, strStorageName + QString::fromUtf8(" \325\272\325\241\325\260\325\270\326\201\325\253 \325\256\325\241\325\255\325\275"),
+		QString::number(dCosts), strDateTime));
+	// Farm history End
 
 	for (int i = 0; i < lstProductName.count(); ++i)
 	{
@@ -627,6 +650,22 @@ void CStoragesData::DeclineProductInStorage(QString const& strStorageName, QStri
 	sqlQuery.next();
 	double dProductPrimeCostInStorage = sqlQuery.value(0).toDouble();
 
+	// Farm history Begin
+	sqlQuery.exec(QString("SELECT cost FROM farm_history WHERE storage_id == %1 AND date_time == \"%2\"").arg(strStorageId, strDateTime));
+	sqlQuery.next();
+
+	if (sqlQuery.isValid())
+	{
+		double dSum = sqlQuery.value(0).toDouble() + nCount * dProductPrimeCostInStorage;
+		sqlQuery.exec(QString("UPDATE farm_history SET cost = %1 WHERE storage_id == %2 AND date_time == \"%3\"").arg(
+			QString::number(dSum), strStorageId, strDateTime));
+	}
+	else
+		sqlQuery.exec(QString("INSERT INTO farm_history ( storage_id, info_text, cost, date_time ) VALUES ( %1, \"%2\", %3, \"%4\" );").arg(
+			strStorageId, strStorageName + QString::fromUtf8(" \325\272\325\241\325\260\325\270\326\201\325\253 \325\256\325\241\325\255\325\275"),
+			QString::number(nCount * dProductPrimeCostInStorage), strDateTime));
+	// Farm history End
+
 	sqlQuery.exec(QString("INSERT INTO storage_history_info VALUES ( %1 , %2, %3, %4 );").arg(
 		strStorageHistoryId, strProductId, QString::number(nProductCountInProduct), QString::number(dProductPrimeCostInStorage)));
 
@@ -650,7 +689,8 @@ void CStoragesData::AddFarmCosts(double dCosts, QString const& strInfoText)
 	QString strDateTime = QDate::currentDate().toString("dd") + ' ' +
 		GetDBManager()->GetMonthLongNameByMonthNumber(QDate::currentDate().month()) + ' ' + QDate::currentDate().toString("yyyy");
 
-	sqlQuery.exec(QString("INSERT INTO farm_history ( info_text, date_time ) VALUES ( \"%1\", \"%2\" );").arg(strInfoText, strDateTime));
+	sqlQuery.exec(QString("INSERT INTO farm_history ( info_text, cost, date_time ) VALUES ( \"%1\", %2, \"%3\" );").arg(
+		strInfoText, QString::number(dCosts), strDateTime));
 
 	sqlQuery.exec(QString("SELECT * FROM producte"));
 
@@ -700,7 +740,20 @@ void CStoragesData::AddStoragesCosts(QString const& strStorageName, double dCost
 	QString strDateTime = QDate::currentDate().toString("dd") + ' ' +
 		GetDBManager()->GetMonthLongNameByMonthNumber(QDate::currentDate().month()) + ' ' + QDate::currentDate().toString("yyyy");
 
-	sqlQuery.exec(QString("INSERT INTO farm_history ( info_text, date_time ) VALUES ( \"%1\", \"%2\" );").arg(strInfoText, strDateTime));
+	// Farm history Begin
+	sqlQuery.exec(QString("SELECT cost FROM farm_history WHERE storage_id == %1 AND date_time == \"%2\"").arg(strStorageId, strDateTime));
+	sqlQuery.next();
+
+	if (sqlQuery.isValid())
+	{
+		double dSum = sqlQuery.value(0).toDouble() + dCosts;
+		sqlQuery.exec(QString("UPDATE farm_history SET cost = %1 WHERE storage_id == %2 AND date_time == \"%3\"").arg(
+			QString::number(dSum), strStorageId, strDateTime));
+	}
+	else
+		sqlQuery.exec(QString("INSERT INTO farm_history ( storage_id, info_text, cost, date_time ) VALUES ( %1, \"%2\", %3, \"%4\" );").arg(
+			strStorageId, strInfoText, QString::number(dCosts), strDateTime));
+	// Farm history End
 
 	sqlQuery.exec(QString("SELECT * FROM storage_info WHERE storage_id == %1").arg(strStorageId));
 

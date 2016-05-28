@@ -40,7 +40,8 @@ public:
 	//	Main Interface
 	//
 	// Customer Data Accessors
-	inline double	GetCosts() const;
+	inline double  GetCosts() const;
+	inline QString GetInfoText() const;
 	// Clear Dialog
 	inline void Clear();
 
@@ -71,6 +72,14 @@ inline double CAddFarmCostsDlg::GetCosts() const
 	QString strCosts = m_uiAddFarmCostsDlg.editCosts->displayText();
 	return strCosts.toDouble();
 }
+
+inline QString CAddFarmCostsDlg::GetInfoText() const
+{
+	QString strInfoText = m_uiAddFarmCostsDlg.editInfoText->displayText();
+
+	return strInfoText;
+}
+
 // Clear
 inline void CAddFarmCostsDlg::Clear()
 {

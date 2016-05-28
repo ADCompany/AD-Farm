@@ -40,11 +40,17 @@ CAddStorageCostsDlg::CAddStorageCostsDlg(QWidget *pwParent)
 
 void CAddStorageCostsDlg::OnAdd()
 {
-
+	// Costs
 	QString strCosts = m_uiAddStorageCostsDlg.editCosts->text();
 	bool bValidCosts = !strCosts.isEmpty();
 
 	SetLabelColor(m_uiAddStorageCostsDlg.lblCosts, bValidCosts);
+
+	// Info text
+	//QString strInfoText = m_uiAddStorageCostsDlg.editInfoText->text();
+	//bValidCosts = !strInfoText.isEmpty();
+
+	//SetLabelColor(m_uiAddStorageCostsDlg.lblInfoText, bValidCosts);
 
 	if (bValidCosts)
 		QDialog::accept();

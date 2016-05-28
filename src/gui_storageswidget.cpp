@@ -212,9 +212,10 @@ void CStoragesWidget::onAddStorageCostsClicked()
 void CStoragesWidget::onAddStorageCosts()
 {
 	double dCosts = m_pAddStorageCostsDlg->GetCosts();
+	QString strInfoText = m_pAddStorageCostsDlg->GetInfoText();
 	m_pStoragesData->AddStoragesCosts(m_strCurrentStorageName, dCosts,
 		QString(m_strCurrentStorageName + QString::fromUtf8(" \325\272\325\241\325\260\325\270\326\201\325\253 ") +
-		QString::fromUtf8("\325\256\325\241\325\255\325\275 ")) + QString::number(dCosts));
+		QString::fromUtf8("\325\256\325\241\325\255\325\275: ")));
 
 	UpdateData();
 }
@@ -230,8 +231,8 @@ void CStoragesWidget::onAddFarmCostsClicked()
 void CStoragesWidget::onAddFarmCosts()
 {
 	double dCosts = m_pAddFarmCostsDlg->GetCosts();
-	m_pStoragesData->AddFarmCosts(dCosts, QString::fromUtf8("\325\226\325\245\326\200\325\264\325\241\325\253 \325\256\325\241\325\255\325\275 ") +
-		QString::number(dCosts));
+	QString strInfoText = m_pAddFarmCostsDlg->GetInfoText();
+	m_pStoragesData->AddFarmCosts(dCosts, QString::fromUtf8("\325\226\325\245\326\200\325\264\325\241\325\253 \325\256\325\241\325\255\325\275: ") + strInfoText);
 
 	UpdateData();
 }

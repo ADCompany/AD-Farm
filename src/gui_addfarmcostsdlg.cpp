@@ -40,11 +40,17 @@ CAddFarmCostsDlg::CAddFarmCostsDlg(QWidget *pwParent)
 
 void CAddFarmCostsDlg::OnAdd()
 {
-
+	// Costs
 	QString strCosts = m_uiAddFarmCostsDlg.editCosts->text();
 	bool bValidCosts = !strCosts.isEmpty();
 
 	SetLabelColor(m_uiAddFarmCostsDlg.lblCosts, bValidCosts);
+
+	// Info text
+	QString strInfoText = m_uiAddFarmCostsDlg.editInfoText->text();
+	bValidCosts = !strInfoText.isEmpty();
+
+	SetLabelColor(m_uiAddFarmCostsDlg.lblInfoText, bValidCosts);
 
 	if (bValidCosts)
 		QDialog::accept();
