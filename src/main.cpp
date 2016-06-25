@@ -5,7 +5,7 @@
 #include <QFile>
 #include <QByteArray>
 #include <QNetworkInterface>
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //	MAIN
 //
@@ -20,8 +20,16 @@ int main(int argc, char *argv[])
 	//	strMacAddress = netInterface.hardwareAddress();
 	//}
 
-	//QFile fileLicense("ADCompany.lcs");
-	//QByteArray byteArray = fileLicense.readAll();
+	QFile fileLicense("C:/Users/Public/ADCompany.lcs");
+	fileLicense.open(QIODevice::ReadOnly);
+
+	QByteArray byteArray = fileLicense.readAll();
+	QString strFileContent = QFile::decodeName(byteArray);
+
+	QString strLCSText = "ADCompany";
+	if (byteArray != strLCSText.toAscii())
+		return 1;
+
 	try
 	{
 		QApplication oFarmManager( argc, argv );
@@ -51,4 +59,4 @@ int main(int argc, char *argv[])
 		qApp->quit();
 	}
 }
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

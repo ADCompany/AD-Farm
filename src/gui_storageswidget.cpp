@@ -1,4 +1,4 @@
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 //	Includes
 //
@@ -6,16 +6,16 @@
 
 // Qt Includes
 
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 namespace fm {
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 namespace gui {
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
 // class CStoragesWidget
 //
@@ -97,6 +97,7 @@ void CStoragesWidget::UpdateData(bool bFull)
 	if (m_strCurrentStorageName == "")
 		return;
 
+	m_uiStorages.lineEditGroupName->setText(m_pStoragesData->GetLastGroupNameByStorage(m_strCurrentStorageName)); // ??
 	m_uiStorages.tableView->setModel(m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get());
 	m_uiStorages.tableView->resizeColumnsToContents();
 	m_uiStorages.tableView->update();
@@ -123,6 +124,11 @@ void CStoragesWidget::onSelectStorage(QModelIndex const& modelIndex)
 void CStoragesWidget::onAddItem()
 {
 	t_lstProductPriceInfo productInfo = m_pAddItemDlg->GetProductInfo();
+	QString strGroupName = m_pAddItemDlg->GetGroupName();
+	QStringList strListGroupNames = m_pStoragesData->GetGroupNames();
+	if (!strListGroupNames.contains(strGroupName))
+		m_pStoragesData->AddNewGroup(m_strCurrentStorageName, strGroupName);
+
 	QList<QString> lstProductName;
 	QList<int> lstProductCount;
 	QList<double> lstProductCost;
@@ -133,7 +139,7 @@ void CStoragesWidget::onAddItem()
 		lstProductCost.push_back(productInfo[i].fPrice);
 	}
 
-	m_pStoragesData->AddProductInStorage(m_strCurrentStorageName, lstProductName, lstProductCount, lstProductCost,
+	m_pStoragesData->AddProductInStorage(m_strCurrentStorageName, strGroupName, lstProductName, lstProductCount, lstProductCost,
 		QString::fromUtf8("\324\261\325\276\325\245\325\254\325\241\326\201\325\245\325\254 \325\247"));
 }
 
@@ -145,26 +151,28 @@ void CStoragesWidget::onSelectProduct(QModelIndex const& modelIndex)
 
 void CStoragesWidget::onMoveStoreItem(SItemMovingInfo const& itemMovingInfo)
 {
-	QList<QString> lstProducteName;
-	lstProducteName.push_back(itemMovingInfo.sProductName);
+	QList<QString> lstproductName;
+	lstproductName.push_back(itemMovingInfo.sProductName);
 
-	QList<int> lstProducteCount;
-	lstProducteCount.push_back(itemMovingInfo.nProductCount);
+	QList<int> lstproductCount;
+	lstproductCount.push_back(itemMovingInfo.nProductCount);
 
-	m_pStoragesData->MoveProductFromStorageInStorage(itemMovingInfo.sTargetStoreName, itemMovingInfo.sSourceStoreName, lstProducteName, lstProducteCount,
+	m_pStoragesData->MoveProductFromStorageInStorage(itemMovingInfo.sTargetStoreName, m_pStoragesData->GetLastGroupNameByStorage(itemMovingInfo.sTargetStoreName),
+		itemMovingInfo.sSourceStoreName, m_pStoragesData->GetLastGroupNameByStorage(itemMovingInfo.sSourceStoreName), lstproductName, lstproductCount,
 		QString::fromUtf8("\324\262\325\245\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sSourceStoreName + QString::fromUtf8("-\325\253\326\201"),
 		QString::fromUtf8("\325\217\325\245\325\262\325\241\326\203\325\270\325\255\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sTargetStoreName);
 }
 
 void CStoragesWidget::onNourishStoreItem(SItemNourishInfo const& itemMovingInfo)
 {
-	QList<QString> lstProducteName;
-	lstProducteName.push_back(itemMovingInfo.sProductName);
+	QList<QString> lstproductName;
+	lstproductName.push_back(itemMovingInfo.sProductName);
 
-	QList<int> lstProducteCount;
-	lstProducteCount.push_back(itemMovingInfo.nProductCount);
+	QList<int> lstproductCount;
+	lstproductCount.push_back(itemMovingInfo.nProductCount);
 
-	m_pStoragesData->NourishProductFromStorageToStorage(itemMovingInfo.sTargetStoreName, itemMovingInfo.sSourceStoreName, lstProducteName, lstProducteCount,
+	m_pStoragesData->NourishProductFromStorageToStorage(itemMovingInfo.sTargetStoreName, m_pStoragesData->GetLastGroupNameByStorage(itemMovingInfo.sTargetStoreName),
+		itemMovingInfo.sSourceStoreName, m_pStoragesData->GetLastGroupNameByStorage(itemMovingInfo.sSourceStoreName), lstproductName, lstproductCount,
 		QString::fromUtf8("\324\277\325\245\326\200\325\241\325\257\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sSourceStoreName + QString::fromUtf8("-\325\253\326\201"),
 		QString::fromUtf8("\324\277\325\245\326\200\325\241\325\257\326\200\325\276\325\245\325\254 \325\247 ") + itemMovingInfo.sTargetStoreName + QString::fromUtf8("-\325\250 "));
 }
@@ -176,13 +184,17 @@ void CStoragesWidget::onDeclineItem()
 	QSqlRecord record = m_pStoragesData->GetSqlTableModelByStorageName(m_strCurrentStorageName).get()->record(nRow);
 	QString strProductName = record.value(0).toString();
 
-	m_pStoragesData->DeclineProductInStorage(m_strCurrentStorageName, strProductName, nCount, QString::fromUtf8("\324\261\325\266\325\257\325\270\326\202\325\264"));
+	m_pStoragesData->DeclineProductInStorage(m_strCurrentStorageName, m_pStoragesData->GetLastGroupNameByStorage(m_strCurrentStorageName),
+		strProductName, nCount, QString::fromUtf8("\324\261\325\266\325\257\325\270\326\202\325\264"));
+
 	UpdateData();
 }
 
-void CStoragesWidget::onAddItemClicked() // BAD Solustion
+void CStoragesWidget::onAddItemClicked() // BAD Solution
 {
 	m_pAddItemDlg = std::shared_ptr<CAddStoreItem>(new CAddStoreItem(m_pStoragesData->GetProductNames(), this));
+	m_pAddItemDlg->AddGroupNames(m_pStoragesData->GetGroupNamesByStorage(m_strCurrentStorageName));
+
 	FM_CONNECT(m_pAddItemDlg.get(), accepted(), this, onAddItem());
 
 	m_pAddItemDlg->show();
@@ -213,9 +225,10 @@ void CStoragesWidget::onAddStorageCosts()
 {
 	double dCosts = m_pAddStorageCostsDlg->GetCosts();
 	QString strInfoText = m_pAddStorageCostsDlg->GetInfoText();
-	m_pStoragesData->AddStoragesCosts(m_strCurrentStorageName, dCosts,
+
+	m_pStoragesData->AddStoragesCosts(m_strCurrentStorageName, m_uiStorages.lineEditGroupName->text(), dCosts,
 		QString(m_strCurrentStorageName + QString::fromUtf8(" \325\272\325\241\325\260\325\270\326\201\325\253 ") +
-		QString::fromUtf8("\325\256\325\241\325\255\325\275: ")));
+		QString::fromUtf8("\325\256\325\241\325\255\325\275: ")), strInfoText);
 
 	UpdateData();
 }
@@ -237,11 +250,11 @@ void CStoragesWidget::onAddFarmCosts()
 	UpdateData();
 }
 
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 } // namespace gui
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 } // namespace fm
-////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -26,7 +26,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		Qt5Version = QT_4.7.2-2
 		QtVersion = $(DefaultQtVersion)
+		Qt5Version = QT_4.7.2-2
 	EndGlobalSection
 EndGlobal
