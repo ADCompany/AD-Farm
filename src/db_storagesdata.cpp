@@ -43,25 +43,25 @@ void CStoragesData::Initialize()
 		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
 		"info_text		TEXT    NOT NULL, "
 		"action_id		INTEGER	NOT NULL, "
-		"group_info_id	INTEGER NOT NULL, " // ?? group_info_id
+		"group_info_id	INTEGER NOT NULL, "
 		"date_time		TEXT    NOT NULL);");
 
-	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS farm_history ("
-		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
-		"storage_id		INTEGER NULL, "
-		"info_text		TEXT    NOT NULL, "
-		"cost			REAL	NOT NULL, "
-		"date_time		TEXT    NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_info (" // don't change places
 		"storage_id		INTEGER NOT NULL, "
 		"product_id		INTEGER NOT NULL, "
 		"count			INTEGER NOT NULL, "
+		"primary_count	INTEGER NOT NULL, "
 		"prime_cost		REAL	NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS storage_name ("
 		"id		INTEGER PRIMARY KEY AUTOINCREMENT, "
 		"name	TEXT    NOT NULL);");
+
+	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS group_info ("
+		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
+		"group_id		INTEGER NOT NULL, "
+		"storage_id		INTEGER NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS group_name ("
 		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
@@ -70,10 +70,20 @@ void CStoragesData::Initialize()
 		"expenses		REAL	NOT NULL, "
 		"date_time		TEXT    NOT NULL);");
 
-	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS group_info ("
+	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS periodic_expense ("
+		"id				INTEGER PRIMARY KEY NOT NULL, "
+		"cost			REAL	NOT NULL, "
+		"info_text		TEXT    NOT NULL, "
+		"frequency		INTEGER	NOT NULL, " // by day
+		"storage_id		INTEGER	NOT NULL, "
+		"date_time		TEXT	NOT NULL);");
+
+	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS farm_history ("
 		"id				INTEGER PRIMARY KEY AUTOINCREMENT, "
-		"group_id		INTEGER NOT NULL, "
-		"storage_id		TEXT    NOT NULL);");
+		"storage_id		INTEGER NULL, "
+		"info_text		TEXT    NOT NULL, "
+		"cost			REAL	NOT NULL, "
+		"date_time		TEXT    NOT NULL);");
 
 	EXECUTE_QUERY(sqlQuery, "CREATE TABLE IF NOT EXISTS product ("
 		"id				INTEGER PRIMARY KEY NOT NULL, "
@@ -320,6 +330,7 @@ double CStoragesData::GetStorageTotalPrice(QString const& strStorageName, QStrin
 	dTotalPrice += GetStorageTotalPrice(strStorageName, strGroupName, EAction::Decline);
 	dTotalPrice += GetStorageTotalPrice(strStorageName, strGroupName, EAction::Nourish);
 	dTotalPrice += GetStorageTotalPrice(strStorageName, strGroupName, EAction::Consumption);
+	dTotalPrice += GetStorageTotalPrice(strStorageName, strGroupName, EAction::PeriodicExpense);
 
 	return dTotalPrice;
 }
@@ -568,6 +579,21 @@ void CStoragesData::AddNewStore(QString const& strStoreName)
 	QSqlQuery sqlQuery;
 	sqlQuery.exec(QString("INSERT INTO storage_name ( name ) VALUES ( \"%1\" );").arg(
 		strStoreName));
+
+	UpdateAllSqlTableModel();
+}
+
+void CStoragesData::AddNewPeriodicExpense(double dCost, QString const& strInfoText, int nFrequency, QString const& strStorageName)
+{
+	QString strStorageId = GetStorageIdByName(strStorageName);
+
+	QString strDateTime = QDate::currentDate().toString("dd") + ' ' +
+		GetDBManager()->GetMonthLongNameByMonthNumber(QDate::currentDate().month()) + ' ' + QDate::currentDate().toString("yyyy");
+
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("INSERT INTO periodic_expense ( cost, info_text, frequency, storage_id, date_time)"
+		" VALUES ( %1, \"%2\", %3, %4, \"%5\" );").arg(
+		QString::number(dCost), strInfoText, QString::number(nFrequency), strStorageId, strDateTime));
 
 	UpdateAllSqlTableModel();
 }
@@ -1029,7 +1055,7 @@ void CStoragesData::AddFarmCosts(double dCosts, QString const& strInfoText)
 }
 
 void CStoragesData::AddStoragesCosts(QString const& strStorageName, QString const& strGroupName, double dCosts,
-	QString const& strInfoText, QString const& strStorageInfoText)
+	QString const& strInfoText, QString const& strStorageInfoText, EAction eAction)
 {
 	QString strStorageId = GetStorageIdByName(strStorageName);
 	QString strGroupId = GetGroupIdByName(strGroupName);
@@ -1052,7 +1078,7 @@ void CStoragesData::AddStoragesCosts(QString const& strStorageName, QString cons
 	if (strStorageInfoText != "")
 	{
 		sqlQuery.exec(QString("INSERT INTO storage_history ( group_info_id, action_id, info_text, date_time ) VALUES ( %1, %2, \"%3\", \"%4\" );").arg(
-			strInGroupInfoId, QString::number((int) (EAction::Consumption)), strStorageInfoText, strDateTime));
+			strInGroupInfoId, QString::number((int) (eAction)), strStorageInfoText, strDateTime));
 		sqlQuery.exec("SELECT LAST_INSERT_ROWID() FROM storage_history");
 		sqlQuery.next();
 		QString strOutStorageHistoryId = sqlQuery.value(0).toString();
@@ -1129,7 +1155,65 @@ void CStoragesData::RemoveSqlTableModel(QString const& strStorageName)
 	emit sigChangeData();
 }
 
-// Helper Functions
+// Helper Methods
+void CStoragesData::UpdatePeriodicExpenses()
+{
+	QString strDateTime = QDate::currentDate().toString("dd") + ' ' +
+		GetDBManager()->GetMonthLongNameByMonthNumber(QDate::currentDate().month()) + ' ' + QDate::currentDate().toString("yyyy");
+
+	QList<CPeriodicExpense> lstPeriodicExpenses;
+	QSqlQuery sqlQuery;
+	sqlQuery.exec(QString("SELECT * FROM periodic_expense"));
+	while (sqlQuery.next())
+	{
+		CPeriodicExpense periodicExpense;
+		periodicExpense.ID = sqlQuery.value(0).toInt();
+		periodicExpense.Cost = sqlQuery.value(1).toDouble();
+		periodicExpense.InfoText = sqlQuery.value(2).toString();
+		periodicExpense.Frequency = sqlQuery.value(3).toInt();
+		periodicExpense.StorageID = sqlQuery.value(4).toInt();
+		periodicExpense.DateTime = sqlQuery.value(5).toInt();
+
+		lstPeriodicExpenses.append(periodicExpense);
+	}
+
+	if (lstPeriodicExpenses.isEmpty())
+		return;
+
+	for (int i = 0; i < 0; ++i)
+	{
+		CPeriodicExpense periodicExpense = lstPeriodicExpenses[i];
+		sqlQuery.exec(QString("SELECT id FROM storage_history WHERE storage_id == %1 AND action_id == %2 AND date_time == \"%3\"").arg(
+			QString::number(periodicExpense.StorageID), QString::number((int) (EAction::PeriodicExpense)), strDateTime));
+		
+		if (!sqlQuery.isValid())
+		{
+			// Fatal logic error !!!
+			sqlQuery.exec(QString("SELECT group_info_id FROM storage_history WHERE storage_id == %1 AND date_time == \"%2\"").arg(
+				QString::number(periodicExpense.StorageID), strDateTime));
+			
+			sqlQuery.next();
+			if (!sqlQuery.isValid())
+			{
+				int nGroupInfoId = sqlQuery.value(0).toInt();
+				sqlQuery.exec(QString("SELECT group_id FROM group_info_id WHERE id == %1").arg(
+					QString::number(nGroupInfoId)));
+				sqlQuery.next();
+
+				int nGroupId = sqlQuery.value(0).toInt();
+				QString strGroupName = GetGroupNameById(nGroupId);
+
+				double dCost = periodicExpense.Cost / (double) (periodicExpense.Frequency);
+
+				AddStoragesCosts(GetStorageNameById(periodicExpense.StorageID), strGroupName, dCost,
+					QString::fromUtf8(" \325\272\325\241\325\260\325\270\326\201\325\253 \325\256\325\241\325\255\325\275"),
+					periodicExpense.InfoText, EAction::PeriodicExpense);
+			}
+		}
+	}
+
+}
+
 void CStoragesData::UpdateSqlTableModel()
 {}
 

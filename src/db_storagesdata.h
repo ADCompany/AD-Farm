@@ -28,6 +28,27 @@ class CStoragesData : public CDBComponent
 {
 	Q_OBJECT
 public:// Data Property
+
+	class CPeriodicExpense // TODO...
+	{
+	public:// Constructor, Destructors
+		CPeriodicExpense() = default;
+		~CPeriodicExpense() = default;
+
+	public:// Interface Methods
+
+
+	public:// Contents
+		int	ID;
+		int	Frequency; // by day
+		int	StorageID;
+
+		double	Cost;
+
+		QString InfoText;
+		QString DateTime;
+	};
+
 	struct table
 	{
 		// tables name
@@ -86,6 +107,8 @@ public:// Data Property
 		Income = 6,
 		Consumption = 7,
 
+		PeriodicExpense = 8,
+
 		All = None
 	};
 
@@ -104,6 +127,8 @@ public:// Interface Methodes
 
 	void UpdateAllSqlTableModel()
 	{
+		UpdatePeriodicExpenses();
+
 		m_mapStringToModel.clear();
 		m_mapStorageNameToStorageHistoryModel.clear();
 		emit sigChangeData();
@@ -140,6 +165,7 @@ public:// Interface Methodes
 		QList<int> lstProductsCount, QList<double> lstProductCost, QString const& strInfoText);
 
 	void AddNewGroup(QString const& strStorageName, QString const& strGroupName);
+	void AddNewPeriodicExpense(double dCost, QString const& strInfoText, int nFrequency, QString const& strStorage);
 	void AddNewProduct(QString const& strNewProductName, int nCount = 0, double dPrimeCost = 0.0);
 	void AddNewStore(QString const& strStoreName);
 
@@ -156,13 +182,15 @@ public:// Interface Methodes
 
 	void AddFarmCosts(double dCosts, QString const& strInfoText);
 	void AddStoragesCosts(QString const& strStorageName, QString const& strGroupName, double dCosts,
-		QString const& strInfoText, QString const& strStorageInfoText = "");
+		QString const& strInfoText, QString const& strStorageInfoText = "", EAction eAction = EAction::Consumption);
 
 	QList<QString> GetStorageNames();
 
 	QList<QString> GetProductNames();
 
 protected:// Helper Methodes
+	void UpdatePeriodicExpenses();
+
 	void UpdateSqlTableModel();
 	void UpdateSqlTableModel(QString const& strStorageName);
 	void RemoveSqlTableModel(QString const& strStorageName);
